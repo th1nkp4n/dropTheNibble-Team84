@@ -1,8 +1,28 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homePage"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.gatech.shelterme.HomepageMap" />
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="Lmao hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/loginpage_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="40dp"
+        android:onClick="onLogoutPressed"
+        android:text="Log Out" />
+
+
+</RelativeLayout>
