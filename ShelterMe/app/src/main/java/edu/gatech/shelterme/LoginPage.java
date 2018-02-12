@@ -32,37 +32,45 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.login_page);
 
 
-        /**
-         * Grab the dialog widgets so we can get info for later
-         */
+        //Grab the dialog widgets so we can get info for later
         userField = (EditText) findViewById(R.id.loginpage_username_input);
         passField = (EditText) findViewById(R.id.loginpage_password_input);
         loginButton = (Button) findViewById(R.id.loginpage_login_button);
         registerButton = (Button) findViewById(R.id.loginpage_register_button);
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if((userField.getText().toString().compareTo("user")==0)
+                        && (passField.getText(). toString().compareTo("pass")==0)) {
+                    Log.d("Log", "correct inputs");
+                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                    startActivity(intent);
+                } else {
+                    //tell them they had the wrong username or password
+                }
+
+            }
+        });
     }
 
     /**
      * Button handler for the add new student button
      * @param view the button
      */
-    public void onLoginPressed(View view) {
+    /*public void onLoginPressed(View view) {
         Log.d("Login", "login info");
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), HomepageMap.class);
-                startActivity(intent);
-            }
-        });
+
         if(userField.getText().toString() =="user"&& passField.getText(). toString() =="pass") {
                 Log.d("Log", "correct inputs");
                 setContentView(R.layout.activity_homepage_map);
+        } else {
+            //tell them they had the wrong username or password
         }
 
         finish();
-    }
+    }*/
 
 }
 
