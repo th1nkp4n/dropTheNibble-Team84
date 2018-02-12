@@ -1,7 +1,9 @@
 package edu.gatech.shelterme;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ public class LoginPage extends AppCompatActivity {
     private EditText passField;
     private Button loginButton;
     private Button registerButton;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,16 @@ public class LoginPage extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     //tell them they had the wrong username or password
+                    Log.d("Log", "incorrect inputs");
+                    builder = new AlertDialog.Builder(getBaseContext());
+                    builder.setTitle("Incorrect Login Information")
+                            .setMessage("Your user name or password is incorrect.")
+                            .setPositiveButton("okay", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.show();
                 }
 
             }
