@@ -30,7 +30,7 @@
         android:text="Password" />
 
     <Button
-        android:id="@+id/loginpage_login_button"
+        android:id="@+id/homepage_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -44,8 +44,8 @@
         android:id="@+id/loginpage_register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/loginpage_login_button"
-        android:layout_below="@+id/loginpage_login_button"
+        android:layout_alignStart="@+id/homepage_logout_button"
+        android:layout_below="@+id/homepage_logout_button"
         android:layout_marginTop="40dp"
         android:onClick="onRegisterPressed"
         android:text="Register" />

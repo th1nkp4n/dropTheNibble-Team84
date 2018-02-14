@@ -1,7 +1,12 @@
 package edu.gatech.shelterme;
 
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,10 +18,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class HomepageMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Button logoutButton;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_map);
+        logoutButton = (Button) findViewById(R.id.homepage_logout_button);
 
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Log", "User logged out");
+                Intent intent = new Intent(getBaseContext(), LoginPage.class);
+                startActivity(intent);
+            }
+        });
     }
 
 //    @Override
@@ -48,4 +64,6 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+
 }
