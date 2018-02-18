@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loginPageUsername"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/age_text"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age"/>
+    <TextView
+        android:id="@+id/gender_text"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/age_input"
+        android:layout_marginTop="21dp"
+        android:text="Gender"/>
+    <TextView
+        android:id="@+id/veteran_text"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gender_spinner"
+        android:layout_marginTop="21dp"
+        android:text="Veteran Status"/>
+
+    <EditText
+        android:id="@+id/age_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/age_text"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+    <Spinner
+        android:id="@+id/gender_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/gender_text"
+        android:layout_marginTop="28dp" />
+    <Spinner
+        android:id="@+id/veteran_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/veteran_text"
+        android:layout_marginTop="28dp" />
+
+    <Button
+        android:id="@+id/homeless_registration_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/homeless_registration_cancel"
+        android:layout_alignBottom="@+id/homeless_registration_cancel"
+        android:layout_alignEnd="@+id/age_input"
+        android:text="Next" />
+    <Button
+        android:id="@+id/homeless_registration_cancel"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/veteran_spinner"
+        android:layout_marginTop="28dp"
+        android:text="Cancel" />
+
+
+</RelativeLayout>

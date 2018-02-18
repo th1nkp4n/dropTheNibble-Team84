@@ -52,6 +52,15 @@ public class LoginPage extends AppCompatActivity {
 
             }
         });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Log", "register button on login page pressed");
+                Intent intent = new Intent(getBaseContext(), RegistrationRolePage.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**

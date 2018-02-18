@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ShelterMe</string>
     <string name="title_activity_homepage_map">homepageMap</string>
+    <string name="title_activity_registration_role_page">RegistrationRolePage</string>
 </resources>
