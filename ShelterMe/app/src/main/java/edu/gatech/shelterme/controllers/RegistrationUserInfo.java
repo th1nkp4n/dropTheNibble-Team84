@@ -1,4 +1,4 @@
-package edu.gatech.shelterme;
+package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import edu.gatech.shelterme.R;
 
 public class RegistrationUserInfo extends AppCompatActivity {
 

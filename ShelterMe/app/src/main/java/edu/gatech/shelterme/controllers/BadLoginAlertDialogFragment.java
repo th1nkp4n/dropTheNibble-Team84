@@ -1,4 +1,4 @@
-package edu.gatech.shelterme;
+package edu.gatech.shelterme.controllers;
 
 import android.app.Dialog;
 import android.app.DialogFragment;

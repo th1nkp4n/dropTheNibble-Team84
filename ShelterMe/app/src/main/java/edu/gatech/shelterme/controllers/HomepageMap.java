@@ -1,4 +1,4 @@
-package edu.gatech.shelterme;
+package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import edu.gatech.shelterme.R;
 
 public class HomepageMap extends FragmentActivity implements OnMapReadyCallback {
 

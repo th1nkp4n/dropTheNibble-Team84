@@ -30,7 +30,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".LoginPage"
+            android:name="edu.gatech.shelterme.controllers.LoginPage"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,29 +39,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomepageMap"
+            android:name="edu.gatech.shelterme.controllers.HomepageMap"
             android:label="homepage">
             <intent-filter>
-                <action android:name="edu.gatech.shelterme.HomepageMap" />
+                <action android:name="edu.gatech.shelterme.controllers.HomepageMap" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".WorkerRegistration"></activity>
+        <activity android:name="edu.gatech.shelterme.controllers.WorkerRegistration"></activity>
         <activity android:name=".RegistrationUserInfo"></activity>
 
 
         <activity
-            android:name=".RegistrationRolePage"
+            android:name="edu.gatech.shelterme.controllers.RegistrationRolePage"
             android:label="@string/title_activity_registration_role_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <activity android:name=".RegistrationUserInfo"></activity>
+        <activity android:name="edu.gatech.shelterme.controllers.Homeless_Registration">
 
-        <activity android:name=".WorkerRegistration"></activity>
-
-        <activity android:name=".Homeless_Registration"></activity>
+        </activity>
     </application>
 
 </manifest>

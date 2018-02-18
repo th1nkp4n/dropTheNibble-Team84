@@ -1,4 +1,4 @@
-package edu.gatech.shelterme;
+package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import edu.gatech.shelterme.R;
 
 public class Homeless_Registration extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
