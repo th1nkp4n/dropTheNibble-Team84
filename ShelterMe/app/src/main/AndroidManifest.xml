@@ -47,10 +47,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".RegistrationRolePage"
             android:label="@string/title_activity_registration_role_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+        <activity android:name=".RegistrationUserInfo"></activity>
+>>>>>>> e7832157c5fdc89a998835926c609361b3d48877
     </application>
 
 </manifest>
