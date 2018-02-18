@@ -12,7 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.Arrays;
+
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Homeless;
 
 public class Homeless_Registration extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -38,13 +41,13 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         cancelButton = (Button) findViewById(R.id.homeless_registration_cancel);
         nextButton = (Button) findViewById(R.id.homeless_registration_next);
 
-//        ArrayAdapter<String> genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ClassStanding.values());
-//        genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        genderSpinner.setAdapter(genders);
-//
-//        ArrayAdapter<String> veteran = new ArrayAdapter(this,android.R.layout.simple_spinner_item, ClassStanding.values());
-//        veterans.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        veteranSpinner.setAdapter(veteran);
+        ArrayAdapter<String> genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Homeless.genders);
+        genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genders);
+
+        ArrayAdapter<String> veteran = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Arrays.asList(true, false));
+        veteran.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        veteranSpinner.setAdapter(veteran);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
