@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.gatech.shelterme.RegistrationRolePage">
+    tools:context="edu.gatech.shelterme.controllers.RegistrationRolePage">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
     </RadioGroup>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/registrationRoleCancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/IamA"
