@@ -66,6 +66,15 @@
             android:onClick="onRadioButtonClicked"
             android:text="Admin" />
     </RadioGroup>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/IamA"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="28dp"
+            android:text="Cancel" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
