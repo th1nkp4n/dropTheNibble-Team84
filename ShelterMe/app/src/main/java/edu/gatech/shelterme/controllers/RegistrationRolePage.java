@@ -35,8 +35,9 @@ public class RegistrationRolePage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.d("Log", "User type selected");
+                Intent intent = new Intent(getBaseContext(), RegistrationUserInfo.class);
+                startActivity(intent);
             }
         });
     }
