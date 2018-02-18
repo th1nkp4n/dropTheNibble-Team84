@@ -37,7 +37,6 @@
         android:layout_below="@+id/loginpage_password_input"
         android:layout_marginStart="13dp"
         android:layout_marginTop="40dp"
-        android:onClick="onLoginPressed"
         android:text="Log In" />
 
     <Button
@@ -47,7 +46,6 @@
         android:layout_alignStart="@+id/homepage_logout_button"
         android:layout_below="@+id/homepage_logout_button"
         android:layout_marginTop="40dp"
-        android:onClick="onRegisterPressed"
         android:text="Register" />
 
 </RelativeLayout>

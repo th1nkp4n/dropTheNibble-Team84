@@ -8,5 +8,5 @@ public abstract class User {
     String email;
     String password;
 
-    
+
 }

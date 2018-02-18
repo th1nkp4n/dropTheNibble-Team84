@@ -52,18 +52,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Shelter Guest"
-            android:onClick="onRadioButtonClicked"/>
+            />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Shelter Worker"
-            android:onClick="onRadioButtonClicked"/>
+            />
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="onRadioButtonClicked"
             android:text="Admin" />
     </RadioGroup>
 
