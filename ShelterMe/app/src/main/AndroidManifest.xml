@@ -49,7 +49,7 @@
         </activity>
 
         <activity android:name="edu.gatech.shelterme.controllers.WorkerRegistration"></activity>
-        <activity android:name=".RegistrationUserInfo"></activity>
+        <activity android:name="edu.gatech.shelterme.controllers.RegistrationUserInfo"></activity>
 
 
         <activity
