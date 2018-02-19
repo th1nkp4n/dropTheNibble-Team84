@@ -16,6 +16,7 @@ import java.util.Arrays;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Homeless;
+import edu.gatech.shelterme.model.User;
 
 public class Homeless_Registration extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -60,9 +61,13 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View view) {
                 Log.d("Log", "valid inputs");
+                Homeless user = (Homeless) getIntent().getSerializableExtra("user");
+                user.setAge(Integer.valueOf(ageField.getText().toString()));
+                user.setGender((String) genderSpinner.getSelectedItem());
+                user.setVeteran((boolean) veteranSpinner.getSelectedItem());
+
                 Intent intent = new Intent(getBaseContext(), HomepageMap.class);
                 startActivity(intent);
-
             }
         });
 

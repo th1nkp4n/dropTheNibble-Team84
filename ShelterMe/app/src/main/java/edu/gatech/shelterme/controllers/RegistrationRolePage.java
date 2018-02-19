@@ -55,7 +55,6 @@ public class RegistrationRolePage extends AppCompatActivity {
                 }
                 intent.putExtra("user", user);
 
-
                 startActivity(intent);
             }
         });

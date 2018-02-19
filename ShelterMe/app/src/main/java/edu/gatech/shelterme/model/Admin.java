@@ -6,12 +6,5 @@ package edu.gatech.shelterme.model;
  */
 
 public class Admin extends User {
-    String name;
-    public Admin(String name) {
-        this.name = name;
-    }
     public Admin() {}
-    String getName() {
-        return name;
-    }
 }
