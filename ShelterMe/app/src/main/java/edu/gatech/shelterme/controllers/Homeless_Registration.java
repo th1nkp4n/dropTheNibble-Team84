@@ -32,9 +32,6 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeless__registration);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_page);
-
 
         //Grab the dialog widgets so we can get info for later
         ageField = (EditText) findViewById(R.id.age_input);

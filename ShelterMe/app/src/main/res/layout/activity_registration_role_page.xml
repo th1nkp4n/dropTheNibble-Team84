@@ -49,19 +49,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="15dp">
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Shelter Guest"
-            />
 
         <RadioButton
+            android:id="@+id/guestRadio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Shelter Worker"
-            />
+            android:text="Shelter Guest" />
 
         <RadioButton
+            android:id="@+id/workerRadio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Shelter Worker" />
+
+        <RadioButton
+            android:id="@+id/adminRadio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Admin" />

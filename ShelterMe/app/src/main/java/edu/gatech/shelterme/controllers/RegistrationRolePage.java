@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import edu.gatech.shelterme.R;
@@ -41,16 +42,17 @@ public class RegistrationRolePage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RadioGroup group = (RadioGroup) findViewById(R.id.roleRadio);
-                int role = group.getCheckedRadioButtonId();
+                RadioButton admin = (RadioButton) findViewById(R.id.adminRadio);
+                RadioButton homeless = (RadioButton) findViewById(R.id.guestRadio);
+                RadioButton worker = (RadioButton) findViewById(R.id.workerRadio);
                 Log.d("Log", "User type selected");
                 Intent intent = new Intent(getBaseContext(), RegistrationUserInfo.class);
                 User user = null;
-                if (role == 0) {
+                if (homeless.isChecked()) {
                     user = new Homeless();
-                } else if (role == 1) {
+                } else if (worker.isChecked()) {
                     user  = new Worker();
-                } else if (role == 2) {
+                } else if (admin.isChecked()) {
                     user  = new Admin();
                 }
                 intent.putExtra("user", user);

@@ -28,6 +28,10 @@ public class RegistrationUserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_user_info);
 
+        userField = (EditText) findViewById(R.id.registration_user_info_name);
+        emailField = (EditText) findViewById(R.id.registration_user_info_email);
+        pass1Field = (EditText) findViewById(R.id.registration_user_info_password1);
+        pass2Field = (EditText) findViewById(R.id.registration_user_info_password2);
         continueButton = (Button) findViewById(R.id.registration_user_info_continue);
         cancelButton = (Button) findViewById(R.id.registration_user_info_cancel);
 
@@ -51,11 +55,14 @@ public class RegistrationUserInfo extends AppCompatActivity {
                     user.setName(userField.getText().toString());
                     Intent intent;
                     if (user instanceof Admin) {
+                        Log.d("Log","Admin");
                         intent = new Intent(getBaseContext(), HomepageMap.class);
                     } else if (user instanceof Homeless) {
+                        Log.d("Log","Homeless");
                         intent = new Intent(getBaseContext(), Homeless_Registration.class);
                         intent.putExtra("user", user);
                     } else {
+                        Log.d("Log","Worker");
                         intent = new Intent(getBaseContext(), WorkerRegistration.class);
                         intent.putExtra("user", user);
                     }

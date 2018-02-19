@@ -7,11 +7,9 @@ package edu.gatech.shelterme.model;
 
 public class Worker extends User {
     String social;
-    public Worker(String number) {
-        social = number;
-    }
     public Worker(){}
-    String getSocial() {
+    public String getSocial() {
         return social;
     }
+    public void setSocial(String number) {social = number;}
 }

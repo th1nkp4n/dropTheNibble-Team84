@@ -40,7 +40,7 @@
         android:layout_marginTop="21dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="Age" />
     <Spinner
         android:id="@+id/gender_spinner"
         android:layout_width="match_parent"

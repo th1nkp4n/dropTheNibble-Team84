@@ -1,6 +1,5 @@
 package edu.gatech.shelterme.controllers;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Worker;
 
 public class WorkerRegistration extends AppCompatActivity {
     //Widgets
@@ -42,6 +42,8 @@ public class WorkerRegistration extends AppCompatActivity {
                     Log.d("Log", "Please enter your social security number");
                 } else {
                     Log.d("Log", "correct inputs");
+                    Worker user = (Worker) getIntent().getSerializableExtra("user");
+                    user.setSocial(socialSecurity.getText().toString());
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
                     startActivity(home);
