@@ -24,6 +24,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     private Spinner veteranSpinner;
     private Button cancelButton;
     private Button nextButton;
+    private Homeless _person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,12 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         ArrayAdapter<String> veteran = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Arrays.asList(true, false));
         veteran.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         veteranSpinner.setAdapter(veteran);
+
+//        if (getIntent().hasExtra(CourseDetailFragment.ARG_STUDENT_ID)) {
+//            _person = (Homeless) getIntent().getParcelableExtra();
+//        } else {
+//            _person = new Homeless();
+//        }
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
