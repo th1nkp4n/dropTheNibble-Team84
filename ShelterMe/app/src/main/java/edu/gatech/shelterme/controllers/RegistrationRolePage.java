@@ -9,8 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Admin;
+import edu.gatech.shelterme.model.Homeless;
+import edu.gatech.shelterme.model.User;
+import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationRolePage extends AppCompatActivity {
 
@@ -20,6 +25,7 @@ public class RegistrationRolePage extends AppCompatActivity {
         setContentView(R.layout.activity_registration_role_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         Button cancelButton = (Button) findViewById(R.id.registrationRoleCancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -35,8 +41,22 @@ public class RegistrationRolePage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                RadioGroup group = (RadioGroup) findViewById(R.id.roleRadio);
+                int role = group.getCheckedRadioButtonId();
+                Log.d("Log", "User type selected");
+                Intent intent = new Intent(getBaseContext(), RegistrationUserInfo.class);
+                User user = null;
+                if (role == 0) {
+                    user = new Homeless();
+                } else if (role == 1) {
+                    user  = new Worker();
+                } else if (role == 2) {
+                    user  = new Admin();
+                }
+                intent.putExtra("user", user);
+
+
+                startActivity(intent);
             }
         });
     }
