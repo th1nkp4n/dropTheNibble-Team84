@@ -32,13 +32,20 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeless__registration);
 
-
         //Grab the dialog widgets so we can get info for later
         ageField = (EditText) findViewById(R.id.age_input);
         genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
         veteranSpinner = (Spinner) findViewById(R.id.veteran_spinner);
         cancelButton = (Button) findViewById(R.id.homeless_registration_cancel);
         nextButton = (Button) findViewById(R.id.homeless_registration_next);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(getBaseContext(), LoginPage.class);
+                startActivity(start);
+            }
+        });
 
         ArrayAdapter<String> genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Homeless.genders);
         genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,18 +60,33 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
 //        } else {
 //            _person = new Homeless();
 //        }
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Log", "valid inputs");
-                Homeless user = (Homeless) getIntent().getSerializableExtra("user");
-                user.setAge(Integer.valueOf(ageField.getText().toString()));
-                user.setGender((String) genderSpinner.getSelectedItem());
-                user.setVeteran((boolean) veteranSpinner.getSelectedItem());
+                String number = ageField.getText().toString();
+                boolean valid;
+                try {
+                    int num = Integer.parseInt(number);
+                    Log.i("",num+" is a number");
+                    valid = true;
+                } catch (NumberFormatException e) {
+                    Log.i("",number+" is not a number");
+                    valid = false;
+                }
+                if (valid) {
+                    Log.d("Log", "valid inputs");
+                    Homeless user = (Homeless) getIntent().getSerializableExtra("user");
+                    user.setAge(Integer.valueOf(ageField.getText().toString()));
+                    user.setGender((String) genderSpinner.getSelectedItem());
+                    user.setVeteran((boolean) veteranSpinner.getSelectedItem());
 
-                Intent intent = new Intent(getBaseContext(), HomepageMap.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                    startActivity(intent);
+                } else {
+                    BadHomelessRegistrationDialogFragment badReg = new BadHomelessRegistrationDialogFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    badReg.show(ft, "maybe");
+                }
             }
         });
 

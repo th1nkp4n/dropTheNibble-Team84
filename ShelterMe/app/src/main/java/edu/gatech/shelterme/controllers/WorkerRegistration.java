@@ -1,5 +1,6 @@
 package edu.gatech.shelterme.controllers;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +41,9 @@ public class WorkerRegistration extends AppCompatActivity {
             public void onClick(View view) {
                 if(socialSecurity.getText().length() != 9) {
                     Log.d("Log", "Please enter your social security number");
+                    BadWorkerRegistrationDialogFragment badReg = new BadWorkerRegistrationDialogFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    badReg.show(ft, "maybe");
                 } else {
                     Log.d("Log", "correct inputs");
                     Worker user = (Worker) getIntent().getSerializableExtra("user");
