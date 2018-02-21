@@ -83,7 +83,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
 
                     SharedPreferences settings = getSharedPreferences("Prefs", 0);
                     SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(user.getName(), user.getPass());
+                    editor.putString(user.getEmail(), user.getPass());
                     editor.commit();
 
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);

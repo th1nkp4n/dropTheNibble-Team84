@@ -60,7 +60,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                         Log.d("Log","Admin");
                         SharedPreferences settings = getSharedPreferences("Prefs", 0);
                         SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(user.getName(), user.getPass());
+                        editor.putString(user.getEmail(), user.getPass());
                         editor.commit();
 
                         intent = new Intent(getBaseContext(), HomepageMap.class);

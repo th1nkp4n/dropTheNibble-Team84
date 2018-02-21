@@ -52,7 +52,7 @@ public class WorkerRegistration extends AppCompatActivity {
 
                     SharedPreferences settings = getSharedPreferences("Prefs", 0);
                     SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(user.getName(), user.getPass());
+                    editor.putString(user.getEmail(), user.getPass());
                     editor.commit();
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
