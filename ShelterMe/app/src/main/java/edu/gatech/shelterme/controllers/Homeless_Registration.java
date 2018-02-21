@@ -2,6 +2,7 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,6 +80,11 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                     user.setAge(Integer.valueOf(ageField.getText().toString()));
                     user.setGender((String) genderSpinner.getSelectedItem());
                     user.setVeteran((boolean) veteranSpinner.getSelectedItem());
+
+                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString(user.getName(), user.getPass());
+                    editor.commit();
 
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);
                     startActivity(intent);

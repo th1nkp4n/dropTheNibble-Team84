@@ -1,7 +1,9 @@
 package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +58,11 @@ public class RegistrationUserInfo extends AppCompatActivity {
                     Intent intent;
                     if (user instanceof Admin) {
                         Log.d("Log","Admin");
+                        SharedPreferences settings = getSharedPreferences("Prefs", 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString(user.getName(), user.getPass());
+                        editor.commit();
+
                         intent = new Intent(getBaseContext(), HomepageMap.class);
                     } else if (user instanceof Homeless) {
                         Log.d("Log","Homeless");

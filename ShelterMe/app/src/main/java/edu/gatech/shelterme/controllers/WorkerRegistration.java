@@ -2,6 +2,7 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +49,11 @@ public class WorkerRegistration extends AppCompatActivity {
                     Log.d("Log", "correct inputs");
                     Worker user = (Worker) getIntent().getSerializableExtra("user");
                     user.setSocial(socialSecurity.getText().toString());
+
+                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString(user.getName(), user.getPass());
+                    editor.commit();
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
                     startActivity(home);

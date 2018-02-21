@@ -2,6 +2,7 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,8 +40,17 @@ public class LoginPage extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((userField.getText().toString().compareTo("user")==0)
-                        && (passField.getText(). toString().compareTo("pass")==0)) {
+                SharedPreferences settings = getSharedPreferences("Prefs", 0);
+                String pass = settings.getString(userField.getText().toString(), null);
+
+                if (pass == null) {
+                    //tell them they had the wrong username or password
+                    Log.d("Log", "incorrect inputs");
+                    BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    badLogin.show(ft, "maybe");
+                }
+                else if (passField.getText(). toString().compareTo(pass)==0) {
                     Log.d("Log", "correct inputs");
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);
                     startActivity(intent);
