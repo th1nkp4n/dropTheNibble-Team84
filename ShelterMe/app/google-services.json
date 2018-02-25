@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "998910663597",
+    "firebase_url": "https://shelterme-57106.firebaseio.com",
+    "project_id": "shelterme-57106",
+    "storage_bucket": "shelterme-57106.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998910663597:android:a4889c74bc9bda8f",
+        "android_client_info": {
+          "package_name": "edu.gatech.shelterme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998910663597-dffhdiieiste5ajhlrkqiueno7sue3k7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.shelterme",
+            "certificate_hash": "a410a5e25dd1edd0fbd32f8117072199f8b529f2"
+          }
+        },
+        {
+          "client_id": "998910663597-kcdmk9qqv5pl9viuvkk0m2i9cdhfblut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoYhpd1pZ60UEQE3O4-ae5dsLH3KFOgmE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998910663597-kcdmk9qqv5pl9viuvkk0m2i9cdhfblut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
