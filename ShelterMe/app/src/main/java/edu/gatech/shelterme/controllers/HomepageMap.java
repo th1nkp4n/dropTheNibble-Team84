@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,17 +16,55 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+import java.util.Map;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Shelter;
 
 public class HomepageMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Button logoutButton;
+    private DatabaseReference shelterReference;
+    private TextView txtview;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        txtview = (TextView) findViewById(R.id.textView);
+        Log.d("********ONCREATE*******", "hehehe");
         setContentView(R.layout.activity_homepage_map);
+
+        shelterReference = FirebaseDatabase.getInstance().getReference()
+                .child("shelters");
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                //Shelter shelter = dataSnapshot.getValue(Shelter.class);
+                //Log.d("found shelter: ",shelter.toString());
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // [START_EXCLUDE]
+                //Toast.makeText(PostDetailActivity.this, "Failed to load post.",
+                        //Toast.LENGTH_SHORT).show();
+                // [END_EXCLUDE]
+            }
+        };
+        shelterReference.addValueEventListener(postListener);
+
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {

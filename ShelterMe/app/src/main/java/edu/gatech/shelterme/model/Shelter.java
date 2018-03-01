@@ -6,7 +6,7 @@ package edu.gatech.shelterme.model;
 
 public class Shelter {
     private String name;
-    private int capacity;
+    private String capacity;
     private String restriction;
     private double longitude;
     private double latitude;
@@ -14,7 +14,9 @@ public class Shelter {
     private String specialNotes;
     private String phone;
 
-    public Shelter(String name, int capacity, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
+    public Shelter(){};
+
+    public Shelter(String name, String capacity, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
         this.name = name;
         this.capacity = capacity;
         this.restriction = restriction;
@@ -33,11 +35,11 @@ public class Shelter {
         this.name = name;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
@@ -87,5 +89,9 @@ public class Shelter {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String toString() {
+        return name;
     }
 }
