@@ -15,6 +15,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+
 import edu.gatech.shelterme.R;
 
 public class HomepageMap extends FragmentActivity implements OnMapReadyCallback {
@@ -25,6 +27,12 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_map);
+        Parser p = new Parser();
+        try {
+            p.parseData(getBaseContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
