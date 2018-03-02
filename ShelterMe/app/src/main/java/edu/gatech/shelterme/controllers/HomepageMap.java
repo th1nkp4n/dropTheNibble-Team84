@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,14 +49,11 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                //Shelter shelter = dataSnapshot.getValue(Shelter.class);
-                //Log.d("found shelter: ",shelter.toString());
-                ArrayList<HashMap<String, Object>> map = (ArrayList<HashMap<String, Object>>) dataSnapshot.getValue();
-                for (HashMap<String, Object> curr : map){
-                    Log.d("current shelter: ", curr.toString());
-                    Log.d("current keys: ", curr.keySet().toString());
-                    
+                ArrayList<Shelter> listOfShelters = new ArrayList<Shelter>();
+                for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                    //Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                    //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
+                    listOfShelters.add(dsp.getValue(Shelter.class));
                 }
             }
 
