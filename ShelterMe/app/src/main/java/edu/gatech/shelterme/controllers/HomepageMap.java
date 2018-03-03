@@ -6,7 +6,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,27 +38,35 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
     private GoogleMap mMap;
     private Button logoutButton;
     private DatabaseReference shelterReference;
-    private TextView txtview;
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    protected String[] shelterName;
+    //protected ArrayList<String> shelterName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        txtview = (TextView) findViewById(R.id.textView);
+        listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
         setContentView(R.layout.activity_homepage_map);
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
-        ValueEventListener postListener = new ValueEventListener() {
+        shelterReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Shelter> listOfShelters = new ArrayList<Shelter>();
+                int length = (int) dataSnapshot.getChildrenCount();
+                shelterName = new String[length];
+                int counter = 0;
                 for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                    //Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                    Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                     //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                    listOfShelters.add(dsp.getValue(Shelter.class));
+                    shelterName[counter++] = dsp.getValue(Shelter.class).toString();
+                    //shelterName.add(dsp.getValue(Shelter.class).getName());
                 }
+                Log.d("one:", Boolean.toString(listView.isOpaque()));
+                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
+                        android.R.layout.simple_list_item_1, shelterName));
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
@@ -66,8 +76,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                         //Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
             }
-        };
-        shelterReference.addValueEventListener(postListener);
+        });
 
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
 
