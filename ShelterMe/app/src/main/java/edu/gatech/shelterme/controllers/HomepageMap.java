@@ -45,9 +45,11 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_homepage_map);
+
         listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
-        setContentView(R.layout.activity_homepage_map);
+        Log.d("SHELTERLIST", listView.toString());
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
