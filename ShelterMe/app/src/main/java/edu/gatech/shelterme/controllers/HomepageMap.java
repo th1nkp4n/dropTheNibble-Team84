@@ -86,7 +86,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String sheltername = String.valueOf(parent.getItemAtPosition(position));
-                        Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
                         intent.putExtra("name", sheltername);
                         startActivity(intent);
                     }
