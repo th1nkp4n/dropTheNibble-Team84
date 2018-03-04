@@ -30,7 +30,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="edu.gatech.shelterme.controllers.LoginPage"
+            android:name=".controllers.LoginPage"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.gatech.shelterme.controllers.HomepageMap"
+            android:name=".controllers.HomepageMap"
             android:label="homepage">
             <intent-filter>
                 <action android:name="edu.gatech.shelterme.controllers.HomepageMap" />
@@ -47,19 +47,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name="edu.gatech.shelterme.controllers.WorkerRegistration"></activity>
-        <activity android:name="edu.gatech.shelterme.controllers.RegistrationUserInfo"></activity>
-
-
+        <activity android:name=".controllers.WorkerRegistration" />
+        <activity android:name=".controllers.RegistrationUserInfo" />
         <activity
-            android:name="edu.gatech.shelterme.controllers.RegistrationRolePage"
+            android:name=".controllers.RegistrationRolePage"
             android:label="@string/title_activity_registration_role_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name="edu.gatech.shelterme.controllers.Homeless_Registration">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controllers.Homeless_Registration"></activity>
+        <activity android:name=".controllers.Shelter_detail_Page"></activity>
     </application>
 
 </manifest>

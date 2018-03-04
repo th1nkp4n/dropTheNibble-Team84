@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -79,6 +80,18 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                 // [END_EXCLUDE]
             }
         });
+
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String sheltername = String.valueOf(parent.getItemAtPosition(position));
+                        Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                        intent.putExtra("name", sheltername);
+                        startActivity(intent);
+                    }
+                }
+        );
 
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
 
