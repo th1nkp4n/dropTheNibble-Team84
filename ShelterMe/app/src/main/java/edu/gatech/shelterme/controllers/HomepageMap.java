@@ -49,7 +49,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
 
         listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
-        Log.d("SHELTERLIST", listView.toString());
+
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
