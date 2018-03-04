@@ -14,6 +14,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Shelter;
 
@@ -47,7 +50,26 @@ public class Shelter_detail_Page extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DatabaseReference shelt = shelterReference.orderByChild("name").equalTo(shelterName).getRef();
-                name.setText(shelt.child("name").toString());
+                shelt.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
+                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(0);
+                        name.setText(name.getText() + myShelt.get("name").toString()) ;
+                        capacity.setText(capacity.getText() + myShelt.get("capacity").toString());
+                        restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
+                        longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
+                        latitude.setText(latitude.getText() + myShelt.get("latitude").toString());
+                        address.setText(address.getText() + myShelt.get("address").toString());
+                        specialnotes.setText(specialnotes.getText() + myShelt.get("specialNotes").toString());
+                        number.setText(number.getText() + myShelt.get("phone").toString());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
             @Override
