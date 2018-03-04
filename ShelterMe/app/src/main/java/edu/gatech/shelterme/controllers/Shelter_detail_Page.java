@@ -1,9 +1,12 @@
 package edu.gatech.shelterme.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
     TextView capacity;
     TextView restrictions;
     TextView number;
+    Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class Shelter_detail_Page extends AppCompatActivity {
         address = (TextView) findViewById(R.id.address);
         specialnotes = (TextView) findViewById(R.id.specialnotes);
         number = (TextView) findViewById(R.id.phone);
+        cancel = (Button) findViewById(R.id.cancel);
+
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
         shelterReference.addValueEventListener( new ValueEventListener() {
@@ -80,6 +86,14 @@ public class Shelter_detail_Page extends AppCompatActivity {
                 //Toast.makeText(PostDetailActivity.this, "Failed to load post.",
                 //Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(getBaseContext(), HomepageMap.class);
+                startActivity(start);
             }
         });
 
