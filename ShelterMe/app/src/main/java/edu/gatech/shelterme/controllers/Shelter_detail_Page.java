@@ -35,7 +35,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
-        final String shelterName = (String) getIntent().getStringExtra("name");
+        final int shelterID = (int) getIntent().getIntExtra("id",0);
         name = (TextView) findViewById(R.id.name);
         capacity = (TextView) findViewById(R.id.capacity);
         restrictions = (TextView) findViewById(R.id.restrictions);
@@ -49,12 +49,12 @@ public class Shelter_detail_Page extends AppCompatActivity {
         shelterReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DatabaseReference shelt = shelterReference.orderByChild("name").equalTo(shelterName).getRef();
+                DatabaseReference shelt = shelterReference.orderByChild("name").equalTo(shelterID).getRef();
                 shelt.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
-                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(0);
+                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(shelterID);
                         name.setText(name.getText() + myShelt.get("name").toString()) ;
                         capacity.setText(capacity.getText() + myShelt.get("capacity").toString());
                         restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
