@@ -42,6 +42,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
     private ListView listView;
     private ArrayAdapter<String> adapter;
     protected String[] shelterName;
+    private Button searchButton;
     //protected ArrayList<String> shelterName;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,16 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
             public void onClick(View view) {
                 Log.d("Log", "User logged out");
                 Intent intent = new Intent(getBaseContext(), LoginPage.class);
+                startActivity(intent);
+            }
+        });
+
+
+        searchButton = (Button) findViewById(R.id.search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), Search.class);
                 startActivity(intent);
             }
         });

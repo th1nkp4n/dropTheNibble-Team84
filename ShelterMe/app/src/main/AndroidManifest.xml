@@ -55,6 +55,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controllers.Homeless_Registration"></activity>
         <activity android:name=".controllers.Shelter_detail_Page"></activity>
+        <activity android:name=".controllers.Search"></activity>
     </application>
 
 </manifest>
