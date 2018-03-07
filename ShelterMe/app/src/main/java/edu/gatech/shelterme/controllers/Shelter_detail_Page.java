@@ -3,25 +3,20 @@ package edu.gatech.shelterme.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.gatech.shelterme.R;
-import edu.gatech.shelterme.model.Shelter;
 
 public class Shelter_detail_Page extends AppCompatActivity {
     private DatabaseReference shelterReference;
@@ -40,7 +35,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
         final int shelterID = (int) getIntent().getIntExtra("id",0);
-        name = (TextView) findViewById(R.id.name);
+        name = (TextView) findViewById(R.id.gender);
         capacity = (TextView) findViewById(R.id.capacity);
         restrictions = (TextView) findViewById(R.id.restrictions);
         longitude = (TextView) findViewById(R.id.longitude);
