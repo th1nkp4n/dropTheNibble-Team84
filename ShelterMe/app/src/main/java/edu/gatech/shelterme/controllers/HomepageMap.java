@@ -41,6 +41,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
     private DatabaseReference shelterReference;
     private ListView listView;
     private ArrayAdapter<String> adapter;
+    protected ArrayList<Shelter> shelters;
     protected String[] shelterName;
     private Button searchButton;
     //protected ArrayList<String> shelterName;
@@ -61,38 +62,66 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int length = (int) dataSnapshot.getChildrenCount();
-                shelterName = new String[length];
+                shelters = new ArrayList<>();
                 int counter = 0;
 
+                Log.d("intent", "" + getIntent().getStringExtra("name"));
                 if (getIntent().hasExtra("name")) {
-                    if (getIntent().getStringExtra() != "Any shelter") {
-                        //do stuff
-                        for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                            Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
-                            //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                            Shelter currentShelt = dsp.getValue(Shelter.class);
-                            
-                            //after checking if it is valid for this search,
-                            if (isValid){
-                                shelterName[counter++] = dsp.getValue(Shelter.class).toString();
-                            }
-                            //shelterName.add(dsp.getValue(Shelter.class).getName());
-                        }
+                    for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                        Log.d("Name CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                        //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
+                        shelters.add(dsp.getValue(Shelter.class));
+                        //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
 
-                    //do stuff
+                    if (getIntent().getStringExtra("name").compareTo("Any Shelter") != 0) {
+                        String name = getIntent().getStringExtra("name");
+                        for (int i = 0; i < shelters.size(); i++) {
+                            if (shelters.get(i).getName().compareTo(name) != 0) {
+                                shelters.remove(i);
+                            }
+                        }
+
+                        Log.d("filtering by: ", name);
+                        Log.d("name size: ", "" + shelters.size());
+                    }
+                    if (getIntent().getStringExtra("age").compareTo("Any Age") != 0) {
+                        String age = getIntent().getStringExtra("age");
+                        for (int i = 0; i < shelters.size(); i++) {
+                            if (!shelters.get(i).getRestriction().contains(age)) {
+                                shelters.remove(i);
+                            }
+                        }
+                        Log.d("age size: ", "" + shelters.size());
+                    }
+                    if (getIntent().getStringExtra("gender").compareTo("Any Gender") != 0) {
+                        String gender = getIntent().getStringExtra("gender");
+                        for (int i = 0; i < shelters.size(); i++) {
+                            if (!shelters.get(i).getRestriction().contains(gender)) {
+                                shelters.remove(i);
+                            }
+                        }
+                        Log.d("gender size: ", "" + shelters.size());
+                    }
+
+                    shelterName = new String[shelters.size()];
+                    for (int i = 0; i < shelters.size(); i++) {
+                        Log.d("shelter: ", shelters.get(i).getName().toString());
+                        shelterName[i] = shelters.get(i).getName();
+                    }
                 } else {
+                    shelterName = new String[length];
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
                         Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                         //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
                         shelterName[counter++] = dsp.getValue(Shelter.class).toString();
                         //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
-                    Log.d("one:", Boolean.toString(listView.isOpaque()));
-                    listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
-                            android.R.layout.simple_list_item_1, shelterName));
                 }
-
+                Log.d("one:", Boolean.toString(listView.isOpaque()));
+                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
+                        android.R.layout.simple_list_item_1, shelterName));
+                Log.d("two:", Boolean.toString(listView.isOpaque()));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

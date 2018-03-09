@@ -101,9 +101,9 @@ public class Search extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
-                getIntent().putExtra("name", nameSpinner.getSelectedItem().toString());
-                getIntent().putExtra("age", ageSpinner.getSelectedItem().toString());
-                getIntent().putExtra("gender", genderSpinner.getSelectedItem().toString());
+                start.putExtra("name", nameSpinner.getSelectedItem().toString());
+                start.putExtra("age", ageSpinner.getSelectedItem().toString());
+                start.putExtra("gender", genderSpinner.getSelectedItem().toString());
                 startActivity(start);
             }
         });
