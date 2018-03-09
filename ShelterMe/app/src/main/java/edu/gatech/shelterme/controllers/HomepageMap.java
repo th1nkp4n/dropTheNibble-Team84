@@ -68,7 +68,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                 Log.d("intent", "" + getIntent().getStringExtra("name"));
                 if (getIntent().hasExtra("name")) {
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                        Log.d("Name CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                        Log.d("Name Current shelter:", dsp.getValue(Shelter.class).toString());
                         //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
                         shelters.add(dsp.getValue(Shelter.class));
                         //shelterName.add(dsp.getValue(Shelter.class).getName());
@@ -76,9 +76,14 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
 
                     if (getIntent().getStringExtra("name").compareTo("Any Shelter") != 0) {
                         String name = getIntent().getStringExtra("name");
+                        Log.d("name total size", "" + shelters.size());
                         for (int i = 0; i < shelters.size(); i++) {
                             if (shelters.get(i).getName().compareTo(name) != 0) {
                                 shelters.remove(i);
+                                Log.d("i", "" + i);
+                                i--;
+                            } else {
+                                Log.d("name", shelters.get(i).getName());
                             }
                         }
 
@@ -89,7 +94,9 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                         String age = getIntent().getStringExtra("age");
                         for (int i = 0; i < shelters.size(); i++) {
                             if (!shelters.get(i).getRestriction().contains(age)) {
+                                Log.d("restriction", shelters.get(i).getRestriction());
                                 shelters.remove(i);
+                                i--;
                             }
                         }
                         Log.d("age size: ", "" + shelters.size());
@@ -99,6 +106,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                         for (int i = 0; i < shelters.size(); i++) {
                             if (!shelters.get(i).getRestriction().contains(gender)) {
                                 shelters.remove(i);
+                                i--;
                             }
                         }
                         Log.d("gender size: ", "" + shelters.size());

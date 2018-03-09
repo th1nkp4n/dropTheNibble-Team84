@@ -59,7 +59,7 @@ public class Search extends AppCompatActivity {
 
         ageArray = new ArrayList<>();
         ageArray.add("Any Age");
-        ageArray.add("Newborns");
+        ageArray.add("newborns");
         ageArray.add("Children");
         ageArray.add("Young Adults");
 
