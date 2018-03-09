@@ -53,23 +53,46 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
         Log.d("********ONCREATE*******", "hehehe");
 
 
+
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
         shelterReference.addValueEventListener( new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int length = (int) dataSnapshot.getChildrenCount();
                 shelterName = new String[length];
                 int counter = 0;
-                for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                    Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
-                    //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                    shelterName[counter++] = dsp.getValue(Shelter.class).toString();
-                    //shelterName.add(dsp.getValue(Shelter.class).getName());
+
+                if (getIntent().hasExtra("name")) {
+                    if (getIntent().getStringExtra() != "Any shelter") {
+                        //do stuff
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                            Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                            //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
+                            Shelter currentShelt = dsp.getValue(Shelter.class);
+                            
+                            //after checking if it is valid for this search,
+                            if (isValid){
+                                shelterName[counter++] = dsp.getValue(Shelter.class).toString();
+                            }
+                            //shelterName.add(dsp.getValue(Shelter.class).getName());
+                        }
+                    }
+
+                    //do stuff
+                } else {
+                    for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                        Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                        //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
+                        shelterName[counter++] = dsp.getValue(Shelter.class).toString();
+                        //shelterName.add(dsp.getValue(Shelter.class).getName());
+                    }
+                    Log.d("one:", Boolean.toString(listView.isOpaque()));
+                    listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
+                            android.R.layout.simple_list_item_1, shelterName));
                 }
-                Log.d("one:", Boolean.toString(listView.isOpaque()));
-                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
-                        android.R.layout.simple_list_item_1, shelterName));
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

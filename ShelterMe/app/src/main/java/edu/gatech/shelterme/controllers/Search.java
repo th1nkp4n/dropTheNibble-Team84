@@ -48,15 +48,6 @@ public class Search extends AppCompatActivity {
         ageSpinner = (Spinner) findViewById(R.id.age);
         nameSpinner = (Spinner) findViewById(R.id.name);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent start = new Intent(getBaseContext(), HomepageMap.class);
-                getIntent().putExtra("cancel", 5);
-                startActivity(start);
-            }
-        });
-
         genderArray = new ArrayList<>();
         genderArray.add("Any Gender");
         genderArray.add("Women");
@@ -105,5 +96,25 @@ public class Search extends AppCompatActivity {
         names = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, nameArray);
         names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nameSpinner.setAdapter(names);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(getBaseContext(), HomepageMap.class);
+                getIntent().putExtra("name", nameSpinner.getSelectedItem().toString());
+                getIntent().putExtra("age", ageSpinner.getSelectedItem().toString());
+                getIntent().putExtra("gender", genderSpinner.getSelectedItem().toString());
+                startActivity(start);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(getBaseContext(), HomepageMap.class);
+                getIntent().putExtra("cancel", 5);
+                startActivity(start);
+            }
+        });
     }
 }
