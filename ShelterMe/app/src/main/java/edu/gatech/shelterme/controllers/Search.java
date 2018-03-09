@@ -61,7 +61,7 @@ public class Search extends AppCompatActivity {
         ageArray.add("Any Age");
         ageArray.add("newborns");
         ageArray.add("Children");
-        ageArray.add("Young Adults");
+        ageArray.add("Young adults");
 
         age = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, ageArray);
         age.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
