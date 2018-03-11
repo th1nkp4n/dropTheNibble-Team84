@@ -8,8 +8,14 @@ import java.io.Serializable;
 
 public abstract class User implements Serializable {
     private String email;
-    public String password;
+    private String password;
     private String name;
+    public User() {}
+    public User(String email, String password, String name) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
     public String getName() {return name;}
     public String getEmail() {return email;}
