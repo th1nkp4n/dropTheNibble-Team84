@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Arrays;
 
 import edu.gatech.shelterme.R;
@@ -27,6 +30,8 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     private Button cancelButton;
     private Button nextButton;
     private Homeless _person;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +86,12 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                     user.setGender((String) genderSpinner.getSelectedItem());
                     user.setVeteran((boolean) veteranSpinner.getSelectedItem());
 
-                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(user.getEmail(), user.getPass());
-                    editor.commit();
+//                SharedPreferences settings = getSharedPreferences("Prefs", 0);
+//                SharedPreferences.Editor editor = settings.edit();
+//                editor.putString(user.getEmail(), user.getPass());
+//                editor.commit();
+                    DatabaseReference usersRef = ref.child("homelessUsers");
+                    usersRef.child(user.getEmail()).setValue(user);
 
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);
                     startActivity(intent);

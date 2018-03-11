@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
@@ -24,6 +27,8 @@ public class RegistrationUserInfo extends AppCompatActivity {
     private EditText pass1Field;
     private EditText emailField;
     private EditText pass2Field;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +63,13 @@ public class RegistrationUserInfo extends AppCompatActivity {
                     Intent intent;
                     if (user instanceof Admin) {
                         Log.d("Log","Admin");
-                        SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(user.getEmail(), user.getPass());
-                        editor.commit();
+//                        SharedPreferences settings = getSharedPreferences("Prefs", 0);
+//                        SharedPreferences.Editor editor = settings.edit();
+//                        editor.putString(user.getEmail(), user.getPass());
+//                        editor.commit();
+
+                        DatabaseReference usersRef = ref.child("adminUsers");
+                        usersRef.child(user.getEmail()).setValue(user);
 
                         intent = new Intent(getBaseContext(), HomepageMap.class);
                     } else if (user instanceof Homeless) {

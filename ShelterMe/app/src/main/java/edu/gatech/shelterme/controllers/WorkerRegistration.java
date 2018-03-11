@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Worker;
 
@@ -18,6 +21,8 @@ public class WorkerRegistration extends AppCompatActivity {
     private EditText socialSecurity;
     private Button registerButton;
     private Button cancelButton;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +55,13 @@ public class WorkerRegistration extends AppCompatActivity {
                     Worker user = (Worker) getIntent().getSerializableExtra("user");
                     user.setSocial(socialSecurity.getText().toString());
 
-                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(user.getEmail(), user.getPass());
-                    editor.commit();
+//                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
+//                    SharedPreferences.Editor editor = settings.edit();
+//                    editor.putString(user.getEmail(), user.getPass());
+//                    editor.commit();
+
+                    DatabaseReference usersRef = ref.child("workerUsers");
+                    usersRef.child(user.getEmail()).setValue(user);
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
                     startActivity(home);
