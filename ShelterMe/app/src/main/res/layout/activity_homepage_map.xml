@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ListView
         android:id="@+id/shelterList"
         android:layout_width="match_parent"
@@ -11,14 +12,15 @@
         android:layout_above="@+id/homepage_logout_button"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="25dp" />
+
     <Button
         android:id="@+id/homepage_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="47dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginStart="26dp"
+        android:layout_toEndOf="@+id/checkout"
         android:onClick="onLogoutPressed"
         android:text="Log Out" />
 
@@ -28,8 +30,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/shelterList"
-        android:layout_marginStart="62dp"
+        android:layout_marginStart="29dp"
         android:text="Filter" />
+
+    <Button
+        android:id="@+id/checkout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shelterList"
+        android:layout_centerHorizontal="true"
+        android:text="Check Out" />
 
 
 </RelativeLayout>

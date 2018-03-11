@@ -2,8 +2,10 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,25 +35,77 @@ import java.util.Map;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Shelter;
+import edu.gatech.shelterme.model.User;
 
-public class HomepageMap extends FragmentActivity implements OnMapReadyCallback {
+public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Button logoutButton;
     private DatabaseReference shelterReference;
+    private DatabaseReference shelterCheckoutRef;
     private ListView listView;
     private ArrayAdapter<String> adapter;
     protected ArrayList<Shelter> shelters;
     protected String[] shelterName;
     private Button searchButton;
+    private User user;
+    private Button checkOutButton;
+    private int families;
+    private int singles;
+    private int shelterId;
     //protected ArrayList<String> shelterName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_map);
 
+        checkOutButton = (Button) findViewById(R.id.checkout);
         listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
+        user = (User) getIntent().getSerializableExtra("user");
+        if(user.getCheckedIn() == -1) {
+            checkOutButton.setVisibility(View.GONE);
+        }
+
+        checkOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("CHECKOUT", "User checked out of " + user.getShelter().toString());
+                user.setCheckedIn(-1);
+                families = user.getFamilies();
+                singles = user.getSingles();
+                shelterId = user.getCheckedIn;
+                shelterCheckoutRef = FirebaseDatabase.getInstance().getReference()
+                        .child("shelters").orderByChild("name").equalTo(shelterId).getRef();
+                shelterCheckoutRef.addValueEventListener( new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList shelters = (ArrayList) dataSnapshot.getValue();
+                        HashMap<String, Object> myShelt= (HashMap<String, Object>) shelters.get(shelterId);
+                        int familyVac = (Integer) myShelt.get("familyVacancies");
+                        int singleVac = (Integer) myShelt.get("singleVacancies");
+                        if (families > 0) {
+                            shelterCheckoutRef.child("" + shelterId).child("familyVacancies").setValue(familyVac + families);
+                        } else if (singles > 0) {
+                            shelterCheckoutRef.child("" + shelterId).child("singleVacancies").setValue(familyVac + singles);
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Getting Post failed, log a message
+                        //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                        // [START_EXCLUDE]
+                        //Toast.makeText(PostDetailActivity.this, "Failed to load post.",
+                        //Toast.LENGTH_SHORT).show();
+                        // [END_EXCLUDE]
+                    }
+                });
+                Intent intent = new Intent(getBaseContext(), LoginPage.class);
+                startActivity(intent);
+            }
+        });
 
 
 
