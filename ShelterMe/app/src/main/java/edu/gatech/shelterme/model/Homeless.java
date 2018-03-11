@@ -11,7 +11,7 @@ public class Homeless extends User {
     private int age;
     private String gender;
     private boolean veteran;
-    private Shelter checkedIn;
+    private int checkedIn;
     private int famlies;
     private int singles;
 
@@ -19,7 +19,7 @@ public class Homeless extends User {
             "Trans Woman", "Trans Man", "Other", "Prefer Not To Say");
 
     public Homeless() {
-        this.checkedIn = null;
+        this.checkedIn = -1;
         this.famlies = 0;
         this.singles = 0;
     }
@@ -28,13 +28,13 @@ public class Homeless extends User {
     public int getAge() {return age;}
     public String getGender() {return gender;}
     public boolean getVeteran() {return veteran;}
-    public Shelter getCheckedIn() {return checkedIn;}
+    public int getCheckedIn() {return checkedIn;}
     public int getFamilies() {return famlies;}
     public int getSingles() {return singles;}
     public void setAge(int page) {age = page;}
     public void setGender(String pgender) {gender = pgender;}
     public void setVeteran(boolean pvet) {veteran = pvet;}
-    public void setCheckedIn(Shelter shelter) {checkedIn = shelter;}
+    public void setCheckedIn(int shelter) {checkedIn = shelter;}
     public void setFamiles(int pfamlies) {famlies = pfamlies;}
     public void setSingles(int psingles) {singles = psingles;}
 
