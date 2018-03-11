@@ -3,6 +3,7 @@ package edu.gatech.shelterme.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.User;
 
 /**
  * Created by KKhosla on 3/11/18.
@@ -26,13 +28,14 @@ import edu.gatech.shelterme.R;
 public class CheckInPage extends AppCompatActivity {
     private DatabaseReference shelterReference;
     TextView noFamilies;
-    TextView noIndividuals;
+    TextView noSingles;
     TextView numfamiliesText;
-    TextView numIndividualsText;
-    EditText numIndividuals;
+    TextView numSinglesText;
+    EditText numSingles;
     EditText numFamilies;
     Button confirm;
     Button cancel;
+    User user;
 
 
     // Take in user - store hte shelter ID and the num of individuals/families that checked in
@@ -44,14 +47,15 @@ public class CheckInPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
         final int shelterID = (int) getIntent().getIntExtra("id",0);
-        noIndividuals = (TextView) findViewById(R.id.noIndividualsText);
+        noSingles = (TextView) findViewById(R.id.noIndividualsText);
         noFamilies = (TextView) findViewById(R.id.noFamiliesText);
-        numIndividualsText = (TextView) findViewById(R.id.restrictions);
+        numSinglesText = (TextView) findViewById(R.id.restrictions);
         numfamiliesText = (TextView) findViewById(R.id.longitude);
-        numIndividuals = (EditText) findViewById(R.id.checkInFamilyNumberInput);
+        numSingles = (EditText) findViewById(R.id.checkInFamilyNumberInput);
         numFamilies = (EditText) findViewById(R.id.checkInIndividualNumberInput);
         confirm = (Button) findViewById(R.id.checkInConfirmButton);
         cancel = (Button) findViewById(R.id.checkInCancelButton);
+        user = (User) getIntent().getSerializableExtra("user");
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
@@ -68,6 +72,10 @@ public class CheckInPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Firebase Stuff
+                Log.d("CHECKOUT", "User checked into " + user.getShelter().toString());
+                user.setCheckedIn(shelterID);
+                user.setFamilies(Integer.valueOf(numFamilies.getText().toString()));
+                user.setSingles(Integer.valueOf(numSingles.getText().toString()));
                 Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
                 startActivity(start);
             }
