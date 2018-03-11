@@ -29,6 +29,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
     TextView restrictions;
     TextView number;
     Button cancel;
+    Button checkIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
         specialnotes = (TextView) findViewById(R.id.specialnotes);
         number = (TextView) findViewById(R.id.phone);
         cancel = (Button) findViewById(R.id.cancel);
+        checkIn = (Button) findViewById(R.id.checkIn);
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
@@ -88,6 +90,14 @@ public class Shelter_detail_Page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
+                startActivity(start);
+            }
+        });
+
+        checkIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(getBaseContext(), CheckInPage.class);
                 startActivity(start);
             }
         });
