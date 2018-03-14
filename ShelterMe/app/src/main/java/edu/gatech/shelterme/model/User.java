@@ -23,4 +23,7 @@ public abstract class User implements Serializable {
     public void setName(String pname) {name = pname;}
     public void setEmail(String pemail) {email = pemail;}
     public void setPass(String ppass) {password = ppass;}
+    public void updateEmail(String email) {}
+    public void updateName(String name) {}
+    public void updatePassword(String password) {}
 }

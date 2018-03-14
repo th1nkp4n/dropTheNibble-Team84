@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
@@ -19,6 +22,8 @@ import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationRolePage extends AppCompatActivity {
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +55,28 @@ public class RegistrationRolePage extends AppCompatActivity {
                 User user = null;
                 if (homeless.isChecked()) {
                     user = new Homeless();
+                    DatabaseReference usersRef = ref.child("homeless");
+                    usersRef.push().setValue(user);
+                    String key = usersRef.push().getKey();
+                    intent.putExtra("key", key);
+                    Log.d("Log", "User type is homeless and in firebase");
                 } else if (worker.isChecked()) {
                     user  = new Worker();
+                    DatabaseReference usersRef = ref.child("worker");
+                    usersRef.push().setValue(user);
+                    String key = usersRef.push().getKey();
+                    intent.putExtra("key", key);
+                    Log.d("Log", "User type is worker and in firebase");
                 } else if (admin.isChecked()) {
-                    user  = new Admin();
+                    user = new Admin();
+                    DatabaseReference usersRef = ref.child("admin");
+                    usersRef.push().setValue(user);
+                    String key = usersRef.push().getKey();
+                    intent.putExtra("key", key);
+                    Log.d("Log", "User type is admin and in firebase");
                 }
                 intent.putExtra("user", user);
+
 
                 startActivity(intent);
             }
