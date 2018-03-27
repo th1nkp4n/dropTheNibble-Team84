@@ -55,24 +55,12 @@ public class RegistrationRolePage extends AppCompatActivity {
                 User user = null;
                 if (homeless.isChecked()) {
                     user = new Homeless();
-                    DatabaseReference usersRef = ref.child("homeless");
-                    usersRef.push().setValue(user);
-                    String key = usersRef.push().getKey();
-                    intent.putExtra("key", key);
                     Log.d("Log", "User type is homeless and in firebase");
                 } else if (worker.isChecked()) {
                     user  = new Worker();
-                    DatabaseReference usersRef = ref.child("worker");
-                    usersRef.push().setValue(user);
-                    String key = usersRef.push().getKey();
-                    intent.putExtra("key", key);
                     Log.d("Log", "User type is worker and in firebase");
                 } else if (admin.isChecked()) {
                     user = new Admin();
-                    DatabaseReference usersRef = ref.child("admin");
-                    usersRef.push().setValue(user);
-                    String key = usersRef.push().getKey();
-                    intent.putExtra("key", key);
                     Log.d("Log", "User type is admin and in firebase");
                 }
                 intent.putExtra("user", user);

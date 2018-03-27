@@ -54,16 +54,8 @@ public class WorkerRegistration extends AppCompatActivity {
                     Log.d("Log", "correct inputs");
                     Worker user = (Worker) getIntent().getSerializableExtra("user");
                     user.setSocial(socialSecurity.getText().toString());
-
-//                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
-//                    SharedPreferences.Editor editor = settings.edit();
-//                    editor.putString(user.getEmail(), user.getPass());
-//                    editor.commit();
-
-                    DatabaseReference usersRef = ref.child("workerUsers");
-                    usersRef.child(user.getEmail()).setValue(user);
-
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
+                    home.putExtra("user", user);
                     startActivity(home);
                 }
             }

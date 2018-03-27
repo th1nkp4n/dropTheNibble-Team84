@@ -82,17 +82,14 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                 if (valid) {
                     Log.d("Log", "valid inputs");
                     Homeless user = (Homeless) getIntent().getSerializableExtra("user");
-                    String key = (String) getIntent().getSerializableExtra("key");
-                    user.setAge(Integer.valueOf(ageField.getText().toString()), key);
-                    user.setGender((String) genderSpinner.getSelectedItem(), key);
-                    user.setVeteran((boolean) veteranSpinner.getSelectedItem(), key);
-
-//                SharedPreferences settings = getSharedPreferences("Prefs", 0);
-//                SharedPreferences.Editor editor = settings.edit();
-//                editor.putString(user.getEmail(), user.getPass());
-//                editor.commit();
-
+                    user.setAge(Integer.valueOf(ageField.getText().toString()));
+                    user.setGender((String) genderSpinner.getSelectedItem());
+                    user.setVeteran((boolean) veteranSpinner.getSelectedItem());
+                    user.setFamiles(0);
+                    user.setSingles(0);
+                    user.setCheckedIn(-1);
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 } else {
                     BadHomelessRegistrationDialogFragment badReg = new BadHomelessRegistrationDialogFragment();
