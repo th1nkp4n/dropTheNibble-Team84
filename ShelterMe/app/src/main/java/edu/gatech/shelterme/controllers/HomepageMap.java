@@ -32,8 +32,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.Long;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 import edu.gatech.shelterme.model.User;
 
@@ -43,6 +45,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     private Button logoutButton;
     private DatabaseReference shelterReference;
     private DatabaseReference shelterCheckoutRef;
+    private DatabaseReference userReference;
     private ListView listView;
     private ArrayAdapter<String> adapter;
     protected ArrayList<Shelter> shelters;
@@ -65,54 +68,64 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
         checkOutButton = (Button) findViewById(R.id.checkout);
         listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
-        if( type.equals("Homeless") && user.getCheckedIn() == -1) {
-            checkOutButton.setVisibility(View.GONE);
+
+        if (!type.equals("homeless")) {
+            checkOutButton.setVisibility(View.INVISIBLE);
         }
 
-        checkOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (type.equals("Homeless")) {
-                    Log.d("CHECKOUT", "User checked out of " + user.getShelter().toString());
-                    user.setCheckedIn(-1);
-                    families = user.getFamilies();
-                    singles = user.getSingles();
-                    shelterId = user.getCheckedIn;
+        if (type.equals("homeless")) {
+            Homeless user = null;
+            userReference = FirebaseDatabase.getInstance().getReference();
+            userReference.child("homeless").child(key)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                    Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                    if (user.getCheckedIn() == (-1)) {
+                        checkOutButton.setVisibility(View.INVISIBLE);
+                    }
+                    checkOutButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                        public void onClick(View view) {
+                            shelterCheckoutRef = FirebaseDatabase.getInstance().getReference()
+                                    .child("shelters").orderByChild("name").equalTo(shelterId).getRef();
+                            shelterCheckoutRef.addValueEventListener( new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    ArrayList shelters = (ArrayList) dataSnapshot.getValue();
+                                    HashMap<String, Object> myShelt= (HashMap<String, Object>) shelters.get(0);
+                                    int familyVac = ((Long) myShelt.get("familyVacancies")).intValue();
+                                    int singleVac = ((Long) myShelt.get("singleVacancies")).intValue();
+                                    if (families > 0) {
+                                        shelterCheckoutRef.child("" + shelterId).child("familyVacancies").setValue(familyVac + families);
+                                    } else if (singles > 0) {
+                                        shelterCheckoutRef.child("" + shelterId).child("singleVacancies").setValue(familyVac + singles);
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+                            if (type.equals("homeless")) {
+                                Log.d("CHECKOUT", "User checked out of " + user.getCheckedIn());
+                                user.setCheckedIn(-1, key);
+                                families = user.getFamilies();
+                                singles = user.getSingles();
+                                shelterId = user.getCheckedIn();
+                            }
+                            Intent intent = new Intent(getBaseContext(), LoginPage.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
 
-                shelterCheckoutRef = FirebaseDatabase.getInstance().getReference()
-                        .child("shelters").orderByChild("name").equalTo(shelterId).getRef();
-                shelterCheckoutRef.addValueEventListener( new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        ArrayList shelters = (ArrayList) dataSnapshot.getValue();
-                        HashMap<String, Object> myShelt= (HashMap<String, Object>) shelters.get(shelterId);
-                        int familyVac = (Integer) myShelt.get("familyVacancies");
-                        int singleVac = (Integer) myShelt.get("singleVacancies");
-                        if (families > 0) {
-                            shelterCheckoutRef.child("" + shelterId).child("familyVacancies").setValue(familyVac + families);
-                        } else if (singles > 0) {
-                            shelterCheckoutRef.child("" + shelterId).child("singleVacancies").setValue(familyVac + singles);
-                        }
-
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Getting Post failed, log a message
-                        //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                        // [START_EXCLUDE]
-                        //Toast.makeText(PostDetailActivity.this, "Failed to load post.",
-                        //Toast.LENGTH_SHORT).show();
-                        // [END_EXCLUDE]
-                    }
-                });
-                Intent intent = new Intent(getBaseContext(), LoginPage.class);
-                startActivity(intent);
-            }
-        });
-
-
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("Log", "didn't work");
+                }
+            });
+        }
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
@@ -216,7 +229,6 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
         );
 
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
-
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

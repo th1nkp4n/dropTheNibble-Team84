@@ -17,9 +17,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Homeless;
 
 public class Shelter_detail_Page extends AppCompatActivity {
     private DatabaseReference shelterReference;
+    private DatabaseReference userReference;
     TextView name;
     TextView address;
     TextView longitude;
@@ -29,6 +31,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
     TextView restrictions;
     TextView number;
     Button cancel;
+    Button checkIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,32 @@ public class Shelter_detail_Page extends AppCompatActivity {
         specialnotes = (TextView) findViewById(R.id.specialnotes);
         number = (TextView) findViewById(R.id.phone);
         cancel = (Button) findViewById(R.id.cancel);
+        checkIn = (Button) findViewById(R.id.checkIn);
+
+        String key = (String) getIntent().getSerializableExtra("key");
+        String type = (String) getIntent().getSerializableExtra("type");
+
+        if (!type.equals("homeless")) {
+            checkIn.setVisibility(View.INVISIBLE);
+        } else {
+            Homeless user = null;
+            userReference = FirebaseDatabase.getInstance().getReference();
+            userReference.child("homeless").child(key)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get Post object and use the values to update the UI
+                            Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                            if (user.getCheckedIn() != (-1)) {
+                                checkIn.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        }
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
@@ -57,7 +86,6 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
                         HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(shelterID);
                         name.setText(name.getText() + myShelt.get("name").toString()) ;
-                        capacity.setText(capacity.getText() + myShelt.get("capacity").toString());
                         restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
                         longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
                         latitude.setText(latitude.getText() + myShelt.get("latitude").toString());
@@ -88,6 +116,8 @@ public class Shelter_detail_Page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
+                start.putExtra("type",type);
+                start.putExtra("key",key);
                 startActivity(start);
             }
         });

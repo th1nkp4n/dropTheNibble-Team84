@@ -104,6 +104,8 @@ public class Search extends AppCompatActivity {
                 start.putExtra("name", nameSpinner.getSelectedItem().toString());
                 start.putExtra("age", ageSpinner.getSelectedItem().toString());
                 start.putExtra("gender", genderSpinner.getSelectedItem().toString());
+                start.putExtra("type",getIntent().getSerializableExtra("type"));
+                start.putExtra("key",getIntent().getSerializableExtra("key"));
                 startActivity(start);
             }
         });
@@ -113,6 +115,8 @@ public class Search extends AppCompatActivity {
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
                 getIntent().putExtra("cancel", 5);
+                start.putExtra("type",getIntent().getSerializableExtra("type"));
+                start.putExtra("key",getIntent().getSerializableExtra("key"));
                 startActivity(start);
             }
         });
