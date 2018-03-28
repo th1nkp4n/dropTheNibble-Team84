@@ -88,12 +88,12 @@ public class Homeless {
     }
 
 
-    public void setPassword(String password, String key) {
+    public void setPass(String password, String key) {
         ref.child("homeless").child(key).child("pass").setValue(password);
         this.pass = password;
     }
 
-    public String getPassword() {
+    public String getPass() {
         return pass;
     }
 

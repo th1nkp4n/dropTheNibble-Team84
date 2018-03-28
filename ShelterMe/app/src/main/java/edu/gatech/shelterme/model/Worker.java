@@ -53,12 +53,12 @@ public class Worker {
     }
 
 
-    public void setPassword(String password, String key) {
+    public void setPass(String password, String key) {
         ref.child("worker").child(key).child("pass").setValue(password);
         this.pass = password;
     }
 
-    public String getPassword() {
+    public String getPass() {
         return pass;
     }
 }

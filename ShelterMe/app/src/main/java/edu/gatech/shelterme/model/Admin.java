@@ -41,12 +41,12 @@ public class Admin {
     }
 
 
-    public void setPassword(String password, String key) {
+    public void setPass(String password, String key) {
         this.pass = password;
         ref.child("admin").child(key).child("pass").setValue(password);
     }
 
-    public String getPassword() {
+    public String getPass() {
         return pass;
     }
 
