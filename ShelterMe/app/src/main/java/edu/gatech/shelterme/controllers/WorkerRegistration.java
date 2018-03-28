@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Worker;
 
 public class WorkerRegistration extends AppCompatActivity {
@@ -52,10 +56,27 @@ public class WorkerRegistration extends AppCompatActivity {
                     badReg.show(ft, "maybe");
                 } else {
                     Log.d("Log", "correct inputs");
-                    Worker user = (Worker) getIntent().getSerializableExtra("user");
-                    user.setSocial(socialSecurity.getText().toString());
+                    String key = (String) getIntent().getSerializableExtra("key");
+                    Log.d("Log", socialSecurity.getText().toString());
+
+                    Worker user = null;
+                    FirebaseDatabase.getInstance().getReference().child("worker").child(key)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // Get Post object and use the values to update the UI
+                                    Worker user = (Worker) dataSnapshot.getValue(Worker.class);
+                                    user.setSocial(socialSecurity.getText().toString(), key);
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
-                    home.putExtra("user", user);
+                    home.putExtra("key", key);
                     startActivity(home);
                 }
             }
