@@ -26,6 +26,9 @@ public class Worker extends User  implements Serializable{
     public String getSocial() {
         return social;
     }
+    public String getKey() {
+        return key;
+    }
     public void setSocial(String number) {
         ref.child("worker").child(this.key).child("social").setValue(social);
         this.social = number;

@@ -40,6 +40,9 @@ public class Homeless extends User implements Serializable{
 
 
     public int getAge() {return age;}
+    public String getKey() {
+        return key;
+    }
     public String getGender() {return gender;}
     public boolean getVeteran() {return veteran;}
     public int getCheckedIn() {return checkedIn;}

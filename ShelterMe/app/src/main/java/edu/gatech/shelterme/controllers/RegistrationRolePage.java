@@ -52,18 +52,21 @@ public class RegistrationRolePage extends AppCompatActivity {
                 RadioButton worker = (RadioButton) findViewById(R.id.workerRadio);
                 Log.d("Log", "User type selected");
                 Intent intent = new Intent(getBaseContext(), RegistrationUserInfo.class);
-                User user = null;
+                String key = null;
                 if (homeless.isChecked()) {
-                    user = new Homeless();
+                    Homeless user = new Homeless();
+                    key = user.getKey();
                     Log.d("Log", "User type is homeless and in firebase");
                 } else if (worker.isChecked()) {
-                    user  = new Worker();
+                    Worker user  = new Worker();
+                    key = user.getKey();
                     Log.d("Log", "User type is worker and in firebase");
                 } else if (admin.isChecked()) {
-                    user = new Admin();
+                    Admin user = new Admin();
+                    key = user.getKey();
                     Log.d("Log", "User type is admin and in firebase");
                 }
-                intent.putExtra("user", user);
+                intent.putExtra("key", key);
 
 
                 startActivity(intent);

@@ -26,6 +26,10 @@ public class Admin extends User implements Serializable{
         this.key = key;
     }
 
+    public String getKey() {
+        return key;
+    }
+
     @Override
     public void updateEmail(String email) {
         ref.child("adminUsers").child(this.key).child("email").setValue(email);
