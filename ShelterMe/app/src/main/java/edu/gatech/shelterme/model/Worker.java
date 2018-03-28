@@ -38,15 +38,27 @@ public class Worker {
         this.email = email;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
 
     public void setName(String name, String key) {
         ref.child("worker").child(key).child("name").setValue(name);
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
 
     public void setPassword(String password, String key) {
         ref.child("worker").child(key).child("pass").setValue(password);
         this.pass = password;
+    }
+
+    public String getPassword() {
+        return pass;
     }
 }

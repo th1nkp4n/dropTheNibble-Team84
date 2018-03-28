@@ -73,10 +73,18 @@ public class Homeless {
         this.email = email;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
 
     public void setName(String name, String key) {
         ref.child("homeless").child(key).child("name").setValue(name);
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 
@@ -85,7 +93,9 @@ public class Homeless {
         this.pass = password;
     }
 
-
+    public String getPassword() {
+        return pass;
+    }
 
 
 }
