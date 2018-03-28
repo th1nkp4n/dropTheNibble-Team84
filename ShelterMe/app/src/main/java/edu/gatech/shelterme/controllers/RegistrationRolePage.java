@@ -55,6 +55,10 @@ public class RegistrationRolePage extends AppCompatActivity {
                 String key = null;
                 if (homeless.isChecked()) {
                     Homeless user = new Homeless();
+                    DatabaseReference usersRef = ref.child("admin");
+                    DatabaseReference d = usersRef.push();
+                    d.setValue(user);
+                    user.setKey(d.getKey());
                     key = user.getKey();
                     Log.d("Log", "User type is homeless and in firebase");
                 } else if (worker.isChecked()) {
