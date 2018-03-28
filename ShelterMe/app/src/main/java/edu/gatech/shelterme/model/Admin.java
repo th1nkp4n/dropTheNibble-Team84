@@ -17,9 +17,7 @@ public class Admin extends User implements Serializable{
 
     public Admin() {
         super(null, null, null);
-        DatabaseReference usersRef = ref.child("admin");
-        usersRef.push();
-        this.key = usersRef.getKey();
+        this.create();
     }
 
     public void setKey(String key) {
@@ -46,5 +44,12 @@ public class Admin extends User implements Serializable{
     public void updatePassword(String password) {
         ref.child("adminUsers").child(this.key).child("password").setValue(password);
         this.setPass(password);
+    }
+
+    public void create() {
+        DatabaseReference usersRef = ref.child("admin");
+        DatabaseReference d = usersRef.push();
+        d.setValue(this);
+        this.key = d.getKey();
     }
 }

@@ -56,15 +56,15 @@ public class RegistrationUserInfo extends AppCompatActivity {
             public void onClick(View view) {
                 if(pass1Field.getText().toString().compareTo(pass2Field.getText().toString())==0) {
                     Log.d("Log", "Valid registration information");
+                    User user = (User) getIntent().getSerializableExtra("user");
+                    user.updateEmail(emailField.getText().toString());
+                    user.updatePassword(pass1Field.getText().toString());
+                    user.updateName(userField.getText().toString());
                     Intent intent;
                     if (user instanceof Admin) {
                         Log.d("Log","Admin");
-                        Admin user = (User) getIntent().getSerializableExtra("user");
-                        user.updateEmail(emailField.getText().toString());
-                        user.updatePassword(pass1Field.getText().toString());
-                        user.updateName(userField.getText().toString());
                         intent = new Intent(getBaseContext(), HomepageMap.class);
-                        intent.putExtra("key", user.getKey());
+                        intent.putExtra("key", user);
                     } else if (user instanceof Homeless) {
                         Log.d("Log","Homeless");
                         intent = new Intent(getBaseContext(), Homeless_Registration.class);
