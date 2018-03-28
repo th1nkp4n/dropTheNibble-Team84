@@ -49,7 +49,7 @@ public class CheckInPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shelter_detail__page);
+        setContentView(R.layout.activity_check_in_page);
         String shelterID = (String) getIntent().getStringExtra("id");
         noSingles = (TextView) findViewById(R.id.noIndividualsText);
         noFamilies = (TextView) findViewById(R.id.noFamiliesText);
