@@ -38,6 +38,7 @@ public class LoginPage extends AppCompatActivity {
     private Button registerButton;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference();
+    private boolean loggedIn;
 
 
     @Override
@@ -59,7 +60,7 @@ public class LoginPage extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("Prefs", 0);
                 String pass = passField.getText().toString();
                 String email = settings.getString(userField.getText().toString(), null);
-
+                loggedIn = false;
 
                 if (pass == null) {
                     //tell them they had the wrong username or password
@@ -67,8 +68,7 @@ public class LoginPage extends AppCompatActivity {
                     BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     badLogin.show(ft, "maybe");
-                }
-                else {
+                } else {
                     DatabaseReference  allPassMatchesH = ref.child("homeless").orderByChild("email").equalTo(email).getRef();
                     DatabaseReference allPassMatchesA = ref.child("admin").orderByChild("email").equalTo(email).getRef();
                     DatabaseReference allPassMatchesW = ref.child("worker").orderByChild("email").equalTo(email).getRef();
@@ -80,6 +80,7 @@ public class LoginPage extends AppCompatActivity {
                             for (DataSnapshot homelessSnapshot: dataSnapshot.getChildren()) {
                                 Homeless user = (Homeless) homelessSnapshot.getValue(Homeless.class);
                                 if (user.getPass().equals(pass)) {
+                                    loggedIn = true;
                                     String key = homelessSnapshot.getKey();
 
                                     Log.d("Log", "correct inputs");
@@ -135,6 +136,13 @@ public class LoginPage extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             }
+                            if (!loggedIn) {
+                                //tell them they had the wrong username or password
+                                Log.d("Log", "incorrect inputs");
+                                BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                badLogin.show(ft, "maybe");
+                            }
                         }
 
                         @Override
@@ -143,12 +151,6 @@ public class LoginPage extends AppCompatActivity {
                         }
                     });
 
-
-                    //tell them they had the wrong username or password
-                    Log.d("Log", "incorrect inputs");
-                    BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    badLogin.show(ft, "maybe");
                 }
 
             }
