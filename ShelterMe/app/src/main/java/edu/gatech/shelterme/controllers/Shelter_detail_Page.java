@@ -47,11 +47,6 @@ public class Shelter_detail_Page extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.cancel);
         checkIn = (Button) findViewById(R.id.checkIn);
 
-        // If user is worker or admin, or if user is checked into any shelter, hide checkin button
-        if (shelterID < 0 || getIntent().getSerializableExtra("key") != "homeless") {
-            checkIn.setVisibility(View.INVISIBLE);
-        }
-
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
         shelterReference.addValueEventListener( new ValueEventListener() {

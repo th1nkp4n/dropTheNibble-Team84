@@ -90,11 +90,10 @@ public class CheckInPage extends AppCompatActivity {
             public void onClick(View view) {
                 //Firebase Stuff
 
-                shelterReference.child(shelterID)
+                ref.child("shelters").child(shelterID)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                homeless.setCheckedIn(shelterID, homeless.getKey());
                                 homeless.setFamiles(Integer.valueOf(numFamilies.getText().toString()), homeless.getKey());
                                 homeless.setSingles(Integer.valueOf(numSingles.getText().toString()), homeless.getKey());
                             }
@@ -104,6 +103,20 @@ public class CheckInPage extends AppCompatActivity {
                                 Log.d("Log", "didn't work");
                             }
                         });
+
+                ref.child("homeless").child(homeless.getKey())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                homeless.setCheckedIn(Integer.valueOf(shelterID), homeless.getKey());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.d("Log", "didn't work");
+                            }
+                        });
+
 
                 Log.d("CHECKOUT", "User checked into " + homeless.getCheckedIn());
 
