@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by ttsubota3 on 2/18/18.
  */
 
-public class Admin implements Serializable{
+public class Admin {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference();
     private String email;
@@ -19,9 +19,11 @@ public class Admin implements Serializable{
 
     public Admin() {
         this.name = "killMe";
-        this.email = "steve";
     }
 
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email, String key) {
         this.email = email;
@@ -34,10 +36,18 @@ public class Admin implements Serializable{
         ref.child("admin").child(key).child("name").setValue(name);
     }
 
+    public String getName() {
+        return name;
+    }
 
-    public void setPassword(String password, String key) {
+
+    public void setPass(String password, String key) {
         this.pass = password;
         ref.child("admin").child(key).child("pass").setValue(password);
+    }
+
+    public String getPass() {
+        return pass;
     }
 
 }

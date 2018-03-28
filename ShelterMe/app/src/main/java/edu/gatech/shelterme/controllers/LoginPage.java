@@ -10,7 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Admin;
+import edu.gatech.shelterme.model.Homeless;
+import edu.gatech.shelterme.model.Worker;
+
+import static java.util.logging.Logger.global;
 
 /**
  * Created by Meha on 2/10/2018.
@@ -24,11 +36,15 @@ public class LoginPage extends AppCompatActivity {
     private EditText passField;
     private Button loginButton;
     private Button registerButton;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+
 
 
         //Grab the dialog widgets so we can get info for later
@@ -41,20 +57,93 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                String pass = settings.getString(userField.getText().toString(), null);
+                String pass = passField.getText().toString();
+                String email = settings.getString(userField.getText().toString(), null);
+
 
                 if (pass == null) {
                     //tell them they had the wrong username or password
-                    Log.d("Log", "incorrect inputs");
+                    Log.d("Log", "incorrect");
                     BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     badLogin.show(ft, "maybe");
                 }
-                else if (passField.getText(). toString().compareTo(pass)==0) {
-                    Log.d("Log", "correct inputs");
-                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
-                    startActivity(intent);
-                } else {
+                else {
+                    DatabaseReference  allPassMatchesH = ref.child("homeless").orderByChild("email").equalTo(email).getRef();
+                    DatabaseReference allPassMatchesA = ref.child("admin").orderByChild("email").equalTo(email).getRef();
+                    DatabaseReference allPassMatchesW = ref.child("worker").orderByChild("email").equalTo(email).getRef();
+
+                    allPassMatchesH.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("Log", "in homeless event listener");
+                            for (DataSnapshot homelessSnapshot: dataSnapshot.getChildren()) {
+                                Homeless user = (Homeless) homelessSnapshot.getValue(Homeless.class);
+                                if (user.getPass().equals(pass)) {
+                                    String key = homelessSnapshot.getKey();
+
+                                    Log.d("Log", "correct inputs");
+                                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                                    intent.putExtra("key", key);
+                                    intent.putExtra("type", "homeless");
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d("Log", "in canceled");
+                        }
+                    });
+
+                    allPassMatchesA.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot adminSnapshot: dataSnapshot.getChildren()) {
+                                Admin user = (Admin) adminSnapshot.getValue(Admin.class);
+                                if (user.getPass().equals(pass)) {
+                                    String key = adminSnapshot.getKey();
+
+                                    Log.d("Log", "correct inputs");
+                                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                                    intent.putExtra("key", key);
+                                    intent.putExtra("type", "admin");
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    allPassMatchesW.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot workerSnapshot: dataSnapshot.getChildren()) {
+                                Worker user = (Worker) workerSnapshot.getValue(Worker.class);
+                                if (user.getPass().equals(pass)) {
+                                    String key = workerSnapshot.getKey();
+
+                                    Log.d("Log", "correct inputs");
+                                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                                    intent.putExtra("key", key);
+                                    intent.putExtra("type", "worker");
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                     //tell them they had the wrong username or password
                     Log.d("Log", "incorrect inputs");
                     BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();

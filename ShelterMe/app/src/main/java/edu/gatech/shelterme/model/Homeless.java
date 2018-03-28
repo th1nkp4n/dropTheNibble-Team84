@@ -73,19 +73,29 @@ public class Homeless {
         this.email = email;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
 
     public void setName(String name, String key) {
         ref.child("homeless").child(key).child("name").setValue(name);
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 
-    public void setPassword(String password, String key) {
+
+    public void setPass(String password, String key) {
         ref.child("homeless").child(key).child("pass").setValue(password);
         this.pass = password;
     }
 
-
+    public String getPass() {
+        return pass;
+    }
 
 
 }
