@@ -32,22 +32,23 @@ public class Shelter_detail_Page extends AppCompatActivity {
     TextView number;
     Button cancel;
     Button checkIn;
+    String shelterID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
-        final int shelterID = (int) getIntent().getIntExtra("id",0);
-        name = (TextView) findViewById(R.id.gender);
-        capacity = (TextView) findViewById(R.id.capacity);
-        restrictions = (TextView) findViewById(R.id.restrictions);
-        longitude = (TextView) findViewById(R.id.longitude);
-        latitude = (TextView) findViewById(R.id.latitude);
-        address = (TextView) findViewById(R.id.address);
-        specialnotes = (TextView) findViewById(R.id.specialnotes);
-        number = (TextView) findViewById(R.id.phone);
-        cancel = (Button) findViewById(R.id.cancel);
-        checkIn = (Button) findViewById(R.id.checkIn);
+        shelterID = getIntent().getStringExtra("id");
+        name = findViewById(R.id.gender);
+        capacity = findViewById(R.id.capacity);
+        restrictions = findViewById(R.id.restrictions);
+        longitude = findViewById(R.id.longitude);
+        latitude = findViewById(R.id.latitude);
+        address = findViewById(R.id.address);
+        specialnotes = findViewById(R.id.specialnotes);
+        number = findViewById(R.id.phone);
+        cancel = findViewById(R.id.cancel);
+        checkIn = findViewById(R.id.checkIn);
 
         String key = (String) getIntent().getSerializableExtra("key");
         String type = (String) getIntent().getSerializableExtra("type");
@@ -62,7 +63,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get Post object and use the values to update the UI
-                            Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                            Homeless user = dataSnapshot.getValue(Homeless.class);
                             if (user.getCheckedIn() != (-1)) {
                                 checkIn.setVisibility(View.INVISIBLE);
                             }
@@ -84,7 +85,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
-                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(shelterID);
+                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(Integer.valueOf(shelterID));
                         name.setText(name.getText() + myShelt.get("name").toString()) ;
                         restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
                         longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
@@ -118,6 +119,17 @@ public class Shelter_detail_Page extends AppCompatActivity {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
                 start.putExtra("type",type);
                 start.putExtra("key",key);
+                startActivity(start);
+            }
+        });
+
+        checkIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent start = new Intent(getBaseContext(), CheckInPage.class);
+                start.putExtra("type",type);
+                start.putExtra("key",key);
+                start.putExtra("id", shelterID);
                 startActivity(start);
             }
         });
