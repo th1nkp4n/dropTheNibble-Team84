@@ -104,6 +104,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                             });
 
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                    intent.putExtra("type", "homeless");
                     intent.putExtra("key", key);
                     startActivity(intent);
                 } else {

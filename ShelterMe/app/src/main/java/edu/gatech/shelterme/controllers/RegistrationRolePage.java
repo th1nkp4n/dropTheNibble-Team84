@@ -59,8 +59,7 @@ public class RegistrationRolePage extends AppCompatActivity {
                     DatabaseReference usersRef = ref.child("worker");
                     DatabaseReference d = usersRef.push();
                     d.setValue(user);
-                    user.setKey(d.getKey());
-                    key = user.getKey();
+                    key = d.getKey();
                     Log.d("Log", "User type is worker and in firebase");
                     intent.putExtra("key", key);
                     intent.putExtra("type", "worker");
@@ -69,7 +68,6 @@ public class RegistrationRolePage extends AppCompatActivity {
                     DatabaseReference usersRef = ref.child("homeless");
                     DatabaseReference d = usersRef.push();
                     d.setValue(user);
-                    user.setKey(d.getKey());
                     key = d.getKey();
                     intent.putExtra("key", key);
                     Log.d("Log", "User type is homeless and in firebase");
@@ -79,9 +77,7 @@ public class RegistrationRolePage extends AppCompatActivity {
                     DatabaseReference usersRef = ref.child("admin");
                     DatabaseReference a = usersRef.push();
                     a.setValue(user);
-                    user.setKey(a.getKey());
-                    Log.d("Log", "Key is " + user.getKey());
-                    key = user.getKey();
+                    key = a.getKey();
                     Log.d("Log", "User type is admin and in firebase");
                     intent.putExtra("key", key);
                     intent.putExtra("type", "admin");
