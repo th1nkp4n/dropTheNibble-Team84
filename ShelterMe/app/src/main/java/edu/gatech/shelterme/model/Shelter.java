@@ -39,7 +39,7 @@ public class Shelter {
     }
 
     public void setName(String name, String id) {
-        ref.child("homelessUsers").child(id).child("name").setValue(name);
+        ref.child("shelters").child(id).child("name").setValue(name);
     }
 
     public String getCapacity() {
@@ -47,7 +47,7 @@ public class Shelter {
     }
 
     public void setCapacity(String capacity, String id) {
-        ref.child("homelessUsers").child(id).child("capacity").setValue(capacity);
+        ref.child("shelters").child(id).child("capacity").setValue(capacity);
     }
 
     public String getRestriction() {
@@ -55,7 +55,7 @@ public class Shelter {
     }
 
     public void setRestriction(String restriction, String id) {
-        ref.child("homelessUsers").child(id).child("restriction").setValue(restriction);
+        ref.child("shelters").child(id).child("restriction").setValue(restriction);
     }
 
     public double getLongitude() {
@@ -63,7 +63,7 @@ public class Shelter {
     }
 
     public void setLongitude(double longitude, String id) {
-        ref.child("homelessUsers").child(id).child("longitude").setValue(longitude);
+        ref.child("shelters").child(id).child("longitude").setValue(longitude);
     }
 
     public double getLatitude() {
@@ -71,7 +71,7 @@ public class Shelter {
     }
 
     public void setLatitude(double latitude, String id) {
-        ref.child("homelessUsers").child(id).child("latitude").setValue(latitude);
+        ref.child("shelters").child(id).child("latitude").setValue(latitude);
     }
 
     public String getAddress() {
@@ -79,7 +79,7 @@ public class Shelter {
     }
 
     public void setAddress(String address, String id) {
-        ref.child("homelessUsers").child(id).child("address").setValue(address);
+        ref.child("shelters").child(id).child("address").setValue(address);
     }
 
     public String getSpecialNotes() {
@@ -87,7 +87,7 @@ public class Shelter {
     }
 
     public void setSpecialNotes(String specialNotes, String id) {
-        ref.child("homelessUsers").child(id).child("specialNotes").setValue(specialNotes);
+        ref.child("shelters").child(id).child("specialNotes").setValue(specialNotes);
     }
 
     public String getPhone() {
@@ -95,7 +95,7 @@ public class Shelter {
     }
 
     public void setPhone(String phone, String id) {
-        ref.child("homelessUsers").child(id).child("phone").setValue(phone);
+        ref.child("shelters").child(id).child("phone").setValue(phone);
     }
 
     public String toString() {

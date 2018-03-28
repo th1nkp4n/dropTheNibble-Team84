@@ -24,18 +24,21 @@ public class Homeless extends User implements Serializable{
     private String key;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference();
+    private String email;
+    private String pass;
+    private String name;
 
     public static List<String> genders = Arrays.asList("Cis Woman", "Cis Man", "Nonbinary",
             "Trans Woman", "Trans Man", "Other", "Prefer Not To Say");
 
     public Homeless() {
-        super(null, null, null);
+        super("tape", "gaff", "carol");
         this.checkedIn = -1;
         this.famlies = 0;
         this.singles = 0;
-        DatabaseReference usersRef = ref.child("homeless");
-        usersRef.push();
-        this.key = usersRef.getKey();
+        this.email = super.getEmail();
+        this.pass = super.getPass();
+        this.name = super.getName();
     }
 
 
@@ -48,28 +51,28 @@ public class Homeless extends User implements Serializable{
     public int getCheckedIn() {return checkedIn;}
     public int getFamilies() {return famlies;}
     public int getSingles() {return singles;}
-    public void setAge(int page) {
-        ref.child("homeless").child(this.key).child("age").setValue(page);
+    public void setAge(int page, String key) {
+        ref.child("homeless").child(key).child("age").setValue(page);
         this.age = page;
     }
-    public void setGender(String pgender) {
-        ref.child("homeless").child(this.key).child("gender").setValue(pgender);
+    public void setGender(String pgender, String key) {
+        ref.child("homeless").child(key).child("gender").setValue(pgender);
         this.gender = pgender;
     }
-    public void setVeteran(boolean pvet) {
-        ref.child("homeless").child(this.key).child("vet").setValue(pvet);
+    public void setVeteran(boolean pvet, String key) {
+        ref.child("homeless").child(key).child("veteran").setValue(pvet);
         this.veteran = pvet;
     }
-    public void setCheckedIn(int shelter) {
-        ref.child("homeless").child(this.key).child("checkedIn").setValue(shelter);
+    public void setCheckedIn(int shelter, String key) {
+        ref.child("homeless").child(key).child("checkedIn").setValue(shelter);
         this.checkedIn = shelter;
     }
-    public void setFamiles(int pfamlies) {
-        ref.child("homeless").child(this.key).child("famlies").setValue(pfamlies);
+    public void setFamiles(int pfamlies, String key) {
+        ref.child("homeless").child(key).child("famlies").setValue(pfamlies);
         this.famlies = pfamlies;
     }
-    public void setSingles(int psingles) {
-        ref.child("homeless").child(this.key).child("singles").setValue(psingles);
+    public void setSingles(int psingles, String key) {
+        ref.child("homeless").child(key).child("singles").setValue(psingles);
         this.singles = psingles;
     }
     public void setKey(String key) {
@@ -82,16 +85,31 @@ public class Homeless extends User implements Serializable{
         this.setEmail(email);
     }
 
+    public void setEmail(String email, String key) {
+        ref.child("homeless").child(key).child("email").setValue(email);
+        this.email = email;
+    }
+
     @Override
     public void updateName(String name) {
         ref.child("homeless").child(this.key).child("name").setValue(name);
         this.setName(name);
     }
 
+    public void setName(String name, String key) {
+        ref.child("homeless").child(key).child("name").setValue(name);
+        this.name = name;
+    }
+
     @Override
     public void updatePassword(String password) {
         ref.child("homeless").child(this.key).child("password").setValue(password);
         this.setPass(password);
+    }
+
+    public void setPassword(String password, String key) {
+        ref.child("homeless").child(key).child("pass").setValue(password);
+        this.pass = password;
     }
 
 

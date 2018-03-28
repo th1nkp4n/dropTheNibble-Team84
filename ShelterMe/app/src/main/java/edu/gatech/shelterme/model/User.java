@@ -26,4 +26,9 @@ public abstract class User implements Serializable {
     public void updateEmail(String email) {}
     public void updateName(String name) {}
     public void updatePassword(String password) {}
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
