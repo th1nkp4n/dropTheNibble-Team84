@@ -61,7 +61,24 @@ public class CheckInPage extends AppCompatActivity {
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
-        singleVacancy = ;
+        shelterReference.child(shelterID)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get Post object and use the values to update the UI
+                        Admin user = (Admin) dataSnapshot.getValue(Admin.class);
+                        Log.d("Log", user.toString());
+                        Log.d("Log", emailField.getText().toString());
+                        user.setEmail(emailField.getText().toString(), key);
+                        user.setPassword(pass1Field.getText().toString(), key);
+                        user.setName(userField.getText().toString(), key);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("Log", "didn't work");
+                    }
+                });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
