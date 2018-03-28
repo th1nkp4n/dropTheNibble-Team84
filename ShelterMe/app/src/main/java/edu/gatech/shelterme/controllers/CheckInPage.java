@@ -48,7 +48,7 @@ public class CheckInPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
-        int shelterID = (int) getIntent().getIntExtra("id",0);
+        String shelterID = (String) getIntent().getStringExtra("id");
         noSingles = (TextView) findViewById(R.id.noIndividualsText);
         noFamilies = (TextView) findViewById(R.id.noFamiliesText);
         numSinglesText = (TextView) findViewById(R.id.restrictions);
@@ -65,10 +65,11 @@ public class CheckInPage extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get Post object and use the values to update the UI
-                        Admin user = (Admin) dataSnapshot.getValue(Admin.class);
-                        Log.d("Log", user.toString());
-                        Log.d("Log", emailField.getText().toString());
+                        String currentSingleCapacity = (String) dataSnapshot.child("singleCapacity").getValue();
+                        String currentFamilyCapacity = (String) dataSnapshot.child("familyCapacity").getValue();
+                        String currentSingleVancancies = (String) dataSnapshot.child("singleVacancies").getValue();
+                        String currentFamilyVancancies = (String) dataSnapshot.child("familyVacancies").getValue();
+
                         user.setEmail(emailField.getText().toString(), key);
                         user.setPassword(pass1Field.getText().toString(), key);
                         user.setName(userField.getText().toString(), key);

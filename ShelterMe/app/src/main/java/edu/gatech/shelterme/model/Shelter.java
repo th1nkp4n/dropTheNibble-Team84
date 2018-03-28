@@ -11,8 +11,8 @@ public class Shelter {
     private String name;
     private String singleCapacity;
     private String familyCapacity;
-    private String singleVacancy;
-    private String familyVacancy;
+    private String singleVacancies;
+    private String familyVacancies;
     private String restriction;
     private double longitude;
     private double latitude;
@@ -24,12 +24,12 @@ public class Shelter {
 
     public Shelter(){};
 
-    public Shelter(String name, String singleCapacity, String familyCapacity, String singleVacancy, String familyVacancy, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
+    public Shelter(String name, String singleCapacity, String familyCapacity, String singleVacancies, String familyVacancies, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
         this.name = name;
         this.singleCapacity = singleCapacity;
         this.familyCapacity = familyCapacity;
-        this.singleCapacity = singleVacancy;
-        this.familyCapacity = familyVacancy;
+        this.singleCapacity = singleVacancies;
+        this.familyCapacity = familyVacancies;
         this.restriction = restriction;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -64,20 +64,20 @@ public class Shelter {
         ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
     }
 
-    public String getSingleVacancy() {
-        return singleVacancy;
+    public String getsingleVacancies() {
+        return singleVacancies;
     }
 
-    public void setSingleVacancy(String singleVacancy, String id) {
-        ref.child("shelters").child(id).child("singleVacancy").setValue(singleVacancy);
+    public void setsingleVacancies(String singleVacancies, String id) {
+        ref.child("shelters").child(id).child("singleVacancies").setValue(singleVacancies);
     }
 
-    public String getFamilyVacancy() {
-        return familyVacancy;
+    public String getfamilyVacancies() {
+        return familyVacancies;
     }
 
-    public void setFamilyVacancy(String familyVacancy, String id) {
-        ref.child("shelters").child(id).child("familyVacancy").setValue(familyVacancy);
+    public void setfamilyVacancies(String familyVacancies, String id) {
+        ref.child("shelters").child(id).child("familyVacancies").setValue(familyVacancies);
     }
 
     public String getRestriction() {
