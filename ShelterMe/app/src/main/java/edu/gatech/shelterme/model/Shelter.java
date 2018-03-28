@@ -9,7 +9,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Shelter {
     private String name;
-    private String capacity;
+    private String singleCapacity;
+    private String familyCapacity;
+    private String singleVacancy;
+    private String familyVacancy;
     private String restriction;
     private double longitude;
     private double latitude;
@@ -21,9 +24,12 @@ public class Shelter {
 
     public Shelter(){};
 
-    public Shelter(String name, String capacity, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
+    public Shelter(String name, String singleCapacity, String familyCapacity, String singleVacancy, String familyVacancy, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
         this.name = name;
-        this.capacity = capacity;
+        this.singleCapacity = singleCapacity;
+        this.familyCapacity = familyCapacity;
+        this.singleCapacity = singleVacancy;
+        this.familyCapacity = familyVacancy;
         this.restriction = restriction;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -42,12 +48,36 @@ public class Shelter {
         ref.child("shelters").child(id).child("name").setValue(name);
     }
 
-    public String getCapacity() {
-        return capacity;
+    public String getSingleCapacity() {
+        return singleCapacity;
     }
 
-    public void setCapacity(String capacity, String id) {
-        ref.child("shelters").child(id).child("capacity").setValue(capacity);
+    public void setSingleCapacity(String singleCapacity, String id) {
+        ref.child("shelters").child(id).child("singleCapacity").setValue(singleCapacity);
+    }
+
+    public String getFamilyCapacity() {
+        return familyCapacity;
+    }
+
+    public void setFamilyCapacity(String familyCapacity, String id) {
+        ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
+    }
+
+    public String getSingleVacancy() {
+        return singleVacancy;
+    }
+
+    public void setSingleVacancy(String singleVacancy, String id) {
+        ref.child("shelters").child(id).child("singleVacancy").setValue(singleVacancy);
+    }
+
+    public String getFamilyVacancy() {
+        return familyVacancy;
+    }
+
+    public void setFamilyVacancy(String familyVacancy, String id) {
+        ref.child("shelters").child(id).child("familyVacancy").setValue(familyVacancy);
     }
 
     public String getRestriction() {
