@@ -85,6 +85,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     }
                                 });
                         intent = new Intent(getBaseContext(), HomepageMap.class);
+                        intent.putExtra("type", "admin");
                         intent.putExtra("key", key);
                     } else if (type.equals("homeless")) {
                         Log.d("Log","Homeless");

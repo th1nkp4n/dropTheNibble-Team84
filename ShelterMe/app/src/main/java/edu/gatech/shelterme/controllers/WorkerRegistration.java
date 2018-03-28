@@ -76,6 +76,7 @@ public class WorkerRegistration extends AppCompatActivity {
                             });
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
+                    home.putExtra("type", "worker");
                     home.putExtra("key", key);
                     startActivity(home);
                 }
