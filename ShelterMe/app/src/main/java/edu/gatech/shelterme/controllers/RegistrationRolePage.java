@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
@@ -19,6 +22,8 @@ import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationRolePage extends AppCompatActivity {
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +52,42 @@ public class RegistrationRolePage extends AppCompatActivity {
                 RadioButton worker = (RadioButton) findViewById(R.id.workerRadio);
                 Log.d("Log", "User type selected");
                 Intent intent = new Intent(getBaseContext(), RegistrationUserInfo.class);
-                User user = null;
-                if (homeless.isChecked()) {
-                    user = new Homeless();
-                } else if (worker.isChecked()) {
-                    user  = new Worker();
+                String key = null;
+
+                if (worker.isChecked()) {
+                    Worker user = new Worker();
+                    DatabaseReference usersRef = ref.child("worker");
+                    DatabaseReference d = usersRef.push();
+                    d.setValue(user);
+                    user.setKey(d.getKey());
+                    key = user.getKey();
+                    Log.d("Log", "User type is worker and in firebase");
+                    intent.putExtra("key", key);
+                    intent.putExtra("type", "worker");
+                } else if (homeless.isChecked()) {
+                    Homeless user = new Homeless();
+                    DatabaseReference usersRef = ref.child("homeless");
+                    DatabaseReference d = usersRef.push();
+                    d.setValue(user);
+                    user.setKey(d.getKey());
+                    key = d.getKey();
+                    intent.putExtra("key", key);
+                    Log.d("Log", "User type is homeless and in firebase");
+                    intent.putExtra("type", "homeless");
                 } else if (admin.isChecked()) {
-                    user  = new Admin();
+                    Admin user = new Admin();
+                    DatabaseReference usersRef = ref.child("admin");
+                    DatabaseReference a = usersRef.push();
+                    a.setValue(user);
+                    user.setKey(a.getKey());
+                    Log.d("Log", "Key is " + user.getKey());
+                    key = user.getKey();
+                    Log.d("Log", "User type is admin and in firebase");
+                    intent.putExtra("key", key);
+                    intent.putExtra("type", "admin");
                 }
-                intent.putExtra("user", user);
+
+
 
                 startActivity(intent);
             }

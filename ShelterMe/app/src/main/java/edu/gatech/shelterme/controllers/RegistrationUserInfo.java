@@ -11,10 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.User;
+import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationUserInfo extends AppCompatActivity {
 
@@ -24,6 +31,8 @@ public class RegistrationUserInfo extends AppCompatActivity {
     private EditText pass1Field;
     private EditText emailField;
     private EditText pass2Field;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,27 +60,72 @@ public class RegistrationUserInfo extends AppCompatActivity {
             public void onClick(View view) {
                 if(pass1Field.getText().toString().compareTo(pass2Field.getText().toString())==0) {
                     Log.d("Log", "Valid registration information");
-                    User user = (User) getIntent().getSerializableExtra("user");
-                    user.setEmail(emailField.getText().toString());
-                    user.setPass(pass1Field.getText().toString());
-                    user.setName(userField.getText().toString());
+                    String key = (String) getIntent().getSerializableExtra("key");
+                    String type = (String) getIntent().getSerializableExtra("type");
                     Intent intent;
-                    if (user instanceof Admin) {
+                    if (type.equals("admin")) {
                         Log.d("Log","Admin");
-                        SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(user.getEmail(), user.getPass());
-                        editor.commit();
+                        Admin user = null;
+                        ref.child("admin").child(key)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        // Get Post object and use the values to update the UI
+                                        Admin user = (Admin) dataSnapshot.getValue(Admin.class);
+                                        Log.d("Log", user.toString());
+                                        Log.d("Log", emailField.getText().toString());
+                                        user.setEmail(emailField.getText().toString(), key);
+                                        user.setPassword(pass1Field.getText().toString(), key);
+                                        user.setName(userField.getText().toString(), key);
+                                    }
 
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Log.d("Log", "didn't work");
+                                    }
+                                });
                         intent = new Intent(getBaseContext(), HomepageMap.class);
-                    } else if (user instanceof Homeless) {
+                        intent.putExtra("key", key);
+                    } else if (type.equals("homeless")) {
                         Log.d("Log","Homeless");
+                        Homeless user = null;
+                        FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        // Get Post object and use the values to update the UI
+                                        Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                                        user.setEmail(emailField.getText().toString(), key);
+                                        user.setPassword(pass1Field.getText().toString(), key);
+                                        user.setName(userField.getText().toString(), key);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
                         intent = new Intent(getBaseContext(), Homeless_Registration.class);
-                        intent.putExtra("user", user);
+                        intent.putExtra("key", key);
                     } else {
                         Log.d("Log","Worker");
+                        Worker user = null;
+                        FirebaseDatabase.getInstance().getReference().child("worker").child(key)
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        // Get Post object and use the values to update the UI
+                                        Worker user = (Worker) dataSnapshot.getValue(Worker.class);
+                                        user.setEmail(emailField.getText().toString(), key);
+                                        user.setPassword(pass1Field.getText().toString(), key);
+                                        user.setName(userField.getText().toString(), key);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
                         intent = new Intent(getBaseContext(), WorkerRegistration.class);
-                        intent.putExtra("user", user);
+                        intent.putExtra("key", key);
                     }
                     startActivity(intent);
                 } else {

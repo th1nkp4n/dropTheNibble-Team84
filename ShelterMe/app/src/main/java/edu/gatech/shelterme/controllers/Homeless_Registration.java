@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.Arrays;
 
 import edu.gatech.shelterme.R;
@@ -27,6 +33,8 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     private Button cancelButton;
     private Button nextButton;
     private Homeless _person;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +84,27 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                 }
                 if (valid) {
                     Log.d("Log", "valid inputs");
-                    Homeless user = (Homeless) getIntent().getSerializableExtra("user");
-                    user.setAge(Integer.valueOf(ageField.getText().toString()));
-                    user.setGender((String) genderSpinner.getSelectedItem());
-                    user.setVeteran((boolean) veteranSpinner.getSelectedItem());
+                    String key = (String) getIntent().getSerializableExtra("key");
 
-                    SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(user.getEmail(), user.getPass());
-                    editor.commit();
+                    Homeless user = null;
+                    FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // Get Post object and use the values to update the UI
+                                    Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                                    user.setAge(Integer.valueOf(ageField.getText().toString()), key);
+                                    user.setGender((String) genderSpinner.getSelectedItem(), key);
+                                    user.setVeteran((boolean) veteranSpinner.getSelectedItem(), key);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
 
                     Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                    intent.putExtra("key", key);
                     startActivity(intent);
                 } else {
                     BadHomelessRegistrationDialogFragment badReg = new BadHomelessRegistrationDialogFragment();
