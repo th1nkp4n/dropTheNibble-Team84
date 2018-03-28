@@ -58,23 +58,28 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_map);
+        String key = (String) getIntent().getSerializableExtra("key");
+        String type = (String) getIntent().getSerializableExtra("type");
+
 
         checkOutButton = (Button) findViewById(R.id.checkout);
         listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
-        user = (User) getIntent().getSerializableExtra("user");
-        if(user.getCheckedIn() == -1) {
+        if( type.equals("Homeless") && user.getCheckedIn() == -1) {
             checkOutButton.setVisibility(View.GONE);
         }
 
         checkOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("CHECKOUT", "User checked out of " + user.getShelter().toString());
-                user.setCheckedIn(-1);
-                families = user.getFamilies();
-                singles = user.getSingles();
-                shelterId = user.getCheckedIn;
+                if (type.equals("Homeless")) {
+                    Log.d("CHECKOUT", "User checked out of " + user.getShelter().toString());
+                    user.setCheckedIn(-1);
+                    families = user.getFamilies();
+                    singles = user.getSingles();
+                    shelterId = user.getCheckedIn;
+                }
+
                 shelterCheckoutRef = FirebaseDatabase.getInstance().getReference()
                         .child("shelters").orderByChild("name").equalTo(shelterId).getRef();
                 shelterCheckoutRef.addValueEventListener( new ValueEventListener() {
@@ -203,6 +208,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         String sheltername = String.valueOf(parent.getItemAtPosition(position));
                         Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
                         intent.putExtra("id", position);
+                        intent.putExtra("key", key);
+                        intent.putExtra("type", type);
                         startActivity(intent);
                     }
                 }
@@ -225,6 +232,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), Search.class);
+                intent.putExtra("key", key);
+                intent.putExtra("type", type);
                 startActivity(intent);
             }
         });
