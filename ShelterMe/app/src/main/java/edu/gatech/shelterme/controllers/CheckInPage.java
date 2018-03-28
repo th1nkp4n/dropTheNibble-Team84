@@ -26,7 +26,8 @@ import edu.gatech.shelterme.model.Homeless;
  */
 
 public class CheckInPage extends AppCompatActivity {
-    private DatabaseReference shelterReference;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
     TextView noFamilies;
     TextView noSingles;
     TextView numFamiliesText;
@@ -36,11 +37,12 @@ public class CheckInPage extends AppCompatActivity {
     Button confirm;
     Button cancel;
     Homeless homeless;
-    String singleVacancy;
-    String familyVacancy;
+    String currentSingleCapacity;
+    String currentFamilyCapacity;
+    String currentSingleVancancies;
+    String currentFamilyVancancies;
 
 
-    // Take in homeless user - store hte shelter ID and the num of individuals/families that checked in
     // Update the vacancies based on how many people check in
     // Use the vacancies to determine the maximum of each type that can check in
 
@@ -59,20 +61,14 @@ public class CheckInPage extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.checkInCancelButton);
         homeless = (Homeless) getIntent().getSerializableExtra("homeless");
 
-        shelterReference = FirebaseDatabase.getInstance().getReference()
-                .child("shelters");
-        shelterReference.child(shelterID)
+        ref.child("shelters").child(shelterID)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String currentSingleCapacity = (String) dataSnapshot.child("singleCapacity").getValue();
-                        String currentFamilyCapacity = (String) dataSnapshot.child("familyCapacity").getValue();
-                        String currentSingleVancancies = (String) dataSnapshot.child("singleVacancies").getValue();
-                        String currentFamilyVancancies = (String) dataSnapshot.child("familyVacancies").getValue();
-
-                        user.setEmail(emailField.getText().toString(), key);
-                        user.setPassword(pass1Field.getText().toString(), key);
-                        user.setName(userField.getText().toString(), key);
+                        currentSingleCapacity = (String) dataSnapshot.child("singleCapacity").getValue();
+                        currentFamilyCapacity = (String) dataSnapshot.child("familyCapacity").getValue();
+                        currentSingleVancancies = (String) dataSnapshot.child("singleVacancies").getValue();
+                        currentFamilyVancancies = (String) dataSnapshot.child("familyVacancies").getValue();
                     }
 
                     @Override
@@ -93,10 +89,24 @@ public class CheckInPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Firebase Stuff
+
+                shelterReference.child(shelterID)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                homeless.setCheckedIn(shelterID, homeless.getKey());
+                                homeless.setFamiles(Integer.valueOf(numFamilies.getText().toString()), homeless.getKey());
+                                homeless.setSingles(Integer.valueOf(numSingles.getText().toString()), homeless.getKey());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.d("Log", "didn't work");
+                            }
+                        });
+
                 Log.d("CHECKOUT", "User checked into " + homeless.getCheckedIn());
-                homeless.setCheckedIn(shelterID, homeless.getKey());
-                homeless.setFamiles(Integer.valueOf(numFamilies.getText().toString()), homeless.getKey());
-                homeless.setSingles(Integer.valueOf(numSingles.getText().toString()), homeless.getKey());
+
                 Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
                 startActivity(start);
             }
