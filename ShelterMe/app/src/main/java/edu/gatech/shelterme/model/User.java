@@ -8,8 +8,14 @@ import java.io.Serializable;
 
 public abstract class User implements Serializable {
     private String email;
-    public String password;
+    private String password;
     private String name;
+    public User() {}
+    public User(String email, String password, String name) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
     public String getName() {return name;}
     public String getEmail() {return email;}
@@ -17,4 +23,7 @@ public abstract class User implements Serializable {
     public void setName(String pname) {name = pname;}
     public void setEmail(String pemail) {email = pemail;}
     public void setPass(String ppass) {password = ppass;}
+    public void updateEmail(String email) {}
+    public void updateName(String name) {}
+    public void updatePassword(String password) {}
 }

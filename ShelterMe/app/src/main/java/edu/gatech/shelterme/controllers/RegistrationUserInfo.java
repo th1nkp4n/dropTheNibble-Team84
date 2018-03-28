@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
@@ -24,6 +27,8 @@ public class RegistrationUserInfo extends AppCompatActivity {
     private EditText pass1Field;
     private EditText emailField;
     private EditText pass2Field;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +57,14 @@ public class RegistrationUserInfo extends AppCompatActivity {
                 if(pass1Field.getText().toString().compareTo(pass2Field.getText().toString())==0) {
                     Log.d("Log", "Valid registration information");
                     User user = (User) getIntent().getSerializableExtra("user");
-                    user.setEmail(emailField.getText().toString());
-                    user.setPass(pass1Field.getText().toString());
-                    user.setName(userField.getText().toString());
+                    user.updateEmail(emailField.getText().toString());
+                    user.updatePassword(pass1Field.getText().toString());
+                    user.updateName(userField.getText().toString());
                     Intent intent;
                     if (user instanceof Admin) {
                         Log.d("Log","Admin");
-                        SharedPreferences settings = getSharedPreferences("Prefs", 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(user.getEmail(), user.getPass());
-                        editor.commit();
-
                         intent = new Intent(getBaseContext(), HomepageMap.class);
+                        intent.putExtra("key", user);
                     } else if (user instanceof Homeless) {
                         Log.d("Log","Homeless");
                         intent = new Intent(getBaseContext(), Homeless_Registration.class);
