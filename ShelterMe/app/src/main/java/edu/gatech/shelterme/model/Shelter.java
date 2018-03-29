@@ -60,24 +60,24 @@ public class Shelter {
         return familyCapacity;
     }
 
-    public void setFamilyCapacity(int familyCapacity, String id) {
-        ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
+    public void setFamilyCapacity(int familyCapacity, int id) {
+        ref.child("shelters").child(Integer.toString(id)).child("familyCapacity").setValue(familyCapacity);
     }
 
     public int getSingleVacancies() {
         return singleVacancies;
     }
 
-    public void setSingleVacancies(int singleVacancies, String id) {
-        ref.child("shelters").child(id).child("singleVacancies").setValue(singleVacancies);
+    public void setSingleVacancies(int singleVacancies, int id) {
+        ref.child("shelters").child(Integer.toString(id)).child("singleVacancies").setValue(singleVacancies);
     }
 
     public int getFamilyVacancies() {
         return familyVacancies;
     }
 
-    public void setFamilyVacancies(int familyVacancies, String id) {
-        ref.child("shelters").child(id).child("familyVacancies").setValue(familyVacancies);
+    public void setFamilyVacancies(int familyVacancies, int id) {
+        ref.child("shelters").child(Integer.toString(id)).child("familyVacancies").setValue(familyVacancies);
     }
 
     public String getRestriction() {

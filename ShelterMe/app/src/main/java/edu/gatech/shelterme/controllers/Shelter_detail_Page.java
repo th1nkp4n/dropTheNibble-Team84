@@ -3,6 +3,7 @@ package edu.gatech.shelterme.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,20 +28,22 @@ public class Shelter_detail_Page extends AppCompatActivity {
     TextView longitude;
     TextView latitude;
     TextView specialnotes;
-    TextView capacity;
+    TextView singleVacancy;
+    TextView familyVacancy;
     TextView restrictions;
     TextView number;
     Button cancel;
     Button checkIn;
-    String shelterID;
+    int shelterID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
-        shelterID = getIntent().getStringExtra("id");
+        shelterID = getIntent().getIntExtra("id", 0);
         name = findViewById(R.id.gender);
-        capacity = findViewById(R.id.capacity);
+        singleVacancy = findViewById(R.id.singleVacancy);
+        familyVacancy = findViewById(R.id.familyVacancy);
         restrictions = findViewById(R.id.restrictions);
         longitude = findViewById(R.id.longitude);
         latitude = findViewById(R.id.latitude);
@@ -49,13 +52,13 @@ public class Shelter_detail_Page extends AppCompatActivity {
         number = findViewById(R.id.phone);
         cancel = findViewById(R.id.cancel);
         checkIn = findViewById(R.id.checkIn);
+        checkIn.setVisibility(View.INVISIBLE);
 
         String key = (String) getIntent().getSerializableExtra("key");
         String type = (String) getIntent().getSerializableExtra("type");
 
-        if (!type.equals("homeless")) {
-            checkIn.setVisibility(View.INVISIBLE);
-        } else {
+        if (type.equals("homeless")) {
+            checkIn.setVisibility(View.VISIBLE);
             Homeless user = null;
             userReference = FirebaseDatabase.getInstance().getReference();
             userReference.child("homeless").child(key)
@@ -64,8 +67,8 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // Get Post object and use the values to update the UI
                             Homeless user = dataSnapshot.getValue(Homeless.class);
-                            if (user.getCheckedIn() != (-1)) {
-                                checkIn.setVisibility(View.INVISIBLE);
+                            if (user.getCheckedIn() == (-1)) {
+                                checkIn.setVisibility(View.VISIBLE);
                             }
                         }
                         @Override
@@ -85,7 +88,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
-                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(Integer.valueOf(shelterID));
+                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(0);
                         name.setText(name.getText() + myShelt.get("name").toString()) ;
                         restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
                         longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
@@ -93,6 +96,8 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         address.setText(address.getText() + myShelt.get("address").toString());
                         specialnotes.setText(specialnotes.getText() + myShelt.get("specialNotes").toString());
                         number.setText(number.getText() + myShelt.get("phone").toString());
+                        singleVacancy.setText(singleVacancy.getText() + myShelt.get("singleVacancies").toString());
+                        familyVacancy.setText(familyVacancy.getText() + myShelt.get("familyVacancies").toString());
                     }
 
                     @Override
@@ -119,6 +124,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
                 start.putExtra("type",type);
                 start.putExtra("key",key);
+                start.putExtra("id", shelterID);
                 startActivity(start);
             }
         });

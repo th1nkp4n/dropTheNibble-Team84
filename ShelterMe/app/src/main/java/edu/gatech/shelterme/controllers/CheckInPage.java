@@ -1,5 +1,6 @@
 package edu.gatech.shelterme.controllers;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class CheckInPage extends AppCompatActivity {
     long currentFamilyCapacity;
     long currentSingleVancancies;
     long currentFamilyVancancies;
+    boolean hasFamily;
+    boolean hasSingle;
 
 
     // Update the vacancies based on how many people check in
@@ -51,18 +54,19 @@ public class CheckInPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.check_in_page);
-        String shelterID = getIntent().getSerializableExtra("id").toString();
+        int shelterID = getIntent().getIntExtra("id", 0);
         noSingles = findViewById(R.id.noIndividualsText);
         noFamilies = findViewById(R.id.noFamiliesText);
-        numSinglesText = findViewById(R.id.restrictions);
-        numFamiliesText = findViewById(R.id.longitude);
+        numSinglesText = findViewById(R.id.checkInIndividualsText);
+        numFamiliesText = findViewById(R.id.checkInFamiliesText);
         numSingles = findViewById(R.id.checkInFamilyNumberInput);
         numFamilies = findViewById(R.id.checkInIndividualNumberInput);
         confirm = findViewById(R.id.checkInConfirmButton);
         cancel = findViewById(R.id.checkInCancelButton);
         homeless = (String) getIntent().getSerializableExtra("type");
 
-        ref.child("shelters").child(shelterID)
+
+        ref.child("shelters").child(Integer.toString(shelterID))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,91 +74,92 @@ public class CheckInPage extends AppCompatActivity {
                         currentFamilyCapacity = (long) dataSnapshot.child("familyCapacity").getValue();
                         currentSingleVancancies = (long) dataSnapshot.child("singleVacancies").getValue();
                         currentFamilyVancancies = (long) dataSnapshot.child("familyVacancies").getValue();
+                        hasFamily = currentFamilyVancancies > 0;
+                        hasSingle = currentSingleVancancies > 0;
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Log.d("Log", "didn't work");
                     }
                 });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
-                startActivity(start);
-            }
-        });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
+                    start.putExtra("type", getIntent().getSerializableExtra("type"));
+                    start.putExtra("key", getIntent().getSerializableExtra("key"));
+                    start.putExtra("id", shelterID);
+                    startActivity(start);
+                }
+            });
 
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Firebase Stuff
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Shelter shelt = null;
-                ref.child("shelters")
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Shelter shelt = null;
-                                int counter = Integer.valueOf(shelterID);
-                                for (DataSnapshot shelterSnapshot: dataSnapshot.getChildren()) {
-                                    counter--;
-                                    if (counter == -1) {
-                                        shelt = (Shelter) shelterSnapshot.getValue(Shelter.class);
+                    Shelter shelt = null;
+                    ref.child("shelters")
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Shelter shelt = null;
+                                    int counter = shelterID;
+                                    for (DataSnapshot shelterSnapshot : dataSnapshot.getChildren()) {
+                                        counter--;
+                                        if (counter == -1) {
+                                            shelt = (Shelter) shelterSnapshot.getValue(Shelter.class);
+                                        }
                                     }
+                                    int num1 = Integer.valueOf(numFamilies.getText().toString());
+                                    int num2 = Integer.valueOf(numSingles.getText().toString());
+                                    shelt.setFamilyVacancies(shelt.getFamilyVacancies() - num1, shelterID);
+                                    shelt.setSingleVacancies(shelt.getSingleVacancies() - num2, shelterID);
+                                    Log.d("Singles capacity: ", ((Integer) shelt.getSingleCapacity()).toString());
+                                    Log.d("Families capacity: ", ((Integer) shelt.getFamilyCapacity()).toString());
+
+
+                                    //shelterID.setFamiles(Integer.valueOf(numFamilies.getText().toString()), getIntent().getSerializableExtra("key").toString());
+                                    //shelterID.setSingles(Integer.valueOf(numSingles.getText().toString()), getIntent().getSerializableExtra("key").toString());
                                 }
-                                int num1 = Integer.valueOf(numFamilies.getText().toString());
-                                int num2 = Integer.valueOf(numSingles.getText().toString());
-                                shelt.setFamilyVacancies(shelt.getFamilyVacancies() - num1, shelterID);
-                                shelt.setSingleVacancies(shelt.getSingleVacancies() - num2, shelterID);
-                                Log.d("Singles capacity: ", ((Integer) shelt.getSingleCapacity()).toString());
-                                Log.d("Families capacity: ", ((Integer) shelt.getFamilyCapacity()).toString());
 
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.d("Log", "didn't work");
+                                }
+                            });
 
-
-                                //shelterID.setFamiles(Integer.valueOf(numFamilies.getText().toString()), getIntent().getSerializableExtra("key").toString());
-                                //shelterID.setSingles(Integer.valueOf(numSingles.getText().toString()), getIntent().getSerializableExtra("key").toString());
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.d("Log", "didn't work");
-                            }
-                        });
-
-                ref.child("homeless")
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                String key = getIntent().getStringExtra("key");
-                                Homeless homelessPerson = null;
-                                for (DataSnapshot homelessSnap: dataSnapshot.getChildren()) {
-                                    if ((homelessSnap.getKey().equals(key))) {
-                                        homelessPerson = (Homeless) homelessSnap.getValue(Homeless.class);
+                    ref.child("homeless")
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String key = getIntent().getStringExtra("key");
+                                    Homeless homelessPerson = null;
+                                    for (DataSnapshot homelessSnap : dataSnapshot.getChildren()) {
+                                        if ((homelessSnap.getKey().equals(key))) {
+                                            homelessPerson = (Homeless) homelessSnap.getValue(Homeless.class);
+                                        }
                                     }
+                                    Log.d("Key: ", getIntent().getStringExtra("key"));
+                                    homelessPerson.setCheckedIn(shelterID, getIntent().getStringExtra("key"));
                                 }
-                                Log.d("Shelter: ", shelterID);
-                                Log.d("Key: ", getIntent().getStringExtra("key"));
-                                homelessPerson.setCheckedIn(Integer.valueOf(shelterID), getIntent().getStringExtra("key"));
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.d("Log", "didn't work");
-                            }
-                        });
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.d("Log", "didn't work");
+                                }
+                            });
 
 
-                // Log.d("CHECKOUT", "User checked into " + homeless.getCheckedIn());
+                    // Log.d("CHECKOUT", "User checked into " + homeless.getCheckedIn());
 
-                Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
-                start.putExtra("type",getIntent().getSerializableExtra("type"));
-                start.putExtra("key",getIntent().getSerializableExtra("key"));
-                start.putExtra("id", shelterID);
-                startActivity(start);
-            }
-        });
+                    Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
+                    start.putExtra("type", getIntent().getSerializableExtra("type"));
+                    start.putExtra("key", getIntent().getSerializableExtra("key"));
+                    start.putExtra("id", shelterID);
+                    startActivity(start);
+                }
+            });
 
+        }
     }
-}
