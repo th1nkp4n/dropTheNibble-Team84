@@ -1,9 +1,11 @@
 package edu.gatech.shelterme.controllers;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +36,7 @@ import java.util.Map;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Shelter;
 
-public class HomepageMap extends FragmentActivity implements OnMapReadyCallback {
+public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Button logoutButton;

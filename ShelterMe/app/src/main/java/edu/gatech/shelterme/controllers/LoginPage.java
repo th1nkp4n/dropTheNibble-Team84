@@ -58,7 +58,7 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences settings = getSharedPreferences("Prefs", 0);
                 String pass = passField.getText().toString();
-                String email = settings.getString(userField.getText().toString(), null);
+                String email = userField.getText().toString();
 
 
                 if (pass == null) {
@@ -67,8 +67,7 @@ public class LoginPage extends AppCompatActivity {
                     BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     badLogin.show(ft, "maybe");
-                }
-                else {
+                } else {
                     DatabaseReference  allPassMatchesH = ref.child("homeless").orderByChild("email").equalTo(email).getRef();
                     DatabaseReference allPassMatchesA = ref.child("admin").orderByChild("email").equalTo(email).getRef();
                     DatabaseReference allPassMatchesW = ref.child("worker").orderByChild("email").equalTo(email).getRef();
@@ -77,16 +76,19 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("Log", "in homeless event listener");
-                            for (DataSnapshot homelessSnapshot: dataSnapshot.getChildren()) {
+                            for (DataSnapshot homelessSnapshot : dataSnapshot.getChildren()) {
                                 Homeless user = (Homeless) homelessSnapshot.getValue(Homeless.class);
-                                if (user.getPass().equals(pass)) {
-                                    String key = homelessSnapshot.getKey();
-
-                                    Log.d("Log", "correct inputs");
-                                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
-                                    intent.putExtra("key", key);
-                                    intent.putExtra("type", "homeless");
-                                    startActivity(intent);
+                                if (user != null) {
+                                    Log.d("Log", user.getName() + "line 82 in homeless");
+                                    if (user.getPass().equals(pass) && user.getEmail().equals(email)) {
+                                        String key = homelessSnapshot.getKey();
+                                        Log.d("Log", "correct inputs");
+                                        Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                                        intent.putExtra("key", key);
+                                        intent.putExtra("type", "homeless");
+                                        Log.d("Log", "We made it.");
+                                        startActivity(intent);
+                                    }
                                 }
                             }
                         }
@@ -100,9 +102,15 @@ public class LoginPage extends AppCompatActivity {
                     allPassMatchesA.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("Log", "in admin event listener");
                             for (DataSnapshot adminSnapshot: dataSnapshot.getChildren()) {
                                 Admin user = (Admin) adminSnapshot.getValue(Admin.class);
-                                if (user.getPass().equals(pass)) {
+                                Log.d("Log", user.getEmail());
+                                Log.d("Log", user.getPass());
+                                Log.d("Log", email);
+                                Log.d("Log", pass);
+                                Log.d("Log", "" + user.getEmail().equals(email));
+                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
                                     String key = adminSnapshot.getKey();
 
                                     Log.d("Log", "correct inputs");
@@ -123,9 +131,12 @@ public class LoginPage extends AppCompatActivity {
                     allPassMatchesW.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("Log", "in worker event listener");
                             for (DataSnapshot workerSnapshot: dataSnapshot.getChildren()) {
                                 Worker user = (Worker) workerSnapshot.getValue(Worker.class);
-                                if (user.getPass().equals(pass)) {
+                                Log.d("Log", user.getEmail());
+                                Log.d("Log", user.getPass());
+                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
                                     String key = workerSnapshot.getKey();
 
                                     Log.d("Log", "correct inputs");
@@ -135,6 +146,12 @@ public class LoginPage extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             }
+
+                            //tell them they had the wrong username or password
+                            Log.d("Log", "incorrect inputs");
+                            BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            badLogin.show(ft, "maybe");
                         }
 
                         @Override
@@ -144,11 +161,6 @@ public class LoginPage extends AppCompatActivity {
                     });
 
 
-                    //tell them they had the wrong username or password
-                    Log.d("Log", "incorrect inputs");
-                    BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    badLogin.show(ft, "maybe");
                 }
 
             }
