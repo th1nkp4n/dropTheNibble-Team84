@@ -42,6 +42,7 @@ public class Homeless {
     public int getCheckedIn() {return checkedIn;}
     public int getFamilies() {return famlies;}
     public int getSingles() {return singles;}
+
     public void setAge(int page, String key) {
         ref.child("homeless").child(key).child("age").setValue(page);
         this.age = page;
