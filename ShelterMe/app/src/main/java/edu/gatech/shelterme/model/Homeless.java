@@ -69,6 +69,7 @@ public class Homeless {
     }
 
 
+
     public void setEmail(String email, String key) {
         ref.child("homeless").child(key).child("email").setValue(email);
         this.email = email;
