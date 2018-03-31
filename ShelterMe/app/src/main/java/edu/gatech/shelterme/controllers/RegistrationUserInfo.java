@@ -60,7 +60,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
             public void onClick(View view) {
                 if(pass1Field.getText().toString().compareTo(pass2Field.getText().toString())==0) {
                     Log.d("Log", "Valid registration information");
-                    String key = (String) getIntent().getSerializableExtra("key");
+                    final String key = (String) getIntent().getSerializableExtra("key");
                     String type = (String) getIntent().getSerializableExtra("type");
                     Intent intent;
                     if (type.equals("admin")) {

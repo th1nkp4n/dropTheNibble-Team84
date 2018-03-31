@@ -120,7 +120,7 @@ public class HomepageMap extends FragmentActivity implements OnMapReadyCallback 
                 } else {
                     shelterName = new String[length];
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                        Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                        //Log.d("CCurrent shelter:", "" + dsp.getValue(Shelter.class).toString());
                         //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
                         shelterName[counter++] = dsp.getValue(Shelter.class).toString();
                         //shelterName.add(dsp.getValue(Shelter.class).getName());

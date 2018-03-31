@@ -59,7 +59,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
                         HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(shelterID);
                         name.setText(name.getText() + myShelt.get("name").toString()) ;
-                        capacity.setText(capacity.getText() + myShelt.get("capacity").toString());
+                        //capacity.setText(capacity.getText() + myShelt.get("capacity").toString());
                         restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
                         longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
                         latitude.setText(latitude.getText() + myShelt.get("latitude").toString());
@@ -98,6 +98,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), CheckInPage.class);
+                start.putExtra("id", shelterID);
                 startActivity(start);
             }
         });

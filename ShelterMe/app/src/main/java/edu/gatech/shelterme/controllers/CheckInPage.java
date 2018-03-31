@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Homeless;
+import edu.gatech.shelterme.model.Shelter;
 
 /**
  * Created by KKhosla on 3/11/18.
@@ -37,10 +38,10 @@ public class CheckInPage extends AppCompatActivity {
     Button confirm;
     Button cancel;
     Homeless homeless;
-    String currentSingleCapacity;
-    String currentFamilyCapacity;
-    String currentSingleVancancies;
-    String currentFamilyVancancies;
+    int currentSingleCapacity;
+    int  currentFamilyCapacity;
+    int currentSingleVancancies;
+    int currentFamilyVancancies;
 
 
     // Update the vacancies based on how many people check in
@@ -50,7 +51,7 @@ public class CheckInPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_page);
-        String shelterID = (String) getIntent().getStringExtra("id");
+        final int shelterID = getIntent().getIntExtra("id", 0);
         noSingles = (TextView) findViewById(R.id.noIndividualsText);
         noFamilies = (TextView) findViewById(R.id.noFamiliesText);
         numSinglesText = (TextView) findViewById(R.id.restrictions);
@@ -61,14 +62,14 @@ public class CheckInPage extends AppCompatActivity {
         cancel = (Button) findViewById(R.id.checkInCancelButton);
         homeless = (Homeless) getIntent().getSerializableExtra("homeless");
 
-        ref.child("shelters").child(shelterID)
+        ref.child("shelters").child("" + shelterID)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        currentSingleCapacity = (String) dataSnapshot.child("singleCapacity").getValue();
-                        currentFamilyCapacity = (String) dataSnapshot.child("familyCapacity").getValue();
-                        currentSingleVancancies = (String) dataSnapshot.child("singleVacancies").getValue();
-                        currentFamilyVancancies = (String) dataSnapshot.child("familyVacancies").getValue();
+                        currentSingleCapacity = dataSnapshot.getValue(Shelter.class).getSingleCapacity();
+                        currentFamilyCapacity =  dataSnapshot.getValue(Shelter.class).getFamilyCapacity();
+                        currentSingleVancancies =  dataSnapshot.getValue(Shelter.class).getsingleVacancies();
+                        currentFamilyVancancies =  dataSnapshot.getValue(Shelter.class).getfamilyVacancies();
                     }
 
                     @Override
@@ -90,7 +91,7 @@ public class CheckInPage extends AppCompatActivity {
             public void onClick(View view) {
                 //Firebase Stuff
 
-                ref.child("shelters").child(shelterID)
+                ref.child("shelters").child("" +  shelterID)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,7 +109,7 @@ public class CheckInPage extends AppCompatActivity {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                homeless.setCheckedIn(Integer.valueOf(shelterID), homeless.getKey());
+                                homeless.setCheckedIn(shelterID, homeless.getKey());
                             }
 
                             @Override

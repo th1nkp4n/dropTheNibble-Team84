@@ -9,10 +9,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Shelter {
     private String name;
-    private String singleCapacity;
-    private String familyCapacity;
-    private String singleVacancies;
-    private String familyVacancies;
+    private int singleCapacity;
+    private int familyCapacity;
+    private int singleVacancies;
+    private int familyVacancies;
     private String restriction;
     private double longitude;
     private double latitude;
@@ -24,7 +24,7 @@ public class Shelter {
 
     public Shelter(){};
 
-    public Shelter(String name, String singleCapacity, String familyCapacity, String singleVacancies, String familyVacancies, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
+    public Shelter(String name, int singleCapacity, int familyCapacity, int singleVacancies, int familyVacancies, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
         this.name = name;
         this.singleCapacity = singleCapacity;
         this.familyCapacity = familyCapacity;
@@ -48,7 +48,7 @@ public class Shelter {
         ref.child("shelters").child(id).child("name").setValue(name);
     }
 
-    public String getSingleCapacity() {
+    public int getSingleCapacity() {
         return singleCapacity;
     }
 
@@ -56,7 +56,7 @@ public class Shelter {
         ref.child("shelters").child(id).child("singleCapacity").setValue(singleCapacity);
     }
 
-    public String getFamilyCapacity() {
+    public int getFamilyCapacity() {
         return familyCapacity;
     }
 
@@ -64,7 +64,7 @@ public class Shelter {
         ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
     }
 
-    public String getsingleVacancies() {
+    public int getsingleVacancies() {
         return singleVacancies;
     }
 
@@ -72,7 +72,7 @@ public class Shelter {
         ref.child("shelters").child(id).child("singleVacancies").setValue(singleVacancies);
     }
 
-    public String getfamilyVacancies() {
+    public int getfamilyVacancies() {
         return familyVacancies;
     }
 
