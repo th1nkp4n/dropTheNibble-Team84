@@ -3,6 +3,7 @@ package edu.gatech.shelterme.controllers;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 
 public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback {
@@ -41,11 +43,16 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private Button logoutButton;
     private DatabaseReference shelterReference;
+    private DatabaseReference userReference;
     private ListView listView;
     private ArrayAdapter<String> adapter;
     protected ArrayList<Shelter> shelters;
     protected String[] shelterName;
     private Button searchButton;
+    private Button checkOut;
+    private String type;
+    private String key;
+    private int shelterID;
     //protected ArrayList<String> shelterName;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
 
         listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
-
+        type = getIntent().getStringExtra("type");
+        key = getIntent().getStringExtra("key");
+        shelterID = getIntent().getIntExtra("id", 0);
 
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
@@ -171,7 +180,68 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        
+        checkOut = (Button) findViewById(R.id.checkOut);
+        checkOut.setVisibility(View.INVISIBLE);
+        userReference = FirebaseDatabase.getInstance().getReference();
+
+        if (type.equals("homeless")) {
+            userReference.child("homeless").child(key)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Homeless user = dataSnapshot.getValue(Homeless.class);
+                            if (user.getCheckedIn() >= 0) {
+                                checkOut.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+        }
+            checkOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    userReference.child("homeless").child(key)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Homeless user = dataSnapshot.getValue(Homeless.class);
+                                    int famIn = user.getFamilies();
+                                    int indIn = user.getSingles();
+                                    user.setSingles(0, key);
+                                    user.setFamiles(0, key);
+                                    user.setCheckedIn(-1, key);
+
+                                    shelterReference.child(Integer.toString(shelterID))
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot snapSnapshot) {
+                                                    Shelter shelter = snapSnapshot.getValue(Shelter.class);
+                                                    int famVac = shelter.getFamilyVacancies();
+                                                    int indVac = shelter.getSingleVacancies();
+                                                    shelter.setSingleVacancies(indVac + indIn, Integer.toString(shelterID));
+                                                    shelter.setFamilyVacancies(famVac + famIn, Integer.toString(shelterID));
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.d("log: ", "user part didn't work.");
+                                }
+                            });
+                }
+            });
 
         searchButton = (Button) findViewById(R.id.search);
         searchButton.setOnClickListener(new View.OnClickListener() {
