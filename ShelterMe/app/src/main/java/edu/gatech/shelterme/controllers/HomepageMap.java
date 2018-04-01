@@ -202,46 +202,54 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                     });
 
         }
-            checkOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    userReference.child("homeless").child(key)
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Homeless user = dataSnapshot.getValue(Homeless.class);
-                                    int famIn = user.getFamilies();
-                                    int indIn = user.getSingles();
-                                    user.setSingles(0, key);
-                                    user.setFamiles(0, key);
-                                    user.setCheckedIn(-1, key);
+        checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userReference.child("homeless").child(key)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Homeless user = dataSnapshot.getValue(Homeless.class);
+                                int famIn = user.getFamilies();
+                                int indIn = user.getSingles();
+                                user.setSingles(0, key);
+                                user.setFamiles(0, key);
+                                user.setCheckedIn(-1, key);
+                                Log.d("log :", user.toString());
+                                Log.d("log ind: ", Integer.toString(indIn));
+                                Log.d("log fam: ", Integer.toString(famIn));
 
-                                    shelterReference.child(Integer.toString(shelterID))
-                                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot snapSnapshot) {
-                                                    Shelter shelter = snapSnapshot.getValue(Shelter.class);
-                                                    int famVac = shelter.getFamilyVacancies();
-                                                    int indVac = shelter.getSingleVacancies();
-                                                    shelter.setSingleVacancies(indVac + indIn, Integer.toString(shelterID));
-                                                    shelter.setFamilyVacancies(famVac + famIn, Integer.toString(shelterID));
-                                                }
+                                shelterReference = FirebaseDatabase.getInstance().getReference()
+                                        .child("shelters");
+                                shelterReference.child(Integer.toString(shelterID))
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot snapSnapshot) {
+                                                Shelter shelter = snapSnapshot.getValue(Shelter.class);
+                                                Log.d("log :", "nested onDataChange");
+                                                int famVac = shelter.getFamilyVacancies();
+                                                int indVac = shelter.getSingleVacancies();
+                                                Log.d("log ind: ", Integer.toString(indIn));
+                                                Log.d("log fam: ", Integer.toString(famIn));
+                                                shelter.setSingleVacancies(indVac + indIn, Integer.toString(shelterID));
+                                                shelter.setFamilyVacancies(famVac + famIn, Integer.toString(shelterID));
+                                            }
 
-                                                @Override
-                                                public void onCancelled(DatabaseError databaseError) {
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
 
-                                                }
-                                            });
+                                            }
+                                        });
 
-                                }
+                            }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    Log.d("log: ", "user part didn't work.");
-                                }
-                            });
-                }
-            });
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.d("log: ", "user part didn't work.");
+                            }
+                        });
+            }
+        });
 
         searchButton = (Button) findViewById(R.id.search);
         searchButton.setOnClickListener(new View.OnClickListener() {
