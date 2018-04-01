@@ -164,7 +164,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         Log.d("Log", "" + key);
                         intent.putExtra("key", key);
                         Log.d("Key: ", getIntent().getStringExtra("key"));
-                        intent.putExtra("type", getIntent().getStringExtra("type"));
+                        intent.putExtra("type", type);
                         startActivity(intent);
                     }
                 }
@@ -212,8 +212,11 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                                 Homeless user = dataSnapshot.getValue(Homeless.class);
                                 int famIn = user.getFamilies();
                                 int indIn = user.getSingles();
+
+                                Log.d("log ind: ", Integer.toString(indIn));
+                                Log.d("log fam: ", Integer.toString(famIn));
                                 user.setSingles(0, key);
-                                user.setFamiles(0, key);
+                                user.setFamilies(0, key);
                                 user.setCheckedIn(-1, key);
                                 Log.d("log :", user.toString());
                                 Log.d("log ind: ", Integer.toString(indIn));
@@ -248,6 +251,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                                 Log.d("log: ", "user part didn't work.");
                             }
                         });
+                checkOut.setVisibility(View.INVISIBLE);
             }
         });
 

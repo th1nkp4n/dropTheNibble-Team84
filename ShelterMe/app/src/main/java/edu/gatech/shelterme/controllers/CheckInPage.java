@@ -126,7 +126,7 @@ public class CheckInPage extends AppCompatActivity {
                                     } else {
                                         goodCheckIn = true;
                                         Homeless person = new Homeless();
-                                        person.setFamiles(numFV, key);
+                                        person.setFamilies(numFV, key);
                                         shelter.setFamilyVacancies(newVac, Integer.toString(shelterID));
                                         Log.d("Families vacancy: ", ((Integer) shelter.getFamilyVacancies()).toString());
                                     }

@@ -36,7 +36,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Log", "in userinfo");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_registration_user_info);
 
         userField = (EditText) findViewById(R.id.registration_user_info_name);
@@ -84,7 +86,6 @@ public class RegistrationUserInfo extends AppCompatActivity {
                     Intent intent;
                     if (type.equals("admin")) {
                         Log.d("Log","Admin");
-                        Admin user = null;
                         ref.child("admin").child(key)
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -107,8 +108,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                         intent.putExtra("type", "admin");
                         intent.putExtra("key", key);
                     } else if (type.equals("homeless")) {
-                        Log.d("Log","Homeless");
-                        Homeless user = null;
+                        Log.d("Log","Homeless create");
                         FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -128,7 +128,6 @@ public class RegistrationUserInfo extends AppCompatActivity {
                         intent.putExtra("key", key);
                     } else {
                         Log.d("Log","Worker");
-                        Worker user = null;
                         FirebaseDatabase.getInstance().getReference().child("worker").child(key)
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
