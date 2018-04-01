@@ -158,14 +158,46 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String sheltername = String.valueOf(parent.getItemAtPosition(position));
+                        Log.d("name :", sheltername.toString());
                         Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
-                        intent.putExtra("id", position);
-                        String key = getIntent().getStringExtra("key");
-                        Log.d("Log", "" + key);
-                        intent.putExtra("key", key);
-                        Log.d("Key: ", getIntent().getStringExtra("key"));
-                        intent.putExtra("type", type);
-                        startActivity(intent);
+                        if (getIntent().getIntExtra("filter",0) > 0) {
+                            shelterReference.orderByChild("name").equalTo(sheltername).getRef()
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot shelterSnapShot : dataSnapshot.getChildren()) {
+                                                Shelter shelter = (Shelter) shelterSnapShot.getValue(Shelter.class);
+                                                if (shelter != null) {
+                                                    Log.d("log", shelter.getName() + "");
+                                                    if (shelter.getName().equals(sheltername)) {
+                                                        int actualPosition = Integer.valueOf(shelterSnapShot.getKey());
+                                                        Log.d("actual Position: ", actualPosition + "");
+                                                        intent.putExtra("id", actualPosition);
+                                                        String key = getIntent().getStringExtra("key");
+                                                        Log.d("Log", "" + key);
+                                                        intent.putExtra("key", key);
+                                                        Log.d("Key: ", getIntent().getStringExtra("key"));
+                                                        intent.putExtra("type", type);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            Log.d("log :", "couldn't get position for filtered shelter.");
+                                        }
+                                    });
+                        } else {
+                            intent.putExtra("id", position);
+                            String key = getIntent().getStringExtra("key");
+                            Log.d("Log", "" + key);
+                            intent.putExtra("key", key);
+                            Log.d("Key: ", getIntent().getStringExtra("key"));
+                            intent.putExtra("type", type);
+                            startActivity(intent);
+                        }
                     }
                 }
         );

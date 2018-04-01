@@ -59,7 +59,7 @@ public class Search extends AppCompatActivity {
 
         ageArray = new ArrayList<>();
         ageArray.add("Any Age");
-        ageArray.add("newborns");
+        ageArray.add("Families w/ newborns");
         ageArray.add("Children");
         ageArray.add("Young adults");
 
@@ -108,6 +108,7 @@ public class Search extends AppCompatActivity {
                 start.putExtra("key", getIntent().getStringExtra("key"));
                 start.putExtra("id", getIntent().getIntExtra("id", 0));
                 start.putExtra("type", getIntent().getStringExtra("type"));
+                start.putExtra("filter", 1);
                 startActivity(start);
             }
         });
@@ -116,7 +117,7 @@ public class Search extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
-                start.putExtra("cancel", 5);
+                start.putExtra("filter", 0);
                 start.putExtra("key", getIntent().getStringExtra("key"));
                 start.putExtra("id", getIntent().getIntExtra("id", 0));
                 start.putExtra("type", getIntent().getStringExtra("type"));
