@@ -342,7 +342,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 double latitude = s.getLatitude();
                 double longitude = s.getLongitude();
                 LatLng currShelt = new LatLng(latitude, longitude);
-                Marker marker = mMap.addMarker(new MarkerOptions().position(currShelt).title(s.getName()));
+                Marker marker = mMap.addMarker(new MarkerOptions().position(currShelt).title( s.getName()).snippet(s.getPhone()));
                 marker.setTag(i);
             }
         }
