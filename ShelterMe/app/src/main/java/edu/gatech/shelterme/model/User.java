@@ -7,11 +7,11 @@ import java.io.Serializable;
  */
 
 public class User implements Serializable {
-    private boolean weCanAccessThisInsideOnDataChangeIsntThatGreat;
+    private boolean weCanAccessThisInsideOnDataChangeIsThatNotGreat;
     public User() {}
 
-    public boolean getData() {return weCanAccessThisInsideOnDataChangeIsntThatGreat;}
-    public void setData(boolean weCanAccessThisInsideOnDataChangeIsntThatGreat) {this.weCanAccessThisInsideOnDataChangeIsntThatGreat = weCanAccessThisInsideOnDataChangeIsntThatGreat;}
+    public boolean getData() {return weCanAccessThisInsideOnDataChangeIsThatNotGreat;}
+    public void setData(boolean weCanAccessThisInsideOnDataChangeIsThatNotGreat) {this.weCanAccessThisInsideOnDataChangeIsThatNotGreat = weCanAccessThisInsideOnDataChangeIsntThatGreat;}
 
 
 }

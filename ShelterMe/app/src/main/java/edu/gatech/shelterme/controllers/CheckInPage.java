@@ -153,7 +153,7 @@ public class CheckInPage extends AppCompatActivity {
                                     } else if (newVac < 0) {
                                         goodCheckIn = -1;
                                         Log.d("log: ","over individual cap");
-                                        BadSinglecheckInAlertDialogFragment badCheckIn = new BadSinglecheckInAlertDialogFragment();
+                                        BadSingleCheckInAlertDialogFragment badCheckIn = new BadSingleCheckInAlertDialogFragment();
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         badCheckIn.show(ft, "maybe");
                                     } else {

@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/registration_user_info_email"
-        android:layout_below="@+id/textregistration_user_info_nametext"
+        android:layout_below="@+id/text_registration_user_info_name_text"
         android:layout_marginTop="13dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -80,7 +80,7 @@
         tools:layout_editor_absoluteY="295dp" />
 
     <TextView
-        android:id="@+id/textregistration_user_info_nametext"
+        android:id="@+id/text_registration_user_info_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -91,7 +91,7 @@
         tools:layout_editor_absoluteY="20dp" />
 
     <TextView
-        android:id="@+id/registration_user_info_emailtext"
+        android:id="@+id/registration_user_info_email_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/registration_user_info_email"

@@ -51,10 +51,10 @@ public class LoginPage extends AppCompatActivity {
 
 
         //Grab the dialog widgets so we can get info for later
-        userField = (EditText) findViewById(R.id.loginpage_username_input);
-        passField = (EditText) findViewById(R.id.loginpage_password_input);
+        userField = (EditText) findViewById(R.id.login_page_username_input);
+        passField = (EditText) findViewById(R.id.login_page_password_input);
         loginButton = (Button) findViewById(R.id.homepage_logout_button);
-        registerButton = (Button) findViewById(R.id.loginpage_register_button);
+        registerButton = (Button) findViewById(R.id.login_page_register_button);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {

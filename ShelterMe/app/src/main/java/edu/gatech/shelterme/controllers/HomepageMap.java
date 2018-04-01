@@ -68,7 +68,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         //listView = (ListView) findViewById(R.id.shelterList);
-        Log.d("********ONCREATE*******", "hehehe");
+        Log.d("********onCreate*******", "heh");
         type = getIntent().getStringExtra("type");
         key = getIntent().getStringExtra("key");
         shelterID = getIntent().getIntExtra("id", 0);
@@ -169,56 +169,6 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 // [END_EXCLUDE]
             }
         });
-
-
-//        listView.setOnItemClickListener(
-//                new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        String sheltername = String.valueOf(parent.getItemAtPosition(position));
-//                        Log.d("name :", sheltername.toString());
-//                        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
-//                        if (getIntent().getIntExtra("filter",0) > 0) {
-//                            shelterReference.orderByChild("name").equalTo(sheltername).getRef()
-//                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                                            for (DataSnapshot shelterSnapShot : dataSnapshot.getChildren()) {
-//                                                Shelter shelter = (Shelter) shelterSnapShot.getValue(Shelter.class);
-//                                                if (shelter != null) {
-//                                                    Log.d("log", shelter.getName() + "");
-//                                                    if (shelter.getName().equals(sheltername)) {
-//                                                        int actualPosition = Integer.valueOf(shelterSnapShot.getKey());
-//                                                        Log.d("actual Position: ", actualPosition + "");
-//                                                        intent.putExtra("id", actualPosition);
-//                                                        String key = getIntent().getStringExtra("key");
-//                                                        Log.d("Log", "" + key);
-//                                                        intent.putExtra("key", key);
-//                                                        Log.d("Key: ", getIntent().getStringExtra("key"));
-//                                                        intent.putExtra("type", type);
-//                                                        startActivity(intent);
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(DatabaseError databaseError) {
-//                                            Log.d("log :", "couldn't get position for filtered shelter.");
-//                                        }
-//                                    });
-//                        } else {
-//                            intent.putExtra("id", position);
-//                            String key = getIntent().getStringExtra("key");
-//                            Log.d("Log", "" + key);
-//                            intent.putExtra("key", key);
-//                            Log.d("Key: ", getIntent().getStringExtra("key"));
-//                            intent.putExtra("type", type);
-//                            startActivity(intent);
-//                        }
-//                    }
-//                }
-//        );
 
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -341,8 +291,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 Shelter s = shelters.get(i);
                 double latitude = s.getLatitude();
                 double longitude = s.getLongitude();
-                LatLng currShelt = new LatLng(latitude, longitude);
-                Marker marker = mMap.addMarker(new MarkerOptions().position(currShelt).title( s.getName()).snippet(s.getPhone()));
+                LatLng currShelter = new LatLng(latitude, longitude);
+                Marker marker = mMap.addMarker(new MarkerOptions().position(currShelter).title( s.getName()).snippet(s.getPhone()));
                 marker.setTag(i);
             }
         }

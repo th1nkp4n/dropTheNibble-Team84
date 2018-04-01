@@ -27,7 +27,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
     TextView address;
     TextView longitude;
     TextView latitude;
-    TextView specialnotes;
+    TextView specialNotes;
     TextView famVacancies;
     TextView indVacancies;
     TextView restrictions;
@@ -52,7 +52,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
         longitude = (TextView) findViewById(R.id.longitude);
         latitude = (TextView) findViewById(R.id.latitude);
         address = (TextView) findViewById(R.id.address);
-        specialnotes = (TextView) findViewById(R.id.specialnotes);
+        specialNotes = (TextView) findViewById(R.id.specialNotes);
         number = (TextView) findViewById(R.id.phone);
         cancel = (Button) findViewById(R.id.cancel);
         checkIn = (Button) findViewById(R.id.checkIn);
@@ -64,21 +64,21 @@ public class Shelter_detail_Page extends AppCompatActivity {
         shelterReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DatabaseReference shelt = shelterReference.orderByChild("name").equalTo(shelterID).getRef();
-                shelt.addValueEventListener(new ValueEventListener() {
+                DatabaseReference shelter = shelterReference.orderByChild("name").equalTo(shelterID).getRef();
+                shelter.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
-                        HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(shelterID);
-                        name.setText(name.getText() + myShelt.get("name").toString()) ;
-                        famVacancies.setText(famVacancies.getText() + myShelt.get("familyVacancies").toString());
-                        indVacancies.setText(indVacancies.getText() + myShelt.get("singleVacancies").toString());
-                        restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
-                        longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
-                        latitude.setText(latitude.getText() + myShelt.get("latitude").toString());
-                        address.setText(address.getText() + myShelt.get("address").toString());
-                        specialnotes.setText(specialnotes.getText() + myShelt.get("specialNotes").toString());
-                        number.setText(number.getText() + myShelt.get("phone").toString());
+                        ArrayList myShelterList = (ArrayList) dataSnapshot.getValue();
+                        HashMap<String, Object> myShelter= (HashMap<String, Object>) myShelterList.get(shelterID);
+                        name.setText(name.getText() + myShelter.get("name").toString()) ;
+                        famVacancies.setText(famVacancies.getText() + myShelter.get("familyVacancies").toString());
+                        indVacancies.setText(indVacancies.getText() + myShelter.get("singleVacancies").toString());
+                        restrictions.setText(restrictions.getText() + myShelter.get("restriction").toString());
+                        longitude.setText( longitude.getText() + myShelter.get("longitude").toString());
+                        latitude.setText(latitude.getText() + myShelter.get("latitude").toString());
+                        address.setText(address.getText() + myShelter.get("address").toString());
+                        specialNotes.setText(specialNotes.getText() + myShelter.get("specialNotes").toString());
+                        number.setText(number.getText() + myShelter.get("phone").toString());
                     }
 
                     @Override

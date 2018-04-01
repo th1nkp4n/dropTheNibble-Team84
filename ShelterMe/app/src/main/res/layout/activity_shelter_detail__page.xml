@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/latitude" />
 
     <TextView
-        android:id="@+id/specialnotes"
+        android:id="@+id/special_notes"
         android:layout_width="0dp"
         android:layout_height="19dp"
         android:layout_marginBottom="8dp"
@@ -127,7 +127,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specialnotes"
+        app:layout_constraintTop_toBottomOf="@+id/special_notes"
         app:layout_constraintVertical_bias="0.666" />
 
     <TextView

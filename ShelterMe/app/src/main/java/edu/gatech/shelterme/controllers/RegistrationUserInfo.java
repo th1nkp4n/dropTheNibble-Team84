@@ -36,7 +36,6 @@ public class RegistrationUserInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("Log", "in userinfo");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_registration_user_info);

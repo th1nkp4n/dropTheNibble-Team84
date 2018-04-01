@@ -10,7 +10,7 @@ import android.os.Bundle;
  * Created by ttsubota3 on 3/31/18.
  */
 
-public class BadSinglecheckInAlertDialogFragment extends DialogFragment {
+public class BadSingleCheckInAlertDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
