@@ -47,10 +47,22 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         veteranSpinner = (Spinner) findViewById(R.id.veteran_spinner);
         cancelButton = (Button) findViewById(R.id.homeless_registration_cancel);
         nextButton = (Button) findViewById(R.id.homeless_registration_next);
+        String key = (String) getIntent().getSerializableExtra("key");
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase.getInstance().getReference().child("homeless").child(key).removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
                 Intent start = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(start);
             }
@@ -73,18 +85,17 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View view) {
                 String number = ageField.getText().toString();
-                boolean valid;
+                boolean ageValid;
                 try {
                     int num = Integer.parseInt(number);
                     Log.i("",num+" is a number");
-                    valid = true;
+                    ageValid = true;
                 } catch (NumberFormatException e) {
                     Log.i("",number+" is not a number");
-                    valid = false;
+                    ageValid = false;
                 }
-                if (valid) {
+                if (ageValid) {
                     Log.d("Log", "valid inputs");
-                    String key = (String) getIntent().getSerializableExtra("key");
 
                     Homeless user = null;
                     FirebaseDatabase.getInstance().getReference().child("homeless").child(key)

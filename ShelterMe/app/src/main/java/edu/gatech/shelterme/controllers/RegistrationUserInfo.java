@@ -45,10 +45,24 @@ public class RegistrationUserInfo extends AppCompatActivity {
         pass2Field = (EditText) findViewById(R.id.registration_user_info_password2);
         continueButton = (Button) findViewById(R.id.registration_user_info_continue);
         cancelButton = (Button) findViewById(R.id.registration_user_info_cancel);
+        String key = (String) getIntent().getSerializableExtra("key");
+        String type = (String) getIntent().getSerializableExtra("type");
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ref.child("admin").child(key)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase.getInstance().getReference().child(type).child(key).removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.d("Log", "didn't work");
+                    }
+                });
                 Log.d("Log", "Registration cancelled");
                 Intent intent = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(intent);
@@ -58,10 +72,15 @@ public class RegistrationUserInfo extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(pass1Field.getText().toString().compareTo(pass2Field.getText().toString())==0) {
+                if (userField.length() == 0 ||emailField.length() == 0 || pass1Field.length() == 0
+                        || pass2Field.length() == 0 || pass1Field.getText().toString()
+                        .compareTo(pass2Field.getText().toString())!=0) {
+                    Log.d("Log", "empty inputs");
+                    BadRegistrationInputsDialogFragment badInputs = new BadRegistrationInputsDialogFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    badInputs.show(ft, "maybe");
+                } else {
                     Log.d("Log", "Valid registration information");
-                    String key = (String) getIntent().getSerializableExtra("key");
-                    String type = (String) getIntent().getSerializableExtra("type");
                     Intent intent;
                     if (type.equals("admin")) {
                         Log.d("Log","Admin");
@@ -129,14 +148,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                         intent.putExtra("key", key);
                     }
                     startActivity(intent);
-                } else {
-                    //tell them they had the wrong username or password
-                    Log.d("Log", "incorrect inputs");
-                    BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    badLogin.show(ft, "maybe");
                 }
-
             }
         });
     }

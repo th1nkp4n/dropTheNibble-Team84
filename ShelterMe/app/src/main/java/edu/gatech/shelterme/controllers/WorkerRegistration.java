@@ -37,10 +37,22 @@ public class WorkerRegistration extends AppCompatActivity {
         socialSecurity = (EditText) findViewById(R.id.social_security_number);
         registerButton = (Button) findViewById(R.id.register_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
+        String key = (String) getIntent().getSerializableExtra("key");
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase.getInstance().getReference().child("homeless").child(key).removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
                 Intent start = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(start);
             }
