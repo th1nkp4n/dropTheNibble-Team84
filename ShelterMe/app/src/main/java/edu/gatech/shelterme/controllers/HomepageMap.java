@@ -41,7 +41,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private Button logoutButton;
     private DatabaseReference shelterReference;
-    private ListView listView;
+    //private ListView listView;
     private ArrayAdapter<String> adapter;
     protected ArrayList<Shelter> shelters;
     protected String[] shelterName;
@@ -51,8 +51,11 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage_map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
-        listView = (ListView) findViewById(R.id.shelterList);
+        //listView = (ListView) findViewById(R.id.shelterList);
         Log.d("********ONCREATE*******", "hehehe");
 
 
@@ -128,10 +131,11 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
                 }
-                Log.d("one:", Boolean.toString(listView.isOpaque()));
-                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
-                        android.R.layout.simple_list_item_1, shelterName));
-                Log.d("two:", Boolean.toString(listView.isOpaque()));
+                setUpMap();
+//                Log.d("one:", Boolean.toString(listView.isOpaque()));
+////                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
+////                        android.R.layout.simple_list_item_1, shelterName));
+//                Log.d("two:", Boolean.toString(listView.isOpaque()));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -144,17 +148,18 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String sheltername = String.valueOf(parent.getItemAtPosition(position));
-                        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
-                        intent.putExtra("id", position);
-                        startActivity(intent);
-                    }
-                }
-        );
+//        listView.setOnItemClickListener(
+//                new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        String sheltername = String.valueOf(parent.getItemAtPosition(position));
+//                        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
+//                        intent.putExtra("id", position);
+//                        startActivity(intent);
+//                    }
+//                }
+//        );
+
 
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
 
@@ -176,36 +181,33 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intent);
             }
         });
+
+
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_homepage_map);
-//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
-//    }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng atl = new LatLng(33.749, -84.388);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+
+
+    }
+
+    private void setUpMap() {
+        if (shelters != null) {
+            for (Shelter s : shelters) {
+                double latitude = s.getLatitude();
+                double longitude = s.getLongitude();
+                LatLng currShelt = new LatLng(latitude, longitude);
+                mMap.addMarker(new MarkerOptions().position(currShelt).title(s.getName()));
+            }
+        }
     }
 
 

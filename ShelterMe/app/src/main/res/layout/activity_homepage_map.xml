@@ -3,14 +3,20 @@
     android:id="@+id/homePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ListView
-        android:id="@+id/shelterList"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/homepage_logout_button"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="25dp" />
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+    <!--<ListView-->
+        <!--android:id="@+id/shelterList"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/homepage_logout_button"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginBottom="25dp" />-->
     <Button
         android:id="@+id/homepage_logout_button"
         android:layout_width="wrap_content"

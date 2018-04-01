@@ -53,9 +53,12 @@
             android:name=".controllers.RegistrationRolePage"
             android:label="@string/title_activity_registration_role_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.Homeless_Registration"></activity>
-        <activity android:name=".controllers.Shelter_detail_Page"></activity>
-        <activity android:name=".controllers.Search"></activity>
+        <activity android:name=".controllers.Homeless_Registration" />
+        <activity android:name=".controllers.Shelter_detail_Page" />
+        <activity android:name=".controllers.Search" />
+        <activity
+            android:name=".controllers.MapsTestActivity"
+            android:label="@string/title_activity_maps_test"></activity>
     </application>
 
 </manifest>
