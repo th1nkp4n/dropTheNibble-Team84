@@ -87,7 +87,7 @@ public class CheckInPage extends AppCompatActivity {
                             Log.d("log: ","noInd");
                         }
 
-                        if (hasInd && hasFam) {
+                        if (hasInd || hasFam) {
                             confirm.setVisibility(View.VISIBLE);
                         }
                     }
