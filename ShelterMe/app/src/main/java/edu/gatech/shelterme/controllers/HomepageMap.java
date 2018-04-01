@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,7 @@ import java.util.Map;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Shelter;
 
-public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback {
+public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private Button logoutButton;
@@ -44,6 +45,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     //private ListView listView;
     private ArrayAdapter<String> adapter;
     protected ArrayList<Shelter> shelters;
+    protected ArrayList<String> keys;
     protected String[] shelterName;
     private Button searchButton;
     //protected ArrayList<String> shelterName;
@@ -68,6 +70,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int length = (int) dataSnapshot.getChildrenCount();
                 shelters = new ArrayList<>();
+                keys = new ArrayList<>();
                 int counter = 0;
 
                 Log.d("intent", "" + getIntent().getStringExtra("name"));
@@ -76,6 +79,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         Log.d("Name Current shelter:", dsp.getValue(Shelter.class).toString());
                         //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
                         shelters.add(dsp.getValue(Shelter.class));
+                        keys.add(dsp.getKey());
                         //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
 
@@ -85,6 +89,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         for (int i = 0; i < shelters.size(); i++) {
                             if (shelters.get(i).getName().compareTo(name) != 0) {
                                 shelters.remove(i);
+                                keys.remove(i);
                                 Log.d("i", "" + i);
                                 i--;
                             } else {
@@ -101,6 +106,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                             if (!shelters.get(i).getRestriction().contains(age)) {
                                 Log.d("restriction", shelters.get(i).getRestriction());
                                 shelters.remove(i);
+                                keys.remove(i);
                                 i--;
                             }
                         }
@@ -111,6 +117,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         for (int i = 0; i < shelters.size(); i++) {
                             if (!shelters.get(i).getRestriction().contains(gender)) {
                                 shelters.remove(i);
+                                keys.remove(i);
                                 i--;
                             }
                         }
@@ -126,6 +133,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                     shelterName = new String[length];
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
                         Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                        shelters.add(dsp.getValue(Shelter.class));
+                        keys.add(dsp.getKey());
                         //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
                         shelterName[counter++] = dsp.getValue(Shelter.class).toString();
                         //shelterName.add(dsp.getValue(Shelter.class).getName());
@@ -154,7 +163,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
 //                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                        String sheltername = String.valueOf(parent.getItemAtPosition(position));
 //                        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
-//                        intent.putExtra("id", position);
+//                        intent.putExtra("id", keys.get(position));
 //                        startActivity(intent);
 //                    }
 //                }
@@ -195,19 +204,40 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
         // Add a marker in Sydney, Australia, and move the camera.
         LatLng atl = new LatLng(33.749, -84.388);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+        mMap.setMinZoomPreference(10);
 
 
     }
 
     private void setUpMap() {
         if (shelters != null) {
-            for (Shelter s : shelters) {
+            for (int i = 0; i < shelters.size(); i++) {
+                Shelter s = shelters.get(i);
                 double latitude = s.getLatitude();
                 double longitude = s.getLongitude();
                 LatLng currShelt = new LatLng(latitude, longitude);
-                mMap.addMarker(new MarkerOptions().position(currShelt).title(s.getName()));
+                Marker marker = mMap.addMarker(new MarkerOptions().position(currShelt).title(s.getName()));
+                marker.setTag(keys.get(i));
             }
         }
+        mMap.setOnMarkerClickListener(this);
+    }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the data from the marker.
+        String key = (String) marker.getTag();
+        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
+        intent.putExtra("id", Integer.valueOf(key));
+        startActivity(intent);
+
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
     }
 
 
