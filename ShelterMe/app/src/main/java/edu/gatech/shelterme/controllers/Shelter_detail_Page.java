@@ -3,6 +3,7 @@ package edu.gatech.shelterme.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,26 +18,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.gatech.shelterme.R;
+import edu.gatech.shelterme.model.Homeless;
 
 public class Shelter_detail_Page extends AppCompatActivity {
     private DatabaseReference shelterReference;
+    private DatabaseReference userReference;
     TextView name;
     TextView address;
     TextView longitude;
     TextView latitude;
     TextView specialnotes;
-    TextView capacity;
+    TextView famVacancies;
+    TextView indVacancies;
     TextView restrictions;
     TextView number;
     Button cancel;
+    Button checkIn;
+    String key;
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
         final int shelterID = (int) getIntent().getIntExtra("id",0);
+        key = getIntent().getStringExtra("key");
+        type = getIntent().getStringExtra("type");
         name = (TextView) findViewById(R.id.gender);
-        capacity = (TextView) findViewById(R.id.capacity);
+        famVacancies = (TextView) findViewById(R.id.famVac);
+        indVacancies = (TextView) findViewById(R.id.indVac);
         restrictions = (TextView) findViewById(R.id.restrictions);
         longitude = (TextView) findViewById(R.id.longitude);
         latitude = (TextView) findViewById(R.id.latitude);
@@ -44,6 +54,9 @@ public class Shelter_detail_Page extends AppCompatActivity {
         specialnotes = (TextView) findViewById(R.id.specialnotes);
         number = (TextView) findViewById(R.id.phone);
         cancel = (Button) findViewById(R.id.cancel);
+        checkIn = (Button) findViewById(R.id.checkIn);
+
+        checkIn.setVisibility(View.INVISIBLE);
 
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
@@ -57,7 +70,8 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         ArrayList mySheltlist = (ArrayList) dataSnapshot.getValue();
                         HashMap<String, Object> myShelt= (HashMap<String, Object>) mySheltlist.get(shelterID);
                         name.setText(name.getText() + myShelt.get("name").toString()) ;
-                        capacity.setText(capacity.getText() + myShelt.get("capacity").toString());
+                        famVacancies.setText(famVacancies.getText() + myShelt.get("familyVacancies").toString());
+                        indVacancies.setText(indVacancies.getText() + myShelt.get("singleVacancies").toString());
                         restrictions.setText(restrictions.getText() + myShelt.get("restriction").toString());
                         longitude.setText( longitude.getText() + myShelt.get("longitude").toString());
                         latitude.setText(latitude.getText() + myShelt.get("latitude").toString());
@@ -84,10 +98,44 @@ public class Shelter_detail_Page extends AppCompatActivity {
             }
         });
 
+        if (type.equals("homeless")) {
+            userReference = FirebaseDatabase.getInstance().getReference();
+            Log.d("Key: ", "the key in details is " + key);
+            userReference.child("homeless").child(key)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Homeless user = dataSnapshot.getValue(Homeless.class);
+                            if (user.getCheckedIn() == -1) {
+                                checkIn.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d("log: ", "check in visibility didn't work");
+                        }
+                    });
+        }
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
+                start.putExtra("key", key);
+                start.putExtra("id", shelterID);
+                start.putExtra("type", type);
+                startActivity(start);
+            }
+        });
+
+        checkIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent start = new Intent(getBaseContext(), CheckInPage.class);
+                start.putExtra("key", key);
+                start.putExtra("id", shelterID);
+                start.putExtra("type", type);
                 startActivity(start);
             }
         });

@@ -151,13 +151,17 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         String sheltername = String.valueOf(parent.getItemAtPosition(position));
                         Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
                         intent.putExtra("id", position);
+                        String key = getIntent().getStringExtra("key");
+                        Log.d("Log", "" + key);
+                        intent.putExtra("key", key);
+                        Log.d("Key: ", getIntent().getStringExtra("key"));
+                        intent.putExtra("type", getIntent().getStringExtra("type"));
                         startActivity(intent);
                     }
                 }
         );
 
         logoutButton = (Button) findViewById(R.id.homepage_logout_button);
-
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,12 +171,16 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+        
 
         searchButton = (Button) findViewById(R.id.search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), Search.class);
+                intent.putExtra("id", -1);
+                intent.putExtra("key", getIntent().getStringExtra("key"));
+                intent.putExtra("type", getIntent().getStringExtra("type"));
                 startActivity(intent);
             }
         });
