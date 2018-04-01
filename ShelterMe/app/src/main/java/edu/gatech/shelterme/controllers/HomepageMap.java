@@ -43,10 +43,11 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     private Button logoutButton;
     private DatabaseReference shelterReference;
     //private ListView listView;
-    private ArrayAdapter<String> adapter;
+    //private ArrayAdapter<String> adapter;
     protected ArrayList<Shelter> shelters;
     protected ArrayList<String> keys;
-    protected String[] shelterName;
+    protected int[] numClicks;
+    //protected String[] shelterName;
     private Button searchButton;
     //protected ArrayList<String> shelterName;
 
@@ -124,22 +125,23 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         Log.d("gender size: ", "" + shelters.size());
                     }
 
-                    shelterName = new String[shelters.size()];
-                    for (int i = 0; i < shelters.size(); i++) {
-                        Log.d("shelter: ", shelters.get(i).getName().toString());
-                        shelterName[i] = shelters.get(i).getName();
-                    }
+//                    shelterName = new String[shelters.size()];
+//                    for (int i = 0; i < shelters.size(); i++) {
+//                        Log.d("shelter: ", shelters.get(i).getName().toString());
+//                        shelterName[i] = shelters.get(i).getName();
+//                    }
                 } else {
-                    shelterName = new String[length];
+                    //shelterName = new String[length];
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
                         Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                         shelters.add(dsp.getValue(Shelter.class));
                         keys.add(dsp.getKey());
                         //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                        shelterName[counter++] = dsp.getValue(Shelter.class).toString();
+                        //shelterName[counter++] = dsp.getValue(Shelter.class).toString();
                         //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
                 }
+                numClicks = new int[keys.size()];
                 setUpMap();
 //                Log.d("one:", Boolean.toString(listView.isOpaque()));
 ////                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
@@ -217,7 +219,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 double longitude = s.getLongitude();
                 LatLng currShelt = new LatLng(latitude, longitude);
                 Marker marker = mMap.addMarker(new MarkerOptions().position(currShelt).title(s.getName()));
-                marker.setTag(keys.get(i));
+                marker.setTag(i);
             }
         }
         mMap.setOnMarkerClickListener(this);
@@ -228,10 +230,14 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the data from the marker.
-        String key = (String) marker.getTag();
-        Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
-        intent.putExtra("id", Integer.valueOf(key));
-        startActivity(intent);
+        int i = (Integer) marker.getTag();
+        numClicks[i] = numClicks[i] + 1;
+        if (numClicks[i] > 1) {
+            Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
+            intent.putExtra("id", keys.get(i));
+            startActivity(intent);
+        }
+
 
 
         // Return false to indicate that we have not consumed the event and that we wish
