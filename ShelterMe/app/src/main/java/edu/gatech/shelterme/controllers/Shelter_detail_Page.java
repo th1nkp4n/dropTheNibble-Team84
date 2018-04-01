@@ -42,7 +42,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
-        shelterID = (int) getIntent().getIntExtra("id",0);
+        shelterID =  getIntent().getIntExtra("id", 0);
         key = getIntent().getStringExtra("key");
         type = getIntent().getStringExtra("type");
         name = (TextView) findViewById(R.id.gender);

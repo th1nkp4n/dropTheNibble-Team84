@@ -358,7 +358,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
         numClicks[i] = numClicks[i] + 1;
         if (numClicks[i] > 1) {
             Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
-            intent.putExtra("id", keys.get(i));
+            intent.putExtra("id", Integer.valueOf(keys.get(i)));
+            intent.putExtra("type", type);
+            intent.putExtra("key", key);
             startActivity(intent);
         }
 
