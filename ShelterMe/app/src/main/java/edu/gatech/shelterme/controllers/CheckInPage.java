@@ -122,6 +122,7 @@ public class CheckInPage extends AppCompatActivity {
                                     int numFV = Integer.valueOf(numFam.getText().toString());
                                     int newVac = shelter.getFamilyVacancies() - numFV;
                                     if (numFV == 0){
+                                        goodCheckIn = false;
                                         Log.d("log :", "didn't check in any families");
                                         Homeless homelessPerson = new Homeless();
                                         homelessPerson.setCheckedIn(-1, key);
