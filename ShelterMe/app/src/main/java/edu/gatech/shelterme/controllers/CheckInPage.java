@@ -37,7 +37,7 @@ public class CheckInPage extends AppCompatActivity {
     private long indVacancies;
     private boolean hasFam;
     private boolean hasInd;
-    private boolean goodCheckIn;
+    private int goodCheckIn; // 1 when good, 0 when they entered 0, -1 when they exceeded capacity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class CheckInPage extends AppCompatActivity {
         shelterID = getIntent().getIntExtra("id", 0);
         type = getIntent().getStringExtra("type");
         key = getIntent().getStringExtra("key");
-        goodCheckIn = true;
+        goodCheckIn = 0;
         confirm.setVisibility(View.INVISIBLE);
 
 
@@ -122,24 +122,20 @@ public class CheckInPage extends AppCompatActivity {
                                     int numFV = Integer.valueOf(numFam.getText().toString());
                                     int newVac = shelter.getFamilyVacancies() - numFV;
                                     if (numFV == 0){
-                                        goodCheckIn = false;
+                                        goodCheckIn = 0;
                                         Log.d("log :", "didn't check in any families");
                                         Homeless homelessPerson = new Homeless();
                                         homelessPerson.setCheckedIn(-1, key);
-                                        Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
-                                        start.putExtra("type", type);
-                                        start.putExtra("id", shelterID);
-                                        start.putExtra("key", getIntent().getSerializableExtra("key"));
-                                        startActivity(start);
+
                                     } else if (newVac < 0) {
-                                        goodCheckIn = false;
+                                        goodCheckIn = -1;
                                         Log.d("log: ","over family cap");
                                         BadFamilyCheckInAlertDialogFragment badCheckIn = new BadFamilyCheckInAlertDialogFragment();
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         badCheckIn.show(ft, "maybe");
                                         newVac = shelter.getFamilyVacancies() - numFV;
                                     } else {
-                                        goodCheckIn = true;
+                                        goodCheckIn = 1;
                                         Homeless person = new Homeless();
                                         person.setFamilies(numFV, key);
                                         shelter.setFamilyVacancies(newVac, Integer.toString(shelterID));
@@ -150,37 +146,40 @@ public class CheckInPage extends AppCompatActivity {
                                     int numIV = Integer.valueOf(numInd.getText().toString());
                                     int newVac = shelter.getSingleVacancies() - numIV;
                                     if (numIV == 0) {
-                                        goodCheckIn = false;
+                                        goodCheckIn = goodCheckIn + 0;
                                         Log.d("log :", "didn't check in any individuals");
                                         Homeless homelessPerson = new Homeless();
                                         homelessPerson.setCheckedIn(-1, key);
-                                        Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
-                                        start.putExtra("type", type);
-                                        start.putExtra("id", shelterID);
-                                        start.putExtra("key", getIntent().getSerializableExtra("key"));
-                                        startActivity(start);
                                     } else if (newVac < 0) {
-                                        goodCheckIn = false;
+                                        goodCheckIn = -1;
                                         Log.d("log: ","over individual cap");
                                         BadSinglecheckInAlertDialogFragment badCheckIn = new BadSinglecheckInAlertDialogFragment();
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         badCheckIn.show(ft, "maybe");
                                     } else {
-                                        goodCheckIn = true;
+                                        if (goodCheckIn != -1) {
+                                            goodCheckIn = 1;
+                                        }
                                         Homeless person = new Homeless();
                                         person.setSingles(numIV, key);
                                         shelter.setSingleVacancies(newVac, Integer.toString(shelterID));
                                         Log.d("Singles vacancy: ", ((Integer) shelter.getSingleVacancies()).toString());
                                     }
                                 }
-                                if (goodCheckIn) {
-                                    goodCheckIn = false;
+                                if (goodCheckIn == 1) {
+                                    goodCheckIn = 0;
                                     Homeless person = new Homeless();
                                     person.setCheckedIn(shelterID, key);
                                     Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
                                     start.putExtra("id", shelterID);
                                     start.putExtra("key", key);
                                     start.putExtra("type", type);
+                                    startActivity(start);
+                                } else if (goodCheckIn == 0) {
+                                    Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
+                                    start.putExtra("type", type);
+                                    start.putExtra("id", shelterID);
+                                    start.putExtra("key", getIntent().getSerializableExtra("key"));
                                     startActivity(start);
                                 }
                             }
