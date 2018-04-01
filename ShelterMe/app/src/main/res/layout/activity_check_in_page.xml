@@ -71,6 +71,7 @@
 
     <EditText
         android:id="@+id/numFam"
+        android:labelFor="@id/numFam"
         android:layout_width="49dp"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
@@ -89,6 +90,7 @@
 
     <EditText
         android:id="@+id/numInd"
+        android:labelFor="@id/numInd"
         android:layout_width="51dp"
         android:layout_height="48dp"
         android:layout_marginBottom="276dp"
