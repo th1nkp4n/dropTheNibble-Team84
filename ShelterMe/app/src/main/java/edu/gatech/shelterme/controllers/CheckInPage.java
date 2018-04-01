@@ -56,6 +56,7 @@ public class CheckInPage extends AppCompatActivity {
         type = getIntent().getStringExtra("type");
         key = getIntent().getStringExtra("key");
         goodCheckIn = true;
+        confirm.setVisibility(View.INVISIBLE);
 
 
 
@@ -84,6 +85,10 @@ public class CheckInPage extends AppCompatActivity {
                             numInd.setVisibility(View.INVISIBLE);
                             indCheck.setVisibility(View.INVISIBLE);
                             Log.d("log: ","noInd");
+                        }
+
+                        if (hasInd && hasFam) {
+                            confirm.setVisibility(View.VISIBLE);
                         }
                     }
 
