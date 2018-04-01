@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
+import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
 import static java.util.logging.Logger.global;
@@ -53,12 +54,16 @@ public class LoginPage extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.homepage_logout_button);
         registerButton = (Button) findViewById(R.id.loginpage_register_button);
 
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences settings = getSharedPreferences("Prefs", 0);
                 String pass = passField.getText().toString();
                 String email = userField.getText().toString();
+                User data = new User();
+                data.setData(false);
+
 
 
                 if (pass == null) {
@@ -87,10 +92,79 @@ public class LoginPage extends AppCompatActivity {
                                         intent.putExtra("key", key);
                                         intent.putExtra("type", "homeless");
                                         Log.d("Log", "We made it.");
+                                        data.setData(true);
                                         startActivity(intent);
                                     }
                                 }
                             }
+
+                            allPassMatchesA.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Log.d("Log", "in admin event listener");
+                                    for (DataSnapshot adminSnapshot: dataSnapshot.getChildren()) {
+                                        Admin user = (Admin) adminSnapshot.getValue(Admin.class);
+                                        Log.d("Log", user.getEmail());
+                                        Log.d("Log", user.getPass());
+                                        Log.d("Log", email);
+                                        Log.d("Log", pass);
+                                        Log.d("Log", "" + user.getEmail().equals(email));
+                                        if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
+                                            String key = adminSnapshot.getKey();
+
+                                            Log.d("Log", "correct inputs");
+                                            Intent intent = new Intent(getBaseContext(), HomepageMap.class);
+                                            intent.putExtra("key", key);
+                                            intent.putExtra("type", "admin");
+                                            data.setData(true);
+                                            startActivity(intent);
+                                        }
+                                    }
+
+                                    allPassMatchesW.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            Log.d("Log", "in worker event listener");
+                                            Intent intent = null;
+                                            for (DataSnapshot workerSnapshot: dataSnapshot.getChildren()) {
+                                                Worker user = (Worker) workerSnapshot.getValue(Worker.class);
+                                                Log.d("Log", user.getEmail());
+                                                Log.d("Log", user.getPass());
+                                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
+                                                    String key = workerSnapshot.getKey();
+
+                                                    Log.d("Log", "correct inputs");
+                                                    intent = new Intent(getBaseContext(), HomepageMap.class);
+                                                    intent.putExtra("key", key);
+                                                    intent.putExtra("type", "worker");
+                                                    data.setData(true);
+                                                    startActivity(intent);
+                                                }
+                                            }
+
+                                            //tell them they had the wrong username or password
+                                            Log.d("Log", "" + data.getData());
+                                            if (!data.getData()) {
+                                                Log.d("Log", "incorrect inputs");
+                                                BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
+                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                badLogin.show(ft, "maybe");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
 
                         @Override
@@ -99,66 +173,10 @@ public class LoginPage extends AppCompatActivity {
                         }
                     });
 
-                    allPassMatchesA.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d("Log", "in admin event listener");
-                            for (DataSnapshot adminSnapshot: dataSnapshot.getChildren()) {
-                                Admin user = (Admin) adminSnapshot.getValue(Admin.class);
-                                Log.d("Log", user.getEmail());
-                                Log.d("Log", user.getPass());
-                                Log.d("Log", email);
-                                Log.d("Log", pass);
-                                Log.d("Log", "" + user.getEmail().equals(email));
-                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
-                                    String key = adminSnapshot.getKey();
 
-                                    Log.d("Log", "correct inputs");
-                                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
-                                    intent.putExtra("key", key);
-                                    intent.putExtra("type", "admin");
-                                    startActivity(intent);
-                                }
-                            }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
 
-                    allPassMatchesW.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d("Log", "in worker event listener");
-                            for (DataSnapshot workerSnapshot: dataSnapshot.getChildren()) {
-                                Worker user = (Worker) workerSnapshot.getValue(Worker.class);
-                                Log.d("Log", user.getEmail());
-                                Log.d("Log", user.getPass());
-                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
-                                    String key = workerSnapshot.getKey();
-
-                                    Log.d("Log", "correct inputs");
-                                    Intent intent = new Intent(getBaseContext(), HomepageMap.class);
-                                    intent.putExtra("key", key);
-                                    intent.putExtra("type", "worker");
-                                    startActivity(intent);
-                                }
-                            }
-
-                            //tell them they had the wrong username or password
-                            Log.d("Log", "incorrect inputs");
-                            BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
-                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            badLogin.show(ft, "maybe");
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
 
 
                 }
