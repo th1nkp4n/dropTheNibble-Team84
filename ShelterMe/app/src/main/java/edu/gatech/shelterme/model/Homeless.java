@@ -18,7 +18,7 @@ public class Homeless {
     private String gender;
     private boolean veteran;
     private int checkedIn;
-    private int famlies;
+    private int families;
     private int singles;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference ref = database.getReference();
@@ -31,7 +31,7 @@ public class Homeless {
 
     public Homeless() {
         this.checkedIn = -1;
-        this.famlies = 0;
+        this.families = 0;
         this.singles = 0;
     }
 
@@ -40,7 +40,7 @@ public class Homeless {
     public String getGender() {return gender;}
     public boolean getVeteran() {return veteran;}
     public int getCheckedIn() {return checkedIn;}
-    public int getFamilies() {return famlies;}
+    public int getFamilies() {return families;}
     public int getSingles() {return singles;}
     public void setAge(int page, String key) {
         ref.child("homeless").child(key).child("age").setValue(page);
@@ -58,9 +58,9 @@ public class Homeless {
         ref.child("homeless").child(key).child("checkedIn").setValue(shelter);
         this.checkedIn = shelter;
     }
-    public void setFamiles(int pfamlies, String key) {
-        ref.child("homeless").child(key).child("famlies").setValue(pfamlies);
-        this.famlies = pfamlies;
+    public void setFamilies(int pfamilies, String key) {
+        ref.child("homeless").child(key).child("families").setValue(pfamilies);
+        this.families = pfamilies;
     }
     public void setSingles(int psingles, String key) {
         ref.child("homeless").child(key).child("singles").setValue(psingles);
