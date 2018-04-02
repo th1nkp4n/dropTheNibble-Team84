@@ -11,8 +11,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Worker {
     private String social;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
     private String email;
     private String pass;
     private String name;
@@ -22,9 +22,9 @@ public class Worker {
         this.social = "0";
     }
 
-    public String getSocial() {
-        return social;
-    }
+//    public String getSocial() {
+//        return social;
+//    }
 
 
     public void setSocial(String number, String key) {
@@ -48,9 +48,9 @@ public class Worker {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
+//    public String getName() {
+//        return name;
+//    }
 
 
     public void setPass(String password, String key) {

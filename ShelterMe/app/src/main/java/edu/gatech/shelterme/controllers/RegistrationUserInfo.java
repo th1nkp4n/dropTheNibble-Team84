@@ -31,8 +31,8 @@ public class RegistrationUserInfo extends AppCompatActivity {
     private EditText pass1Field;
     private EditText emailField;
     private EditText pass2Field;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

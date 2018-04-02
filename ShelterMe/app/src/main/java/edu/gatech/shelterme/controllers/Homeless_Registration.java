@@ -32,9 +32,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     private Spinner veteranSpinner;
     private Button cancelButton;
     private Button nextButton;
-    private Homeless _person;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +94,6 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                 }
                 if (ageValid) {
                     Log.d("Log", "valid inputs");
-
-                    Homeless user = null;
                     FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

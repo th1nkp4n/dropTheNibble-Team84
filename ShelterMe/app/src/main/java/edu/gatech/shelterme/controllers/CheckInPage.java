@@ -21,7 +21,7 @@ import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 
 public class CheckInPage extends AppCompatActivity {
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    final private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private TextView noFam;
     private TextView famCheck;
     private TextView noInd;

@@ -11,7 +11,7 @@ public class User implements Serializable {
     public User() {}
 
     public boolean getData() {return weCanAccessThisInsideOnDataChangeIsThatNotGreat;}
-    public void setData(boolean weCanAccessThisInsideOnDataChangeIsThatNotGreat) {this.weCanAccessThisInsideOnDataChangeIsThatNotGreat = weCanAccessThisInsideOnDataChangeIsntThatGreat;}
+    public void setData(boolean weCanAccessThisInsideOnDataChangeIsThatNotGreat) {this.weCanAccessThisInsideOnDataChangeIsThatNotGreat = weCanAccessThisInsideOnDataChangeIsThatNotGreat;}
 
 
 }

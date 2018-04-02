@@ -25,8 +25,8 @@ public class WorkerRegistration extends AppCompatActivity {
     private EditText socialSecurity;
     private Button registerButton;
     private Button cancelButton;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,6 @@ public class WorkerRegistration extends AppCompatActivity {
                     String key = (String) getIntent().getSerializableExtra("key");
                     Log.d("Log", socialSecurity.getText().toString());
 
-                    Worker user = null;
                     FirebaseDatabase.getInstance().getReference().child("worker").child(key)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

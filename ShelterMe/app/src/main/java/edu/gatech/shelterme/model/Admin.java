@@ -11,8 +11,8 @@ import java.io.Serializable;
  */
 
 public class Admin {
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
     private String email;
     private String pass;
     private String name;
@@ -36,9 +36,9 @@ public class Admin {
         ref.child("admin").child(key).child("name").setValue(name);
     }
 
-    public String getName() {
-        return name;
-    }
+//    public String getName() {
+//        return name;
+    //}
 
 
     public void setPass(String password, String key) {

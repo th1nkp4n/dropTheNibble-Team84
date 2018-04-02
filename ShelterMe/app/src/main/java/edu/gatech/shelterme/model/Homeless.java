@@ -20,13 +20,13 @@ public class Homeless {
     private int checkedIn;
     private int families;
     private int singles;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
     private String email;
     private String pass;
     private String name;
 
-    public static List<String> genders = Arrays.asList("Cis Woman", "Cis Man", "Nonbinary",
+    final public static List<String> genders = Arrays.asList("Cis Woman", "Cis Man", "Nonbinary",
             "Trans Woman", "Trans Man", "Other", "Prefer Not To Say");
 
     public Homeless() {
@@ -36,9 +36,9 @@ public class Homeless {
     }
 
 
-    public int getAge() {return age;}
-    public String getGender() {return gender;}
-    public boolean getVeteran() {return veteran;}
+//    public int getAge() {return age;}
+//    public String getGender() {return gender;}
+//    public boolean getVeteran() {return veteran;}
     public int getCheckedIn() {return checkedIn;}
     public int getFamilies() {return families;}
     public int getSingles() {return singles;}

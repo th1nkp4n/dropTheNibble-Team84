@@ -45,13 +45,11 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     private Button logoutButton;
     private DatabaseReference shelterReference;
     private DatabaseReference userReference;
-    private ListView listView;
-    private ArrayAdapter<String> adapter;
     //private ListView listView;
     //private ArrayAdapter<String> adapter;
-    protected ArrayList<Shelter> shelters;
-    protected ArrayList<String> keys;
-    protected int[] numClicks;
+    private ArrayList<Shelter> shelters;
+    private ArrayList<String> keys;
+    private int[] numClicks;
     //protected String[] shelterName;
     private Button searchButton;
     private Button checkOut;
@@ -80,10 +78,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int length = (int) dataSnapshot.getChildrenCount();
                 shelters = new ArrayList<>();
                 keys = new ArrayList<>();
-                int counter = 0;
 
                 Log.d("intent", "" + getIntent().getStringExtra("name"));
                 if (getIntent().hasExtra("name")) {

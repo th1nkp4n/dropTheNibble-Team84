@@ -22,8 +22,8 @@ import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationRolePage extends AppCompatActivity {
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

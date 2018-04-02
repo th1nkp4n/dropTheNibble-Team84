@@ -39,8 +39,8 @@ public class LoginPage extends AppCompatActivity {
     private EditText passField;
     private Button loginButton;
     private Button registerButton;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
 
 
     @Override
@@ -60,7 +60,7 @@ public class LoginPage extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences settings = getSharedPreferences("Prefs", 0);
+                //SharedPreferences settings = getSharedPreferences("Prefs", 0);
                 String pass = passField.getText().toString();
                 String email = userField.getText().toString();
                 User data = new User();

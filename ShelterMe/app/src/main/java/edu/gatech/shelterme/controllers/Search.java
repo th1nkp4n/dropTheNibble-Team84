@@ -74,7 +74,6 @@ public class Search extends AppCompatActivity {
         shelterReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int length = (int) dataSnapshot.getChildrenCount();
                 for (DataSnapshot dsp : dataSnapshot.getChildren()){
                     Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                     //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());

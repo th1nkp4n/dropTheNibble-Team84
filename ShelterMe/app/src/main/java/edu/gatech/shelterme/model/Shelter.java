@@ -19,8 +19,8 @@ public class Shelter {
     private String address;
     private String specialNotes;
     private String phone;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private DatabaseReference ref = database.getReference();
 
     public Shelter(){};
 
@@ -44,25 +44,25 @@ public class Shelter {
         return name;
     }
 
-    public void setName(String name, String id) {
-        ref.child("shelters").child(id).child("name").setValue(name);
-    }
+//    public void setName(String name, String id) {
+//        ref.child("shelters").child(id).child("name").setValue(name);
+//    }
 
-    public int getFamilyCapacity() {
-        return familyCapacity;
-    }
-
-    public void setFamilyCapacity(int familyCapacity, String id) {
-        ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
-    }
-
-    public int getSingleCapacity() {
-        return singleCapacity;
-    }
-
-    public void setSingleCapacity(int singleCapacity, String id) {
-        ref.child("shelters").child(id).child("singleCapacity").setValue(singleCapacity);
-    }
+//    public int getFamilyCapacity() {
+//        return familyCapacity;
+//    }
+//
+//    public void setFamilyCapacity(int familyCapacity, String id) {
+//        ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
+//    }
+//
+//    public int getSingleCapacity() {
+//        return singleCapacity;
+//    }
+//
+//    public void setSingleCapacity(int singleCapacity, String id) {
+//        ref.child("shelters").child(id).child("singleCapacity").setValue(singleCapacity);
+//    }
 
     public int getFamilyVacancies() {
         return familyVacancies;
@@ -84,49 +84,49 @@ public class Shelter {
         return restriction;
     }
 
-    public void setRestriction(String restriction, String id) {
-        ref.child("shelters").child(id).child("restriction").setValue(restriction);
-    }
+//    public void setRestriction(String restriction, String id) {
+//        ref.child("shelters").child(id).child("restriction").setValue(restriction);
+//    }
 
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude, String id) {
-        ref.child("shelters").child(id).child("longitude").setValue(longitude);
-    }
+//    public void setLongitude(double longitude, String id) {
+//        ref.child("shelters").child(id).child("longitude").setValue(longitude);
+//    }
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude, String id) {
-        ref.child("shelters").child(id).child("latitude").setValue(latitude);
-    }
+//    public void setLatitude(double latitude, String id) {
+//        ref.child("shelters").child(id).child("latitude").setValue(latitude);
+//    }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address, String id) {
-        ref.child("shelters").child(id).child("address").setValue(address);
-    }
-
-    public String getSpecialNotes() {
-        return specialNotes;
-    }
-
-    public void setSpecialNotes(String specialNotes, String id) {
-        ref.child("shelters").child(id).child("specialNotes").setValue(specialNotes);
-    }
+//    public String getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(String address, String id) {
+//        ref.child("shelters").child(id).child("address").setValue(address);
+//    }
+//
+//    public String getSpecialNotes() {
+//        return specialNotes;
+//    }
+//
+//    public void setSpecialNotes(String specialNotes, String id) {
+//        ref.child("shelters").child(id).child("specialNotes").setValue(specialNotes);
+//    }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone, String id) {
-        ref.child("shelters").child(id).child("phone").setValue(phone);
-    }
+//    public void setPhone(String phone, String id) {
+//        ref.child("shelters").child(id).child("phone").setValue(phone);
+//    }
 
     public String toString() {
         return name;
