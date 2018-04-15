@@ -133,7 +133,7 @@ public class CheckInPage extends AppCompatActivity {
                                         BadFamilyCheckInAlertDialogFragment badCheckIn = new BadFamilyCheckInAlertDialogFragment();
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                                         badCheckIn.show(ft, "maybe");
-                                        newVac = shelter.getFamilyVacancies() - numFV;
+                                        //newVac = shelter.getFamilyVacancies() - numFV;
                                     } else {
                                         goodCheckIn = 1;
                                         Homeless person = new Homeless();

@@ -45,17 +45,17 @@ public class Shelter_detail_Page extends AppCompatActivity {
         shelterID =  getIntent().getIntExtra("id", 0);
         key = getIntent().getStringExtra("key");
         type = getIntent().getStringExtra("type");
-        name = (TextView) findViewById(R.id.gender);
-        famVacancies = (TextView) findViewById(R.id.famVac);
-        indVacancies = (TextView) findViewById(R.id.indVac);
-        restrictions = (TextView) findViewById(R.id.restrictions);
-        longitude = (TextView) findViewById(R.id.longitude);
-        latitude = (TextView) findViewById(R.id.latitude);
-        address = (TextView) findViewById(R.id.address);
-        specialNotes = (TextView) findViewById(R.id.special_notes);
-        number = (TextView) findViewById(R.id.phone);
-        cancel = (Button) findViewById(R.id.cancel);
-        checkIn = (Button) findViewById(R.id.checkIn);
+        name =  findViewById(R.id.gender);
+        famVacancies =  findViewById(R.id.famVac);
+        indVacancies = findViewById(R.id.indVac);
+        restrictions = findViewById(R.id.restrictions);
+        longitude =  findViewById(R.id.longitude);
+        latitude = findViewById(R.id.latitude);
+        address = findViewById(R.id.address);
+        specialNotes =  findViewById(R.id.special_notes);
+        number = findViewById(R.id.phone);
+        cancel = findViewById(R.id.cancel);
+        checkIn = findViewById(R.id.checkIn);
 
         checkIn.setVisibility(View.INVISIBLE);
 

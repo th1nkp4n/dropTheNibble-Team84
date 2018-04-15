@@ -166,7 +166,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        logoutButton = (Button) findViewById(R.id.homepage_logout_button);
+        logoutButton = findViewById(R.id.homepage_logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +176,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        checkOut = (Button) findViewById(R.id.checkOut);
+        checkOut = findViewById(R.id.checkOut);
         checkOut.setVisibility(View.INVISIBLE);
         userReference = FirebaseDatabase.getInstance().getReference();
 
@@ -251,7 +251,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        searchButton = (Button) findViewById(R.id.search);
+        searchButton = findViewById(R.id.search);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

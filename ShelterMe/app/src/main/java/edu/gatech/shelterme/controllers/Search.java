@@ -42,11 +42,11 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        submitButton = (Button) findViewById(R.id.filter);
-        cancelButton = (Button) findViewById(R.id.cancel);
-        genderSpinner = (Spinner) findViewById(R.id.gender);
-        ageSpinner = (Spinner) findViewById(R.id.age);
-        nameSpinner = (Spinner) findViewById(R.id.name);
+        submitButton = findViewById(R.id.filter);
+        cancelButton = findViewById(R.id.cancel);
+        genderSpinner = findViewById(R.id.gender);
+        ageSpinner = findViewById(R.id.age);
+        nameSpinner = findViewById(R.id.name);
 
         genderArray = new ArrayList<>();
         genderArray.add("Any Gender");
@@ -63,7 +63,7 @@ public class Search extends AppCompatActivity {
         ageArray.add("Children");
         ageArray.add("Young adults");
 
-        age = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, ageArray);
+        age = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, ageArray);
         age.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(age);
 
@@ -75,9 +75,12 @@ public class Search extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                    Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                    //Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                     //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                    nameArray.add(dsp.getValue(Shelter.class).toString());
+                    if(dsp.getValue(Shelter.class).toString() != null) {
+                        nameArray.add(dsp.getValue(Shelter.class).toString());
+                    }
+
                     //shelterName.add(dsp.getValue(Shelter.class).getName());
                 }
 
@@ -92,13 +95,11 @@ public class Search extends AppCompatActivity {
                 // [END_EXCLUDE]
             }
         });
-        names = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, nameArray);
+        names = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, nameArray);
         names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nameSpinner.setAdapter(names);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        submitButton.setOnClickListener((View v) -> {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
                 start.putExtra("name", nameSpinner.getSelectedItem().toString());
                 start.putExtra("age", ageSpinner.getSelectedItem().toString());
@@ -109,19 +110,15 @@ public class Search extends AppCompatActivity {
                 start.putExtra("type", getIntent().getStringExtra("type"));
                 start.putExtra("filter", 1);
                 startActivity(start);
-            }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cancelButton.setOnClickListener((View v) -> {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
                 start.putExtra("filter", 0);
                 start.putExtra("key", getIntent().getStringExtra("key"));
                 start.putExtra("id", getIntent().getIntExtra("id", 0));
                 start.putExtra("type", getIntent().getStringExtra("type"));
                 startActivity(start);
-            }
         });
     }
 }

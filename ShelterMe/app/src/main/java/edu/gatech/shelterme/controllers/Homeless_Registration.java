@@ -40,11 +40,11 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         setContentView(R.layout.activity_homeless__registration);
 
         //Grab the dialog widgets so we can get info for later
-        ageField = (EditText) findViewById(R.id.age_input);
-        genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
-        veteranSpinner = (Spinner) findViewById(R.id.veteran_spinner);
-        cancelButton = (Button) findViewById(R.id.homeless_registration_cancel);
-        nextButton = (Button) findViewById(R.id.homeless_registration_next);
+        ageField = findViewById(R.id.age_input);
+        genderSpinner =  findViewById(R.id.gender_spinner);
+        veteranSpinner = findViewById(R.id.veteran_spinner);
+        cancelButton = findViewById(R.id.homeless_registration_cancel);
+        nextButton = findViewById(R.id.homeless_registration_next);
         String key = (String) getIntent().getSerializableExtra("key");
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +99,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     // Get Post object and use the values to update the UI
-                                    Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                                    Homeless user =  dataSnapshot.getValue(Homeless.class);
                                     user.setAge(Integer.valueOf(ageField.getText().toString()), key);
                                     user.setGender((String) genderSpinner.getSelectedItem(), key);
                                     user.setVeteran((boolean) veteranSpinner.getSelectedItem(), key);

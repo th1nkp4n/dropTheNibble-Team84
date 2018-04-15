@@ -40,12 +40,12 @@ public class RegistrationUserInfo extends AppCompatActivity {
 
         setContentView(R.layout.activity_registration_user_info);
 
-        userField = (EditText) findViewById(R.id.registration_user_info_name);
-        emailField = (EditText) findViewById(R.id.registration_user_info_email);
-        pass1Field = (EditText) findViewById(R.id.registration_user_info_password1);
-        pass2Field = (EditText) findViewById(R.id.registration_user_info_password2);
-        continueButton = (Button) findViewById(R.id.registration_user_info_continue);
-        cancelButton = (Button) findViewById(R.id.registration_user_info_cancel);
+        userField =  findViewById(R.id.registration_user_info_name);
+        emailField =  findViewById(R.id.registration_user_info_email);
+        pass1Field = findViewById(R.id.registration_user_info_password1);
+        pass2Field =  findViewById(R.id.registration_user_info_password2);
+        continueButton =  findViewById(R.id.registration_user_info_continue);
+        cancelButton = findViewById(R.id.registration_user_info_cancel);
         String key = (String) getIntent().getSerializableExtra("key");
         String type = (String) getIntent().getSerializableExtra("type");
 
@@ -90,7 +90,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
-                                        Admin user = (Admin) dataSnapshot.getValue(Admin.class);
+                                        Admin user = dataSnapshot.getValue(Admin.class);
                                         Log.d("Log", user.toString());
                                         Log.d("Log", emailField.getText().toString());
                                         user.setEmail(emailField.getText().toString(), key);
@@ -113,7 +113,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
-                                        Homeless user = (Homeless) dataSnapshot.getValue(Homeless.class);
+                                        Homeless user = dataSnapshot.getValue(Homeless.class);
                                         user.setEmail(emailField.getText().toString(), key);
                                         user.setPass(pass1Field.getText().toString(), key);
                                         user.setName(userField.getText().toString(), key);
@@ -132,7 +132,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
-                                        Worker user = (Worker) dataSnapshot.getValue(Worker.class);
+                                        Worker user = dataSnapshot.getValue(Worker.class);
                                         user.setEmail(emailField.getText().toString(), key);
                                         user.setPass(pass1Field.getText().toString(), key);
                                         user.setName(userField.getText().toString(), key);

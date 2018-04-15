@@ -51,10 +51,10 @@ public class LoginPage extends AppCompatActivity {
 
 
         //Grab the dialog widgets so we can get info for later
-        userField = (EditText) findViewById(R.id.login_page_username_input);
-        passField = (EditText) findViewById(R.id.login_page_password_input);
-        loginButton = (Button) findViewById(R.id.homepage_logout_button);
-        registerButton = (Button) findViewById(R.id.login_page_register_button);
+        userField =  findViewById(R.id.login_page_username_input);
+        passField =  findViewById(R.id.login_page_password_input);
+        loginButton = findViewById(R.id.homepage_logout_button);
+        registerButton =  findViewById(R.id.login_page_register_button);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,7 @@ public class LoginPage extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("Log", "in homeless event listener");
                             for (DataSnapshot homelessSnapshot : dataSnapshot.getChildren()) {
-                                Homeless user = (Homeless) homelessSnapshot.getValue(Homeless.class);
+                                Homeless user = homelessSnapshot.getValue(Homeless.class);
                                 if (user != null) {
                                     Log.d("Log", user.getName() + "line 82 in homeless");
                                     if (user.getPass().equals(pass) && user.getEmail().equals(email)) {
@@ -112,7 +112,7 @@ public class LoginPage extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("Log", "in admin event listener");
                             for (DataSnapshot adminSnapshot: dataSnapshot.getChildren()) {
-                                Admin user = (Admin) adminSnapshot.getValue(Admin.class);
+                                Admin user = adminSnapshot.getValue(Admin.class);
                                 Log.d("Log", user.getEmail());
                                 Log.d("Log", user.getPass());
                                 Log.d("Log", email);
@@ -141,9 +141,9 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("Log", "in worker event listener");
-                            Intent intent = null;
+                            Intent intent;
                             for (DataSnapshot workerSnapshot: dataSnapshot.getChildren()) {
-                                Worker user = (Worker) workerSnapshot.getValue(Worker.class);
+                                Worker user = workerSnapshot.getValue(Worker.class);
                                 Log.d("Log", user.getEmail());
                                 Log.d("Log", user.getPass());
                                 if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {

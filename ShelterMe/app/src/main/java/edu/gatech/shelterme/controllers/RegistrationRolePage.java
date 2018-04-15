@@ -29,11 +29,11 @@ public class RegistrationRolePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_role_page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        Button cancelButton = (Button) findViewById(R.id.registrationRoleCancelButton);
+        Button cancelButton = findViewById(R.id.registrationRoleCancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,16 +43,16 @@ public class RegistrationRolePage extends AppCompatActivity {
             }
         }) ;
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab =  findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RadioButton admin = (RadioButton) findViewById(R.id.adminRadio);
-                RadioButton homeless = (RadioButton) findViewById(R.id.guestRadio);
-                RadioButton worker = (RadioButton) findViewById(R.id.workerRadio);
+                RadioButton admin =  findViewById(R.id.adminRadio);
+                RadioButton homeless = findViewById(R.id.guestRadio);
+                RadioButton worker =  findViewById(R.id.workerRadio);
                 Log.d("Log", "User type selected");
                 Intent intent = new Intent(getBaseContext(), RegistrationUserInfo.class);
-                String key = null;
+                String key;
 
                 if (worker.isChecked()) {
                     Worker user = new Worker();

@@ -34,9 +34,9 @@ public class WorkerRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_worker_registration);
 
         //Grab the dialog widgets so we can get info for later
-        socialSecurity = (EditText) findViewById(R.id.social_security_number);
-        registerButton = (Button) findViewById(R.id.register_button);
-        cancelButton = (Button) findViewById(R.id.cancel_button);
+        socialSecurity =  findViewById(R.id.social_security_number);
+        registerButton =  findViewById(R.id.register_button);
+        cancelButton =  findViewById(R.id.cancel_button);
         String key = (String) getIntent().getSerializableExtra("key");
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class WorkerRegistration extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     // Get Post object and use the values to update the UI
-                                    Worker user = (Worker) dataSnapshot.getValue(Worker.class);
+                                    Worker user = dataSnapshot.getValue(Worker.class);
                                     user.setSocial(socialSecurity.getText().toString(), key);
 
                                 }
