@@ -22,6 +22,7 @@ public class Worker {
         this.social = "0";
     }
 
+
     public String getSocial() {
         return social;
     }
@@ -61,4 +62,6 @@ public class Worker {
     public String getPass() {
         return pass;
     }
+
+
 }
