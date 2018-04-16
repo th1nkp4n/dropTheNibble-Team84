@@ -7,16 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Homeless {
-    private int age;
-    private String gender;
-    private boolean veteran;
-    private int checkedIn;
-    private int families;
-    private int singles;
-    private static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private static DatabaseReference ref = database.getReference();
-    private static FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-    private static DatabaseReference ref2 = database2.getReference();
+    final private int checkedIn;
+    final private int families;
+    final private int singles;
+    final private static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final private static DatabaseReference ref = database.getReference();
+    final private static FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+    final private static DatabaseReference ref2 = database2.getReference();
     private String email;
     private String pass;
     private String name;

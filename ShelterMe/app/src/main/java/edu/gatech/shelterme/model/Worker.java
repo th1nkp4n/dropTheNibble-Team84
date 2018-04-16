@@ -7,16 +7,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Worker {
-    private String social;
     final static private FirebaseDatabase database = FirebaseDatabase.getInstance();
     final static private DatabaseReference ref = database.getReference();
-    private String email;
+    final private String email;
     private String pass;
     private String name;
 
 
     public Worker(){
-        this.social = "0";
+        this.email = "email";
     }
 
 

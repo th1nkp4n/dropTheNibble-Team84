@@ -10,13 +10,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Admin {
     final static private FirebaseDatabase database = FirebaseDatabase.getInstance();
     final static private DatabaseReference ref = database.getReference();
-    private String email;
+    final private String email;
     private String pass;
-    private String name;
 
-    public Admin() {
-        this.name = "name";
-    }
+    public Admin() {this.email = "email";}
 
     public String getEmail() {
         return email;

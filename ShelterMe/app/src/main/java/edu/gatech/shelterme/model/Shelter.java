@@ -7,32 +7,24 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Shelter {
     private String name;
-    private int familyCapacity;
-    private int singleCapacity;
     private int familyVacancies;
     private int singleVacancies;
     private String restriction;
     private double longitude;
     private double latitude;
-    private String address;
-    private String specialNotes;
     private String phone;
     final static private FirebaseDatabase database = FirebaseDatabase.getInstance();
     final static private DatabaseReference ref = database.getReference();
 
     public Shelter(){}
 
-    public Shelter(String name, int famCap, int indCap, int famVac, int indVac, String restriction, double longitude, double latitude, String address, String specialNotes, String phone) {
+    public Shelter(String name, int famVac, int indVac, String restriction, double longitude, double latitude, String phone) {
         this.name = name;
-        this.familyCapacity = famCap;
-        this.singleCapacity = indCap;
         this.singleVacancies = indVac;
         this.familyVacancies = famVac;
         this.restriction = restriction;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.address = address;
-        this.specialNotes = specialNotes;
         this.phone = phone;
     }
 

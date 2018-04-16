@@ -20,7 +20,6 @@ import edu.gatech.shelterme.model.WorkerSocial;
 public class WorkerRegistration extends AppCompatActivity {
     //Widgets
     private EditText socialSecurity;
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
     @Override

@@ -27,7 +27,6 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     private EditText ageField;
     private Spinner genderSpinner;
     private Spinner veteranSpinner;
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
