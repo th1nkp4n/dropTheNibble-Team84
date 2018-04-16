@@ -69,6 +69,9 @@ public class Shelter_detail_Page extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ArrayList myShelterList = (ArrayList) dataSnapshot.getValue();
+                        if (myShelterList == null) {
+                            return;
+                        }
                         HashMap<String, Object> myShelter= (HashMap<String, Object>) myShelterList.get(shelterID);
                         name.setText(name.getText() + myShelter.get("name").toString()) ;
                         famVacancies.setText(famVacancies.getText() + myShelter.get("familyVacancies").toString());
@@ -107,6 +110,9 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Homeless user = dataSnapshot.getValue(Homeless.class);
+                            if (user == null) {
+                                return;
+                            }
                             if (user.getCheckedIn() == -1) {
                                 checkIn.setVisibility(View.VISIBLE);
                             }

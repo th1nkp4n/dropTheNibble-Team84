@@ -68,7 +68,7 @@ public class LoginPage extends AppCompatActivity {
                 Log.d("Log", "login button clicked");
 
 
-                if (pass == null) {
+                if ("".equals(pass)) {
                     //tell them they had the wrong username or password
                     Log.d("Log", "incorrect");
                     BadLoginAlertDialogFragment badLogin = new BadLoginAlertDialogFragment();
@@ -113,12 +113,15 @@ public class LoginPage extends AppCompatActivity {
                             Log.d("Log", "in admin event listener");
                             for (DataSnapshot adminSnapshot: dataSnapshot.getChildren()) {
                                 Admin user = adminSnapshot.getValue(Admin.class);
+                                if (user == null) {
+                                    return;
+                                }
                                 Log.d("Log", user.getEmail());
                                 Log.d("Log", user.getPass());
                                 Log.d("Log", email);
                                 Log.d("Log", pass);
                                 Log.d("Log", "" + user.getEmail().equals(email));
-                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
+                                if (user.getPass().equals(pass) && user.getEmail().equals(email)) {
                                     String key = adminSnapshot.getKey();
 
                                     Log.d("Log", "correct inputs");
@@ -144,9 +147,12 @@ public class LoginPage extends AppCompatActivity {
                             Intent intent;
                             for (DataSnapshot workerSnapshot: dataSnapshot.getChildren()) {
                                 Worker user = workerSnapshot.getValue(Worker.class);
+                                if (user == null) {
+                                    return;
+                                }
                                 Log.d("Log", user.getEmail());
                                 Log.d("Log", user.getPass());
-                                if (user != null && user.getPass().equals(pass) && user.getEmail().equals(email)) {
+                                if (user.getPass().equals(pass) && user.getEmail().equals(email)) {
                                     String key = workerSnapshot.getKey();
                                     Log.d("Log", "correct inputs");
                                     intent = new Intent(getBaseContext(), HomepageMap.class);
@@ -189,23 +195,7 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
-    /**
-     * Button handler for the add new student button
-     * @param view the button
-     */
-    /*public void onLoginPressed(View view) {
-        Log.d("Login", "login info");
 
-
-        if(userField.getText().toString() =="user"&& passField.getText(). toString() =="pass") {
-                Log.d("Log", "correct inputs");
-                setContentView(R.layout.activity_homepage_map);
-        } else {
-            //tell them they had the wrong username or password
-        }
-
-        finish();
-    }*/
 
 }
 
