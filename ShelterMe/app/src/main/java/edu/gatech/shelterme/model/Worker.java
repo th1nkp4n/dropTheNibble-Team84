@@ -8,8 +8,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Worker {
     private String social;
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final private DatabaseReference ref = database.getReference();
+    final static private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final static private DatabaseReference ref = database.getReference();
     private String email;
     private String pass;
     private String name;
@@ -25,15 +25,13 @@ public class Worker {
     }
 
 
-    public void setSocial(String number, String key) {
+    public static void setSocial(String number, String key) {
         ref.child("worker").child(key).child("social").setValue(number);
-        this.social = number;
     }
 
 
-    public void setEmail(String email, String key) {
+    public static void setEmail(String email, String key) {
         ref.child("worker").child(key).child("email").setValue(email);
-        this.email = email;
     }
 
     public String getEmail() {
@@ -41,9 +39,8 @@ public class Worker {
     }
 
 
-    public void setName(String name, String key) {
+    public static void setName(String name, String key) {
         ref.child("worker").child(key).child("name").setValue(name);
-        this.name = name;
     }
 
     public String getName() {
@@ -51,9 +48,8 @@ public class Worker {
     }
 
 
-    public void setPass(String password, String key) {
+    public static void setPass(String password, String key) {
         ref.child("worker").child(key).child("pass").setValue(password);
-        this.pass = password;
     }
 
     public String getPass() {

@@ -21,13 +21,14 @@ import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 
 public class CheckInPage extends AppCompatActivity {
+    private static DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_page);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
         TextView noFam =findViewById(R.id.noFam);
         TextView famCheck = findViewById(R.id.famCheck);
         TextView noInd = findViewById(R.id.noInd);
@@ -105,8 +106,7 @@ public class CheckInPage extends AppCompatActivity {
                                     if (numFV == 0){
                                         goodCheckIn = 0;
                                         Log.d("log :", "didn't check in any families");
-                                        Homeless homelessPerson = new Homeless();
-                                        homelessPerson.setCheckedIn(-1, key);
+                                        Homeless.setCheckedIn(-1, key);
 
                                     } else if (newVac < 0) {
                                         goodCheckIn = -1;
@@ -117,9 +117,8 @@ public class CheckInPage extends AppCompatActivity {
                                         //newVac = shelter.getFamilyVacancies() - numFV;
                                     } else {
                                         goodCheckIn = 1;
-                                        Homeless person = new Homeless();
-                                        person.setFamilies(numFV, key);
-                                        shelter.setFamilyVacancies(newVac, Integer.toString(shelterID));
+                                        Homeless.setFamilies(numFV, key);
+                                        Shelter.setFamilyVacancies(newVac, Integer.toString(shelterID));
                                         Log.d("Families vacancy: ", ((Integer) shelter.getFamilyVacancies()).toString());
                                     }
                                 }
@@ -129,8 +128,7 @@ public class CheckInPage extends AppCompatActivity {
                                     if (numIV == 0) {
                                         goodCheckIn = goodCheckIn;
                                         Log.d("log :", "didn't check in any individuals");
-                                        Homeless homelessPerson = new Homeless();
-                                        homelessPerson.setCheckedIn(-1, key);
+                                        Homeless.setCheckedIn(-1, key);
                                     } else if (newVac < 0) {
                                         goodCheckIn = -1;
                                         Log.d("log: ","over individual cap");
@@ -141,16 +139,14 @@ public class CheckInPage extends AppCompatActivity {
                                         if (goodCheckIn != -1) {
                                             goodCheckIn = 1;
                                         }
-                                        Homeless person = new Homeless();
-                                        person.setSingles(numIV, key);
-                                        shelter.setSingleVacancies(newVac, Integer.toString(shelterID));
+                                        Homeless.setSingles(numIV, key);
+                                        Shelter.setSingleVacancies(newVac, Integer.toString(shelterID));
                                         Log.d("Singles vacancy: ", ((Integer) shelter.getSingleVacancies()).toString());
                                     }
                                 }
                                 if (goodCheckIn == 1) {
                                     goodCheckIn = 0;
-                                    Homeless person = new Homeless();
-                                    person.setCheckedIn(shelterID, key);
+                                    Homeless.setCheckedIn(shelterID, key);
                                     Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
                                     start.putExtra("id", shelterID);
                                     start.putExtra("key", key);

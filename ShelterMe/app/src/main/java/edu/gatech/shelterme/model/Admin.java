@@ -8,8 +8,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Admin {
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final private DatabaseReference ref = database.getReference();
+    final static private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final static private DatabaseReference ref = database.getReference();
     private String email;
     private String pass;
     private String name;
@@ -22,14 +22,12 @@ public class Admin {
         return email;
     }
 
-    public void setEmail(String email, String key) {
-        this.email = email;
+    public static void setEmail(String email, String key) {
         ref.child("admin").child(key).child("email").setValue(email);
     }
 
 
-    public void setName(String name, String key) {
-        this.name = name;
+    public static void setName(String name, String key) {
         ref.child("admin").child(key).child("name").setValue(name);
     }
 
@@ -38,8 +36,7 @@ public class Admin {
     //}
 
 
-    public void setPass(String password, String key) {
-        this.pass = password;
+    public static void setPass(String password, String key) {
         ref.child("admin").child(key).child("pass").setValue(password);
     }
 

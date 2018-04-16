@@ -1,5 +1,6 @@
 package edu.gatech.shelterme.controllers;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -87,9 +88,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                         }
                                         Log.d("Log", user.toString());
                                         Log.d("Log", emailField.getText().toString());
-                                        user.setEmail(emailField.getText().toString(), key);
-                                        user.setPass(pass1Field.getText().toString(), key);
-                                        user.setName(userField.getText().toString(), key);
+                                        Admin.setEmail(emailField.getText().toString(), key);
+                                        Admin.setPass(pass1Field.getText().toString(), key);
+                                        Admin.setName(userField.getText().toString(), key);
                                     }
 
                                     @Override
@@ -107,13 +108,13 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
-                                        Homeless user = dataSnapshot.getValue(Homeless.class);
-                                        if (user == null) {
-                                            return;
-                                        }
-                                        user.setEmail(emailField.getText().toString(), key);
-                                        user.setPass(pass1Field.getText().toString(), key);
-                                        user.setName(userField.getText().toString(), key);
+//                                        Homeless user = dataSnapshot.getValue(Homeless.class);
+//                                        if (user == null) {
+//                                            return;
+//                                        }
+                                        Homeless.setEmail(emailField.getText().toString(), key);
+                                        Homeless.setPass(pass1Field.getText().toString(), key);
+                                        Homeless.setName(userField.getText().toString(), key);
                                     }
 
                                     @Override
@@ -129,13 +130,13 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
-                                        Worker user = dataSnapshot.getValue(Worker.class);
-                                        if (user == null) {
-                                            return;
-                                        }
-                                        user.setEmail(emailField.getText().toString(), key);
-                                        user.setPass(pass1Field.getText().toString(), key);
-                                        user.setName(userField.getText().toString(), key);
+//                                        Worker user = dataSnapshot.getValue(Worker.class);
+//                                        if (user == null) {
+//                                            return;
+//                                        }
+                                        Worker.setEmail(emailField.getText().toString(), key);
+                                        Worker.setPass(pass1Field.getText().toString(), key);
+                                        Worker.setName(userField.getText().toString(), key);
                                     }
 
                                     @Override

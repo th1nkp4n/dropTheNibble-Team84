@@ -61,14 +61,13 @@ public class WorkerRegistration extends AppCompatActivity {
                     badReg.show(ft, "maybe");
                 } else {
                     Log.d("Log", "correct inputs");
-                    String key = (String) getIntent().getSerializableExtra("key");
+                    String newKey = (String) getIntent().getSerializableExtra("key");
                     Log.d("Log", socialSecurity.getText().toString());
-                    Worker user = new Worker();
-                    user.setSocial(socialSecurity.getText().toString(), key);
+                    Worker.setSocial(socialSecurity.getText().toString(), newKey);
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
                     home.putExtra("type", "worker");
-                    home.putExtra("key", key);
+                    home.putExtra("key", newKey);
                     startActivity(home);
                 }
             }

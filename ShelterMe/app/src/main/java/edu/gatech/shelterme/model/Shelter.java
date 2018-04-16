@@ -17,8 +17,8 @@ public class Shelter {
     private String address;
     private String specialNotes;
     private String phone;
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final private DatabaseReference ref = database.getReference();
+    final static private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final static private DatabaseReference ref = database.getReference();
 
     public Shelter(){}
 
@@ -42,7 +42,7 @@ public class Shelter {
         return name;
     }
 
-    public void setName(String name, String id) {
+    public static void setName(String name, String id) {
         ref.child("shelters").child(id).child("name").setValue(name);
     }
 
@@ -50,7 +50,7 @@ public class Shelter {
         return familyCapacity;
     }
 
-    public void setFamilyCapacity(int familyCapacity, String id) {
+    public static void setFamilyCapacity(int familyCapacity, String id) {
         ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
     }
 
@@ -58,7 +58,7 @@ public class Shelter {
         return singleCapacity;
     }
 
-    public void setSingleCapacity(int singleCapacity, String id) {
+    public static void setSingleCapacity(int singleCapacity, String id) {
         ref.child("shelters").child(id).child("singleCapacity").setValue(singleCapacity);
     }
 
@@ -66,7 +66,7 @@ public class Shelter {
         return familyVacancies;
     }
 
-    public void setFamilyVacancies(int familyVacancies, String id) {
+    public static void setFamilyVacancies(int familyVacancies, String id) {
         ref.child("shelters").child(id).child("familyVacancies").setValue(familyVacancies);
     }
 
@@ -74,7 +74,7 @@ public class Shelter {
         return singleVacancies;
     }
 
-    public void setSingleVacancies(int singleVacancies, String id) {
+    public static void setSingleVacancies(int singleVacancies, String id) {
         ref.child("shelters").child(id).child("singleVacancies").setValue(singleVacancies);
     }
 
@@ -82,7 +82,7 @@ public class Shelter {
         return restriction;
     }
 
-    public void setRestriction(String restriction, String id) {
+    public static void setRestriction(String restriction, String id) {
         ref.child("shelters").child(id).child("restriction").setValue(restriction);
     }
 
@@ -90,7 +90,7 @@ public class Shelter {
         return longitude;
     }
 
-    public void setLongitude(double longitude, String id) {
+    public static void setLongitude(double longitude, String id) {
         ref.child("shelters").child(id).child("longitude").setValue(longitude);
     }
 
@@ -98,7 +98,7 @@ public class Shelter {
         return latitude;
     }
 
-    public void setLatitude(double latitude, String id) {
+    public static void setLatitude(double latitude, String id) {
         ref.child("shelters").child(id).child("latitude").setValue(latitude);
     }
 
@@ -106,7 +106,7 @@ public class Shelter {
         return address;
     }
 
-    public void setAddress(String address, String id) {
+    public static void setAddress(String address, String id) {
         ref.child("shelters").child(id).child("address").setValue(address);
     }
 
@@ -114,7 +114,7 @@ public class Shelter {
         return specialNotes;
     }
 
-    public void setSpecialNotes(String specialNotes, String id) {
+    public static void setSpecialNotes(String specialNotes, String id) {
         ref.child("shelters").child(id).child("specialNotes").setValue(specialNotes);
     }
 
@@ -122,7 +122,7 @@ public class Shelter {
         return phone;
     }
 
-    public void setPhone(String phone, String id) {
+    public static void setPhone(String phone, String id) {
         ref.child("shelters").child(id).child("phone").setValue(phone);
     }
 

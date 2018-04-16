@@ -88,13 +88,13 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     // Get Post object and use the values to update the UI
-                                    Homeless user =  dataSnapshot.getValue(Homeless.class);
-                                    if (user == null) {
-                                        return;
-                                    }
-                                    user.setAge(Integer.valueOf(ageField.getText().toString()), key);
-                                    user.setGender((String) genderSpinner.getSelectedItem(), key);
-                                    user.setVeteran((boolean) veteranSpinner.getSelectedItem(), key);
+//                                    Homeless user =  dataSnapshot.getValue(Homeless.class);
+//                                    if (user == null) {
+//                                        return;
+//                                    }
+                                    Homeless.setAge(Integer.valueOf(ageField.getText().toString()), key);
+                                    Homeless.setGender((String) genderSpinner.getSelectedItem(), key);
+                                    Homeless.setVeteran((boolean) veteranSpinner.getSelectedItem(), key);
                                 }
 
                                 @Override

@@ -13,8 +13,8 @@ public class Homeless {
     private int checkedIn;
     private int families;
     private int singles;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = database.getReference();
+    private static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private static DatabaseReference ref = database.getReference();
     private static FirebaseDatabase database2 = FirebaseDatabase.getInstance();
     private static DatabaseReference ref2 = database2.getReference();
     private String email;
@@ -30,30 +30,26 @@ public class Homeless {
         this.singles = 0;
     }
 
-    public void setAge(int page, String key) {
+    public static void setAge(int page, String key) {
         ref.child("homeless").child(key).child("age").setValue(page);
-        this.age = page;
     }
 
     public int getAge() {return age;}
 
-    public void setGender(String pGender, String key) {
+    public static void setGender(String pGender, String key) {
         ref.child("homeless").child(key).child("gender").setValue(pGender);
-        this.gender = pGender;
     }
 
     public String getGender() {return gender;}
 
-    public void setVeteran(boolean pVet, String key) {
+    public static void setVeteran(boolean pVet, String key) {
         ref.child("homeless").child(key).child("veteran").setValue(pVet);
-        this.veteran = pVet;
     }
 
     public boolean getVeteran() {return veteran;}
 
     public static void setCheckedIn(int shelter, String key) {
         ref2.child("homeless").child(key).child("checkedIn").setValue(shelter);
-        //this.checkedIn = shelter;
     }
 
     public int getCheckedIn() {return checkedIn;}
@@ -70,9 +66,8 @@ public class Homeless {
 
     public int getSingles() {return singles;}
 
-    public void setEmail(String email, String key) {
+    public static void setEmail(String email, String key) {
         ref.child("homeless").child(key).child("email").setValue(email);
-        this.email = email;
     }
 
     public String getEmail() {
@@ -80,9 +75,8 @@ public class Homeless {
     }
 
 
-    public void setName(String name, String key) {
+    public static void setName(String name, String key) {
         ref.child("homeless").child(key).child("name").setValue(name);
-        this.name = name;
     }
 
     public String getName() {
@@ -90,9 +84,8 @@ public class Homeless {
     }
 
 
-    public void setPass(String password, String key) {
+    public static void setPass(String password, String key) {
         ref.child("homeless").child(key).child("pass").setValue(password);
-        this.pass = password;
     }
 
     public String getPass() {

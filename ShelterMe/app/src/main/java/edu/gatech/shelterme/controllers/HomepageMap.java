@@ -174,9 +174,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
 
                                 Log.d("log ind: ", Integer.toString(indIn));
                                 Log.d("log fam: ", Integer.toString(famIn));
-                                user.setSingles(0, key);
-                                user.setFamilies(0, key);
-                                user.setCheckedIn(-1, key);
+                                Homeless.setSingles(0, key);
+                                Homeless.setFamilies(0, key);
+                                Homeless.setCheckedIn(-1, key);
                                 Log.d("log :", user.toString());
                                 Log.d("log ind: ", Integer.toString(indIn));
                                 Log.d("log fam: ", Integer.toString(famIn));
@@ -196,8 +196,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                                                 int indVac = shelter.getSingleVacancies();
                                                 Log.d("log ind: ", Integer.toString(indIn));
                                                 Log.d("log fam: ", Integer.toString(famIn));
-                                                shelter.setSingleVacancies(indVac + indIn, Integer.toString(shelterID));
-                                                shelter.setFamilyVacancies(famVac + famIn, Integer.toString(shelterID));
+                                                Shelter.setSingleVacancies(indVac + indIn, Integer.toString(shelterID));
+                                                Shelter.setFamilyVacancies(famVac + famIn, Integer.toString(shelterID));
                                             }
 
                                             @Override
