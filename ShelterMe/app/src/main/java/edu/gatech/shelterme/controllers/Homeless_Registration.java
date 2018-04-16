@@ -67,11 +67,11 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
             }
         });
 
-        ArrayAdapter<String> genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Homeless.genders);
+        ArrayAdapter<String> genders = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, Homeless.genders);
         genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genders);
 
-        ArrayAdapter<String> veteran = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Arrays.asList(true, false));
+        ArrayAdapter<?> veteran = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, Arrays.asList(true, false));
         veteran.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         veteranSpinner.setAdapter(veteran);
 

@@ -42,7 +42,7 @@ public class Search extends AppCompatActivity {
         genderArray.add("Women");
         genderArray.add("Men");
 
-        ArrayAdapter<String> genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, genderArray);
+        ArrayAdapter<String> genders = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, genderArray);
         genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genders);
 

@@ -72,7 +72,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
                         if (myShelterList == null) {
                             return;
                         }
-                        HashMap<String, Object> myShelter= (HashMap<String, Object>) myShelterList.get(shelterID);
+                        HashMap<?, ?> myShelter= (HashMap<?, ?>) myShelterList.get(shelterID);
                         name.setText(name.getText() + myShelter.get("name").toString()) ;
                         famVacancies.setText(famVacancies.getText() + myShelter.get("familyVacancies").toString());
                         indVacancies.setText(indVacancies.getText() + myShelter.get("singleVacancies").toString());
