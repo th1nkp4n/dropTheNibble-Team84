@@ -25,8 +25,6 @@ import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationUserInfo extends AppCompatActivity {
 
-    private Button continueButton;
-    private Button cancelButton;
     private EditText userField;
     private EditText pass1Field;
     private EditText emailField;
@@ -37,8 +35,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_registration_user_info);
+        Button continueButton;
+        Button cancelButton;
 
         userField =  findViewById(R.id.registration_user_info_name);
         emailField =  findViewById(R.id.registration_user_info_email);

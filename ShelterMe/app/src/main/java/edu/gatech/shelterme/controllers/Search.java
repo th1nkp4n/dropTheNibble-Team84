@@ -23,51 +23,40 @@ import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 
 public class Search extends AppCompatActivity {
-    private Button submitButton;
-    private Button cancelButton;
-    private Spinner genderSpinner;
-    private Spinner ageSpinner;
-    private Spinner nameSpinner;
-
-    private ArrayList<String> genderArray;
-    private ArrayAdapter<String> genders;
-    private ArrayList<String> ageArray;
-    private ArrayAdapter<String> age;
-    private ArrayList<String> nameArray;
-    private ArrayAdapter<String> names;
-    private DatabaseReference shelterReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        submitButton = findViewById(R.id.filter);
-        cancelButton = findViewById(R.id.cancel);
-        genderSpinner = findViewById(R.id.gender);
-        ageSpinner = findViewById(R.id.age);
-        nameSpinner = findViewById(R.id.name);
+        DatabaseReference shelterReference;
 
-        genderArray = new ArrayList<>();
+        Button submitButton = findViewById(R.id.filter);
+        Button cancelButton = findViewById(R.id.cancel);
+        Spinner genderSpinner = findViewById(R.id.gender);
+        Spinner ageSpinner = findViewById(R.id.age);
+        Spinner nameSpinner = findViewById(R.id.name);
+
+        ArrayList<String> genderArray = new ArrayList<>();
         genderArray.add("Any Gender");
         genderArray.add("Women");
         genderArray.add("Men");
 
-        genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, genderArray);
+        ArrayAdapter<String> genders = new ArrayAdapter(this,android.R.layout.simple_spinner_item, genderArray);
         genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genders);
 
-        ageArray = new ArrayList<>();
+        ArrayList<String> ageArray = new ArrayList<>();
         ageArray.add("Any Age");
         ageArray.add("Families w/ newborns");
         ageArray.add("Children");
         ageArray.add("Young adults");
 
-        age = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, ageArray);
+        ArrayAdapter<String> age = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, ageArray);
         age.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageSpinner.setAdapter(age);
 
-        nameArray = new ArrayList<>();
+        ArrayList<String> nameArray = new ArrayList<>();
         nameArray.add("Any Shelter");
         shelterReference = FirebaseDatabase.getInstance().getReference()
                 .child("shelters");
@@ -95,7 +84,7 @@ public class Search extends AppCompatActivity {
                 // [END_EXCLUDE]
             }
         });
-        names = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, nameArray);
+        ArrayAdapter<String> names = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item, nameArray);
         names.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nameSpinner.setAdapter(names);
 

@@ -42,21 +42,15 @@ import edu.gatech.shelterme.model.Shelter;
 public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
-    private Button logoutButton;
     private DatabaseReference shelterReference;
     private DatabaseReference userReference;
-    //private ListView listView;
-    //private ArrayAdapter<String> adapter;
     private ArrayList<Shelter> shelters;
     private ArrayList<String> keys;
     private int[] numClicks;
-    //protected String[] shelterName;
-    private Button searchButton;
     private Button checkOut;
     private String type;
     private String key;
     private int shelterID;
-    //protected ArrayList<String> shelterName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +59,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //listView = (ListView) findViewById(R.id.shelterList);
+        Button logoutButton;
+        Button searchButton;
+
         Log.d("********onCreate*******", "heh");
         type = getIntent().getStringExtra("type");
         key = getIntent().getStringExtra("key");
@@ -85,10 +81,8 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 if (getIntent().hasExtra("name")) {
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
                         Log.d("Name Current shelter:", dsp.getValue(Shelter.class).toString());
-                        //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
                         shelters.add(dsp.getValue(Shelter.class));
                         keys.add(dsp.getKey());
-                        //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
 
                     if (getIntent().getStringExtra("name").compareTo("Any Shelter") != 0) {
@@ -131,38 +125,18 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         }
                         Log.d("gender size: ", "" + shelters.size());
                     }
-
-//                    shelterName = new String[shelters.size()];
-//                    for (int i = 0; i < shelters.size(); i++) {
-//                        Log.d("shelter: ", shelters.get(i).getName().toString());
-//                        shelterName[i] = shelters.get(i).getName();
-//                    }
                 } else {
-                    //shelterName = new String[length];
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
                         Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                         shelters.add(dsp.getValue(Shelter.class));
                         keys.add(dsp.getKey());
-                        //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                        //shelterName[counter++] = dsp.getValue(Shelter.class).toString();
-                        //shelterName.add(dsp.getValue(Shelter.class).getName());
                     }
                 }
                 numClicks = new int[keys.size()];
                 setUpMap();
-//                Log.d("one:", Boolean.toString(listView.isOpaque()));
-////                listView.setAdapter(new ArrayAdapter<String>(HomepageMap.this,
-////                        android.R.layout.simple_list_item_1, shelterName));
-//                Log.d("two:", Boolean.toString(listView.isOpaque()));
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                //Toast.makeText(PostDetailActivity.this, "Failed to load post.",
-                        //Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
             }
         });
 
@@ -309,8 +283,6 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
             intent.putExtra("key", key);
             startActivity(intent);
         }
-
-
 
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the

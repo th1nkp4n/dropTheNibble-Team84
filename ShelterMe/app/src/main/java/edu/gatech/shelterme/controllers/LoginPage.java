@@ -25,8 +25,6 @@ import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
-import static java.util.logging.Logger.global;
-
 /**
  * Created by Meha on 2/10/2018.
  */
@@ -37,8 +35,6 @@ public class LoginPage extends AppCompatActivity {
          */
     private EditText userField;
     private EditText passField;
-    private Button loginButton;
-    private Button registerButton;
     final private FirebaseDatabase database = FirebaseDatabase.getInstance();
     final private DatabaseReference ref = database.getReference();
 
@@ -48,7 +44,8 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
-
+        Button loginButton;
+        Button registerButton;
 
         //Grab the dialog widgets so we can get info for later
         userField =  findViewById(R.id.login_page_username_input);
@@ -172,7 +169,6 @@ public class LoginPage extends AppCompatActivity {
 
                         }
                     });
-                    //startActivity(intent);
 
                 }
 
@@ -186,26 +182,6 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
-
-    /**
-     * Button handler for the add new student button
-     * @param view the button
-     */
-    /*public void onLoginPressed(View view) {
-        Log.d("Login", "login info");
-
-
-        if(userField.getText().toString() =="user"&& passField.getText(). toString() =="pass") {
-                Log.d("Log", "correct inputs");
-                setContentView(R.layout.activity_homepage_map);
-        } else {
-            //tell them they had the wrong username or password
-        }
-
-        finish();
-    }*/
-
 }
 

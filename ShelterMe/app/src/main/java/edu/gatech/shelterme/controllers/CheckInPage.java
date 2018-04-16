@@ -21,53 +21,35 @@ import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 
 public class CheckInPage extends AppCompatActivity {
-    final private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-    private TextView noFam;
-    private TextView famCheck;
-    private TextView noInd;
-    private TextView indCheck;
-    private EditText numFam;
-    private EditText numInd;
-    private Button cancel;
-    private Button confirm;
-    private int shelterID;
-    private String type;
-    private String key;
-    private long famVacancies;
-    private long indVacancies;
-    private boolean hasFam;
-    private boolean hasInd;
-    private int goodCheckIn; // 1 when good, 0 when they entered 0, -1 when they exceeded capacity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_page);
 
-        noFam =findViewById(R.id.noFam);
-        famCheck = findViewById(R.id.famCheck);
-        noInd = findViewById(R.id.noInd);
-        indCheck = findViewById(R.id.indCheck);
-        numFam = findViewById(R.id.numFam);
-        numInd = findViewById(R.id.numInd);
-        cancel = findViewById(R.id.checkInCancel);
-        confirm = findViewById(R.id.checkInConfirm);
-        shelterID = getIntent().getIntExtra("id", 0);
-        type = getIntent().getStringExtra("type");
-        key = getIntent().getStringExtra("key");
-        goodCheckIn = 0;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        TextView noFam =findViewById(R.id.noFam);
+        TextView famCheck = findViewById(R.id.famCheck);
+        TextView noInd = findViewById(R.id.noInd);
+        TextView indCheck = findViewById(R.id.indCheck);
+        EditText numFam = findViewById(R.id.numFam);
+        EditText numInd = findViewById(R.id.numInd);
+        Button cancel = findViewById(R.id.checkInCancel);
+        Button confirm = findViewById(R.id.checkInConfirm);
+        int shelterID = getIntent().getIntExtra("id", 0);
+        String type = getIntent().getStringExtra("type");
+        String key = getIntent().getStringExtra("key");
+
         confirm.setVisibility(View.INVISIBLE);
-
-
 
         ref.child("shelters").child(Integer.toString(shelterID))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        famVacancies = (long) dataSnapshot.child("familyVacancies").getValue();
-                        indVacancies = (long) dataSnapshot.child("singleVacancies").getValue();
-                        hasFam = famVacancies > 0;
-                        hasInd = indVacancies > 0;
+                        long famVacancies = (long) dataSnapshot.child("familyVacancies").getValue();
+                        long indVacancies = (long) dataSnapshot.child("singleVacancies").getValue();
+                        boolean hasFam = famVacancies > 0;
+                        boolean hasInd = indVacancies > 0;
 
                         if (hasFam) {
                             noFam.setVisibility(View.INVISIBLE);
@@ -117,6 +99,7 @@ public class CheckInPage extends AppCompatActivity {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                int goodCheckIn = 0; // 1 when good, 0 when they entered 0, -1 when they exceeded capacity
                                 Shelter shelter = dataSnapshot.getValue(Shelter.class);
                                 if (numFam.getVisibility() == View.VISIBLE) {
                                     int numFV = Integer.valueOf(numFam.getText().toString());

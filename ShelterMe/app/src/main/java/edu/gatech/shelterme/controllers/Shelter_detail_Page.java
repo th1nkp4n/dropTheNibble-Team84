@@ -22,7 +22,6 @@ import edu.gatech.shelterme.model.Homeless;
 
 public class Shelter_detail_Page extends AppCompatActivity {
     private DatabaseReference shelterReference;
-    private DatabaseReference userReference;
     private TextView name;
     private TextView address;
     private TextView longitude;
@@ -32,7 +31,6 @@ public class Shelter_detail_Page extends AppCompatActivity {
     private TextView indVacancies;
     private TextView restrictions;
     private TextView number;
-    private Button cancel;
     private Button checkIn;
     private int shelterID;
     private String key;
@@ -42,6 +40,8 @@ public class Shelter_detail_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_detail__page);
+
+        DatabaseReference userReference;
         shelterID =  getIntent().getIntExtra("id", 0);
         key = getIntent().getStringExtra("key");
         type = getIntent().getStringExtra("type");
@@ -54,7 +54,7 @@ public class Shelter_detail_Page extends AppCompatActivity {
         address = findViewById(R.id.address);
         specialNotes =  findViewById(R.id.special_notes);
         number = findViewById(R.id.phone);
-        cancel = findViewById(R.id.cancel);
+        Button cancel = findViewById(R.id.cancel);
         checkIn = findViewById(R.id.checkIn);
 
         checkIn.setVisibility(View.INVISIBLE);

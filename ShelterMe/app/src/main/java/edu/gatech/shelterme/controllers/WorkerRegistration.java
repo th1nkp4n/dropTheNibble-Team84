@@ -24,8 +24,6 @@ import edu.gatech.shelterme.model.WorkerSocial;
 public class WorkerRegistration extends AppCompatActivity {
     //Widgets
     private EditText socialSecurity;
-    private Button registerButton;
-    private Button cancelButton;
     final private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
@@ -36,8 +34,8 @@ public class WorkerRegistration extends AppCompatActivity {
 
         //Grab the dialog widgets so we can get info for later
         socialSecurity =  findViewById(R.id.social_security_number);
-        registerButton =  findViewById(R.id.register_button);
-        cancelButton =  findViewById(R.id.cancel_button);
+        Button registerButton =  findViewById(R.id.register_button);
+        Button cancelButton =  findViewById(R.id.cancel_button);
         String key = (String) getIntent().getSerializableExtra("key");
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

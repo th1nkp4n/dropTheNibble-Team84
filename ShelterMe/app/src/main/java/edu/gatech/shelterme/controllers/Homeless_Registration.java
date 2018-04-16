@@ -30,14 +30,15 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     private EditText ageField;
     private Spinner genderSpinner;
     private Spinner veteranSpinner;
-    private Button cancelButton;
-    private Button nextButton;
     final private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeless__registration);
+
+        Button cancelButton;
+        Button nextButton;
 
         //Grab the dialog widgets so we can get info for later
         ageField = findViewById(R.id.age_input);
@@ -74,11 +75,6 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         veteran.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         veteranSpinner.setAdapter(veteran);
 
-//        if (getIntent().hasExtra(CourseDetailFragment.ARG_STUDENT_ID)) {
-//            _person = (Homeless) getIntent().getParcelableExtra();
-//        } else {
-//            _person = new Homeless();
-//        }
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,11 +122,9 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // = parent.getItemAtPosition(position).toString();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        //_major = "NA";
     }
 }

@@ -14,7 +14,6 @@ import edu.gatech.shelterme.R;
 
 public class MapsTestActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class MapsTestActivity extends FragmentActivity implements OnMapReadyCall
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        GoogleMap mMap;
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera

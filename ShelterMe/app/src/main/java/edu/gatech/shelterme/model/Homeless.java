@@ -37,36 +37,45 @@ public class Homeless {
         this.singles = 0;
     }
 
-
-//    public int getAge() {return age;}
-//    public String getGender() {return gender;}
-//    public boolean getVeteran() {return veteran;}
-    public int getCheckedIn() {return checkedIn;}
-    public int getFamilies() {return families;}
-    public int getSingles() {return singles;}
     public void setAge(int page, String key) {
         ref.child("homeless").child(key).child("age").setValue(page);
         this.age = page;
     }
+
+    public int getAge() {return age;}
+
     public void setGender(String pGender, String key) {
         ref.child("homeless").child(key).child("gender").setValue(pGender);
         this.gender = pGender;
     }
+
+    public String getGender() {return gender;}
+
     public void setVeteran(boolean pVet, String key) {
         ref.child("homeless").child(key).child("veteran").setValue(pVet);
         this.veteran = pVet;
     }
+
+    public boolean getVeteran() {return veteran;}
+
     public static void setCheckedIn(int shelter, String key) {
         ref2.child("homeless").child(key).child("checkedIn").setValue(shelter);
         //this.checkedIn = shelter;
     }
+
+    public int getCheckedIn() {return checkedIn;}
+
     public static void setFamilies(int pfamilies, String key) {
         ref2.child("homeless").child(key).child("families").setValue(pfamilies);
     }
+
+    public int getFamilies() {return families;}
+
     public static void setSingles(int psingles, String key) {
         ref2.child("homeless").child(key).child("singles").setValue(psingles);
     }
 
+    public int getSingles() {return singles;}
 
     public void setEmail(String email, String key) {
         ref.child("homeless").child(key).child("email").setValue(email);
