@@ -5,9 +5,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-/**
- * Created by ttsubota3 on 2/18/18.
- */
 
 public class Worker {
     private String social;

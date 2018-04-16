@@ -1,20 +1,11 @@
 package edu.gatech.shelterme.controllers;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,11 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Homeless;
@@ -80,7 +67,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                 Log.d("intent", "" + getIntent().getStringExtra("name"));
                 if (getIntent().hasExtra("name")) {
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                        Log.d("Name Current shelter:", dsp.getValue(Shelter.class).toString());
+                        //Log.d("Name Current shelter:", dsp.getValue(Shelter.class).toString());
                         shelters.add(dsp.getValue(Shelter.class));
                         keys.add(dsp.getKey());
                     }
@@ -141,14 +128,12 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
         });
 
         logoutButton = findViewById(R.id.homepage_logout_button);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        logoutButton.setOnClickListener((view)-> {
                 Log.d("Log", "User logged out");
                 Intent intent = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(intent);
             }
-        });
+        );
 
         checkOut = findViewById(R.id.checkOut);
         checkOut.setVisibility(View.INVISIBLE);
@@ -175,9 +160,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                     });
 
         }
-        checkOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        checkOut.setOnClickListener(( v)-> {
                 userReference.child("homeless").child(key)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -232,19 +215,17 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         });
                 checkOut.setVisibility(View.INVISIBLE);
             }
-        });
+        );
 
         searchButton = findViewById(R.id.search);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        searchButton.setOnClickListener(( view) ->{
                 Intent intent = new Intent(getBaseContext(), Search.class);
                 intent.putExtra("id", -1);
                 intent.putExtra("key", getIntent().getStringExtra("key"));
                 intent.putExtra("type", getIntent().getStringExtra("type"));
                 startActivity(intent);
             }
-        });
+        );
 
 
     }
