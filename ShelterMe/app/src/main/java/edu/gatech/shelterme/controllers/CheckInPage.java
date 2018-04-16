@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
+import edu.gatech.shelterme.model.WorkerSocial;
 
 public class CheckInPage extends AppCompatActivity {
     final private static DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -103,13 +104,13 @@ public class CheckInPage extends AppCompatActivity {
                                 if (numFam.getVisibility() == View.VISIBLE) {
                                     int numFV = Integer.valueOf(numFam.getText().toString());
                                     int newVac = shelter.getFamilyVacancies() - numFV;
-                                    if (numFV == 0){
-                                        goodCheckIn = 0;
+                                    WorkerSocial social = new WorkerSocial();
+                                    goodCheckIn = social.goodCheckIn(numFV, newVac);
+                                    if (goodCheckIn == 0){
                                         Log.d("log :", "didn't check in any families");
                                         Homeless.setCheckedIn(-1, key);
 
-                                    } else if (newVac < 0) {
-                                        goodCheckIn = -1;
+                                    } else if (goodCheckIn == -1) {
                                         Log.d("log: ","over family cap");
                                         BadFamilyCheckInAlertDialogFragment badCheckIn = new BadFamilyCheckInAlertDialogFragment();
                                         FragmentTransaction ft = getFragmentManager().beginTransaction();
