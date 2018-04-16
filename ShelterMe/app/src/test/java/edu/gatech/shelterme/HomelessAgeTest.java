@@ -4,9 +4,7 @@ import org.junit.Test;
 import edu.gatech.shelterme.model.HomelessAgeVerify;
 
 import static org.junit.Assert.*;
-/**
- * Created by Meha on 4/15/2018.
- */
+
 
 public class HomelessAgeTest {
     @Test

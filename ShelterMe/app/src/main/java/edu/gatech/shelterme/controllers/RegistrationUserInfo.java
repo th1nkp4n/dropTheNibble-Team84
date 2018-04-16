@@ -1,13 +1,10 @@
 package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -20,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
-import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationUserInfo extends AppCompatActivity {
@@ -48,9 +44,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
         String key = (String) getIntent().getSerializableExtra("key");
         String type = (String) getIntent().getSerializableExtra("type");
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cancelButton.setOnClickListener((view)-> {
                 ref.child("admin").child(key)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -67,11 +61,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(intent);
             }
-        });
+        );
 
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        continueButton.setOnClickListener((view)-> {
                 if (userField.length() == 0 ||emailField.length() == 0 || pass1Field.length() == 0
                         || pass2Field.length() == 0 || pass1Field.getText().toString()
                         .compareTo(pass2Field.getText().toString())!=0) {
@@ -156,7 +148,7 @@ public class RegistrationUserInfo extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        });
+        );
     }
 
 

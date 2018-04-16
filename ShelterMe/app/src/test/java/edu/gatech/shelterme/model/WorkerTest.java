@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by ttsubota3 on 4/13/18.
- */
 public class WorkerTest {
     private WorkerSocial user;
 

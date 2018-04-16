@@ -2,7 +2,6 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -23,7 +21,6 @@ import java.util.Arrays;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Homeless;
-import edu.gatech.shelterme.model.User;
 
 public class Homeless_Registration extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -48,9 +45,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         nextButton = findViewById(R.id.homeless_registration_next);
         String key = (String) getIntent().getSerializableExtra("key");
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cancelButton.setOnClickListener(( view)-> {
                 FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -65,7 +60,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                 Intent start = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(start);
             }
-        });
+        );
 
         ArrayAdapter<String> genders = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, Homeless.genders);
         genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,9 +70,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
         veteran.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         veteranSpinner.setAdapter(veteran);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        nextButton.setOnClickListener(( view)-> {
                 String number = ageField.getText().toString();
                 boolean ageValid;
                 try {
@@ -119,7 +112,7 @@ public class Homeless_Registration extends AppCompatActivity implements AdapterV
                     badReg.show(ft, "maybe");
                 }
             }
-        });
+        );
 
 
     }

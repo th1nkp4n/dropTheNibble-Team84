@@ -3,7 +3,6 @@ package edu.gatech.shelterme.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,11 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import edu.gatech.shelterme.R;
-import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Shelter;
 
 public class Search extends AppCompatActivity {

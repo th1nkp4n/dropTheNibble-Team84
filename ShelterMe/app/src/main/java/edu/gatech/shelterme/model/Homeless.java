@@ -1,17 +1,10 @@
 package edu.gatech.shelterme.model;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
-
-/**
- * Created by chiwk on 2/18/2018.
- */
 
 public class Homeless {
     private int age;
@@ -65,14 +58,14 @@ public class Homeless {
 
     public int getCheckedIn() {return checkedIn;}
 
-    public static void setFamilies(int pfamilies, String key) {
-        ref2.child("homeless").child(key).child("families").setValue(pfamilies);
+    public static void setFamilies(int families, String key) {
+        ref2.child("homeless").child(key).child("families").setValue(families);
     }
 
     public int getFamilies() {return families;}
 
-    public static void setSingles(int psingles, String key) {
-        ref2.child("homeless").child(key).child("singles").setValue(psingles);
+    public static void setSingles(int singles, String key) {
+        ref2.child("homeless").child(key).child("singles").setValue(singles);
     }
 
     public int getSingles() {return singles;}

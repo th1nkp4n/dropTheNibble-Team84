@@ -119,27 +119,23 @@ public class Shelter_detail_Page extends AppCompatActivity {
                     });
         }
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cancel.setOnClickListener(( view)-> {
                 Intent start = new Intent(getBaseContext(), HomepageMap.class);
                 start.putExtra("key", key);
                 start.putExtra("id", shelterID);
                 start.putExtra("type", type);
                 startActivity(start);
             }
-        });
+        );
 
-        checkIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        checkIn.setOnClickListener(( v) ->{
                 Intent start = new Intent(getBaseContext(), CheckInPage.class);
                 start.putExtra("key", key);
                 start.putExtra("id", shelterID);
                 start.putExtra("type", type);
                 startActivity(start);
             }
-        });
+        );
 
     }
 }

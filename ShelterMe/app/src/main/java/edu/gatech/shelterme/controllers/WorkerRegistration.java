@@ -2,22 +2,18 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.shelterme.R;
-import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Worker;
 import edu.gatech.shelterme.model.WorkerSocial;
 
@@ -38,9 +34,7 @@ public class WorkerRegistration extends AppCompatActivity {
         Button cancelButton =  findViewById(R.id.cancel_button);
         String key = (String) getIntent().getSerializableExtra("key");
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cancelButton.setOnClickListener(( view)-> {
                 FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -55,11 +49,9 @@ public class WorkerRegistration extends AppCompatActivity {
                 Intent start = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(start);
             }
-        });
+        );
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        registerButton.setOnClickListener(( view)-> {
                 WorkerSocial social = new WorkerSocial();
                 String message = social.correctSocial(socialSecurity.getText().toString());
                 if(!message.equals("valid number")) {
@@ -80,6 +72,6 @@ public class WorkerRegistration extends AppCompatActivity {
                     startActivity(home);
                 }
             }
-        });
+        );
     }
 }

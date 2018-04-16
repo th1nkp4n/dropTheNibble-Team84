@@ -3,14 +3,11 @@ package edu.gatech.shelterme.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
-import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
 
 public class RegistrationRolePage extends AppCompatActivity {
@@ -34,19 +30,15 @@ public class RegistrationRolePage extends AppCompatActivity {
 
 
         Button cancelButton = findViewById(R.id.registrationRoleCancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cancelButton.setOnClickListener(( view)-> {
                 Log.d("Log", "cancel from registration role");
                 Intent intent = new Intent(getBaseContext(), LoginPage.class);
                 startActivity(intent);
             }
-        }) ;
+        ) ;
 
         FloatingActionButton fab =  findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener((view)-> {
                 RadioButton admin =  findViewById(R.id.adminRadio);
                 RadioButton homeless = findViewById(R.id.guestRadio);
                 RadioButton worker =  findViewById(R.id.workerRadio);
@@ -87,7 +79,7 @@ public class RegistrationRolePage extends AppCompatActivity {
 
                 startActivity(intent);
             }
-        });
+        );
     }
 
 }

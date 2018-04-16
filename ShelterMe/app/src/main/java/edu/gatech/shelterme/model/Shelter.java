@@ -3,9 +3,7 @@ package edu.gatech.shelterme.model;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * Created by Meha on 2/25/2018.
- */
+
 
 public class Shelter {
     private String name;

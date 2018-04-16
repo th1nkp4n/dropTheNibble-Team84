@@ -2,10 +2,8 @@ package edu.gatech.shelterme.controllers;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
@@ -14,20 +12,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.TimeUnit;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
 import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.User;
 import edu.gatech.shelterme.model.Worker;
-
-/**
- * Created by Meha on 2/10/2018.
- */
 
 public class LoginPage extends AppCompatActivity {
     /* ************************
@@ -54,9 +46,7 @@ public class LoginPage extends AppCompatActivity {
         registerButton =  findViewById(R.id.login_page_register_button);
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        loginButton.setOnClickListener(( view)-> {
                 //SharedPreferences settings = getSharedPreferences("Prefs", 0);
                 String pass = passField.getText().toString();
                 String email = userField.getText().toString();
@@ -179,15 +169,13 @@ public class LoginPage extends AppCompatActivity {
                 }
 
             }
-        });
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        );
+        registerButton.setOnClickListener((view)-> {
                 Log.d("Log", "register button on login page pressed");
                 Intent intent = new Intent(getBaseContext(), RegistrationRolePage.class);
                 startActivity(intent);
             }
-        });
+        );
     }
 }
 

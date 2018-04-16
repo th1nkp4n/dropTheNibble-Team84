@@ -1,8 +1,6 @@
 package edu.gatech.shelterme.model;
 
-/**
- * Created by ttsubota3 on 4/13/18.
- */
+
 
 public class WorkerSocial {
     public String correctSocial(String number) {

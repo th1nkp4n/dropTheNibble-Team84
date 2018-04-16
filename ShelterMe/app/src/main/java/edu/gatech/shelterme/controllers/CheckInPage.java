@@ -80,20 +80,15 @@ public class CheckInPage extends AppCompatActivity {
                     }
                 });
 
-        cancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
+        cancel.setOnClickListener((view)-> {
                 Intent start = new Intent(getBaseContext(), Shelter_detail_Page.class);
                 start.putExtra("type", type);
                 start.putExtra("id", shelterID);
                 start.putExtra("key", getIntent().getSerializableExtra("key"));
                 startActivity(start);
-            }
-        });
+            });
 
-        confirm.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
+        confirm.setOnClickListener(( view)->
 
                 ref.child("shelters").child(Integer.toString(shelterID))
                         .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -174,10 +169,9 @@ public class CheckInPage extends AppCompatActivity {
                             public void onCancelled(DatabaseError databaseError) {
                                 Log.d("log: ", "shelter part didn't work.");
                             }
-                        });
+                        })
 
-            }
-        });
+            );
 
     }
 }
