@@ -20,8 +20,10 @@ public class Homeless {
     private int checkedIn;
     private int families;
     private int singles;
-    final private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final private DatabaseReference ref = database.getReference();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference ref = database.getReference();
+    private static FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+    private static DatabaseReference ref2 = database2.getReference();
     private String email;
     private String pass;
     private String name;
@@ -54,17 +56,15 @@ public class Homeless {
         ref.child("homeless").child(key).child("veteran").setValue(pVet);
         this.veteran = pVet;
     }
-    public void setCheckedIn(int shelter, String key) {
-        ref.child("homeless").child(key).child("checkedIn").setValue(shelter);
-        this.checkedIn = shelter;
+    public static void setCheckedIn(int shelter, String key) {
+        ref2.child("homeless").child(key).child("checkedIn").setValue(shelter);
+        //this.checkedIn = shelter;
     }
-    public void setFamilies(int pFamilies, String key) {
-        ref.child("homeless").child(key).child("families").setValue(pFamilies);
-        this.families = pFamilies;
+    public static void setFamilies(int pfamilies, String key) {
+        ref2.child("homeless").child(key).child("families").setValue(pfamilies);
     }
-    public void setSingles(int pSingles, String key) {
-        ref.child("homeless").child(key).child("singles").setValue(pSingles);
-        this.singles = pSingles;
+    public static void setSingles(int psingles, String key) {
+        ref2.child("homeless").child(key).child("singles").setValue(psingles);
     }
 
 

@@ -22,9 +22,10 @@ public class Worker {
         this.social = "0";
     }
 
-//    public String getSocial() {
-//        return social;
-//    }
+
+    public String getSocial() {
+        return social;
+    }
 
 
     public void setSocial(String number, String key) {
@@ -61,4 +62,6 @@ public class Worker {
     public String getPass() {
         return pass;
     }
+
+
 }

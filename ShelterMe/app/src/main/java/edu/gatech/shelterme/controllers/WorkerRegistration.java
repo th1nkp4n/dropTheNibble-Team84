@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Worker;
+import edu.gatech.shelterme.model.WorkerSocial;
 
 public class WorkerRegistration extends AppCompatActivity {
     //Widgets
@@ -61,7 +62,9 @@ public class WorkerRegistration extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(socialSecurity.getText().length() != 9) {
+                WorkerSocial social = new WorkerSocial();
+                String message = social.correctSocial(socialSecurity.getText().toString());
+                if(!message.equals("valid number")) {
                     Log.d("Log", "Please enter your social security number");
                     BadWorkerRegistrationDialogFragment badReg = new BadWorkerRegistrationDialogFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -70,21 +73,8 @@ public class WorkerRegistration extends AppCompatActivity {
                     Log.d("Log", "correct inputs");
                     String key = (String) getIntent().getSerializableExtra("key");
                     Log.d("Log", socialSecurity.getText().toString());
-
-                    FirebaseDatabase.getInstance().getReference().child("worker").child(key)
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    // Get Post object and use the values to update the UI
-                                    Worker user = dataSnapshot.getValue(Worker.class);
-                                    user.setSocial(socialSecurity.getText().toString(), key);
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                }
-                            });
+                    Worker user = new Worker();
+                    user.setSocial(socialSecurity.getText().toString(), key);
 
                     Intent home = new Intent(getBaseContext(), HomepageMap.class);
                     home.putExtra("type", "worker");
