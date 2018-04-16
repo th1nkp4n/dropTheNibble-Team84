@@ -20,9 +20,6 @@ public class Worker {
     }
 
 
-    public String getSocial() {
-        return social;
-    }
 
 
     public static void setSocial(String number, String key) {
@@ -43,9 +40,6 @@ public class Worker {
         ref.child("worker").child(key).child("name").setValue(name);
     }
 
-    public String getName() {
-        return name;
-    }
 
 
     public static void setPass(String password, String key) {

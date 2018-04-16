@@ -15,7 +15,7 @@ public class Admin {
     private String name;
 
     public Admin() {
-        this.name = "killMe";
+        this.name = "name";
     }
 
     public String getEmail() {

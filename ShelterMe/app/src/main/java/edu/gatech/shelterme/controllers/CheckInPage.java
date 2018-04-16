@@ -126,7 +126,6 @@ public class CheckInPage extends AppCompatActivity {
                                     int numIV = Integer.valueOf(numInd.getText().toString());
                                     int newVac = shelter.getSingleVacancies() - numIV;
                                     if (numIV == 0) {
-                                        goodCheckIn = goodCheckIn;
                                         Log.d("log :", "didn't check in any individuals");
                                         Homeless.setCheckedIn(-1, key);
                                     } else if (newVac < 0) {
