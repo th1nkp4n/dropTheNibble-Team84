@@ -8,6 +8,7 @@
 
     <EditText
         android:id="@+id/social_security_number"
+        android:labelFor="@+id/social_security_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

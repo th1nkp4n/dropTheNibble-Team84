@@ -56,7 +56,7 @@
         <activity android:name=".controllers.Homeless_Registration" />
         <activity android:name=".controllers.Shelter_detail_Page" />
         <activity android:name=".controllers.Search" />
-
+        <activity android:name=".controllers.MapsTestActivity" />
         <activity android:name=".controllers.CheckInPage"></activity>
 
     </application>

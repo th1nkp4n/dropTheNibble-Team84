@@ -30,6 +30,7 @@
 
     <EditText
         android:id="@+id/registration_user_info_name"
+        android:labelFor="@+id/registration_user_info_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/registration_user_info_email"
@@ -43,6 +44,7 @@
 
     <EditText
         android:id="@+id/registration_user_info_email"
+        android:labelFor="@+id/registration_user_info_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/registration_user_info_password1text"
@@ -55,6 +57,7 @@
 
     <EditText
         android:id="@+id/registration_user_info_password1"
+        android:labelFor="@+id/registration_user_info_password1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/registration_user_info_password2text"
@@ -67,6 +70,7 @@
 
     <EditText
         android:id="@+id/registration_user_info_password2"
+        android:labelFor="@+id/registration_user_info_password2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/registration_user_info_continue"
