@@ -46,17 +46,12 @@ public class Shelter {
         ref.child("shelters").child(id).child("name").setValue(name);
     }
 
-    public int getFamilyCapacity() {
-        return familyCapacity;
-    }
 
     public void setFamilyCapacity(int familyCapacity, String id) {
         ref.child("shelters").child(id).child("familyCapacity").setValue(familyCapacity);
     }
 
-    public int getSingleCapacity() {
-        return singleCapacity;
-    }
+
 
     public void setSingleCapacity(int singleCapacity, String id) {
         ref.child("shelters").child(id).child("singleCapacity").setValue(singleCapacity);
@@ -102,17 +97,11 @@ public class Shelter {
         ref.child("shelters").child(id).child("latitude").setValue(latitude);
     }
 
-    public String getAddress() {
-        return address;
-    }
 
     public void setAddress(String address, String id) {
         ref.child("shelters").child(id).child("address").setValue(address);
     }
 
-    public String getSpecialNotes() {
-        return specialNotes;
-    }
 
     public void setSpecialNotes(String specialNotes, String id) {
         ref.child("shelters").child(id).child("specialNotes").setValue(specialNotes);

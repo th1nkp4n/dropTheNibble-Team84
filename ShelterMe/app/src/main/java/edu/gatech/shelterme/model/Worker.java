@@ -20,9 +20,6 @@ public class Worker {
     }
 
 
-    public String getSocial() {
-        return social;
-    }
 
 
     public void setSocial(String number, String key) {
@@ -46,9 +43,6 @@ public class Worker {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
 
 
     public void setPass(String password, String key) {

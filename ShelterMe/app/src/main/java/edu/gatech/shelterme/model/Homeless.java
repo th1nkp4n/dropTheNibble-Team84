@@ -35,21 +35,19 @@ public class Homeless {
         this.age = page;
     }
 
-    public int getAge() {return age;}
+
 
     public void setGender(String pGender, String key) {
         ref.child("homeless").child(key).child("gender").setValue(pGender);
         this.gender = pGender;
     }
 
-    public String getGender() {return gender;}
 
     public void setVeteran(boolean pVet, String key) {
         ref.child("homeless").child(key).child("veteran").setValue(pVet);
         this.veteran = pVet;
     }
 
-    public boolean getVeteran() {return veteran;}
 
     public static void setCheckedIn(int shelter, String key) {
         ref2.child("homeless").child(key).child("checkedIn").setValue(shelter);
