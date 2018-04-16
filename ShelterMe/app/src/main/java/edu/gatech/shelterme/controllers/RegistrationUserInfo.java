@@ -90,6 +90,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
                                         Admin user = dataSnapshot.getValue(Admin.class);
+                                        if (user == null) {
+                                            return;
+                                        }
                                         Log.d("Log", user.toString());
                                         Log.d("Log", emailField.getText().toString());
                                         user.setEmail(emailField.getText().toString(), key);
@@ -113,6 +116,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
                                         Homeless user = dataSnapshot.getValue(Homeless.class);
+                                        if (user == null) {
+                                            return;
+                                        }
                                         user.setEmail(emailField.getText().toString(), key);
                                         user.setPass(pass1Field.getText().toString(), key);
                                         user.setName(userField.getText().toString(), key);
@@ -132,6 +138,9 @@ public class RegistrationUserInfo extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         // Get Post object and use the values to update the UI
                                         Worker user = dataSnapshot.getValue(Worker.class);
+                                        if (user == null) {
+                                            return;
+                                        }
                                         user.setEmail(emailField.getText().toString(), key);
                                         user.setPass(pass1Field.getText().toString(), key);
                                         user.setName(userField.getText().toString(), key);

@@ -66,8 +66,12 @@ public class Search extends AppCompatActivity {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()){
                     //Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                     //Log.d("CCurrent type:", dsp.getValue(Shelter.class).getClass().toString());
-                    if(dsp.getValue(Shelter.class).toString() != null) {
-                        nameArray.add(dsp.getValue(Shelter.class).toString());
+                    Shelter val = dsp.getValue(Shelter.class);
+                    if (val == null) {
+                        return;
+                    }
+                    if(val.toString() != null) {
+                        nameArray.add(val.toString());
                     }
 
                     //shelterName.add(dsp.getValue(Shelter.class).getName());

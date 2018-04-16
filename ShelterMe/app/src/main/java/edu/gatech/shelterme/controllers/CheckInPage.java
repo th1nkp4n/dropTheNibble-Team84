@@ -101,6 +101,9 @@ public class CheckInPage extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 int goodCheckIn = 0; // 1 when good, 0 when they entered 0, -1 when they exceeded capacity
                                 Shelter shelter = dataSnapshot.getValue(Shelter.class);
+                                if (shelter == null) {
+                                    return;
+                                }
                                 if (numFam.getVisibility() == View.VISIBLE) {
                                     int numFV = Integer.valueOf(numFam.getText().toString());
                                     int newVac = shelter.getFamilyVacancies() - numFV;
@@ -129,7 +132,7 @@ public class CheckInPage extends AppCompatActivity {
                                     int numIV = Integer.valueOf(numInd.getText().toString());
                                     int newVac = shelter.getSingleVacancies() - numIV;
                                     if (numIV == 0) {
-                                        goodCheckIn = goodCheckIn + 0;
+                                        goodCheckIn = goodCheckIn;
                                         Log.d("log :", "didn't check in any individuals");
                                         Homeless homelessPerson = new Homeless();
                                         homelessPerson.setCheckedIn(-1, key);

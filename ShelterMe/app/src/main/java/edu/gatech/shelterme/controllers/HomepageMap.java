@@ -127,7 +127,7 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                     }
                 } else {
                     for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                        Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
+                        //Log.d("CCurrent shelter:", dsp.getValue(Shelter.class).toString());
                         shelters.add(dsp.getValue(Shelter.class));
                         keys.add(dsp.getKey());
                     }
@@ -160,6 +160,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Homeless user = dataSnapshot.getValue(Homeless.class);
+                            if (user == null) {
+                                return;
+                            }
                             if (user.getCheckedIn() >= 0) {
                                 checkOut.setVisibility(View.VISIBLE);
                             }
@@ -180,6 +183,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Homeless user = dataSnapshot.getValue(Homeless.class);
+                                if (user == null) {
+                                    return;
+                                }
                                 int famIn = user.getFamilies();
                                 int indIn = user.getSingles();
 
@@ -200,6 +206,9 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
                                             public void onDataChange(DataSnapshot snapSnapshot) {
                                                 Shelter shelter = snapSnapshot.getValue(Shelter.class);
                                                 Log.d("log :", "nested onDataChange");
+                                                if (shelter == null) {
+                                                    return;
+                                                }
                                                 int famVac = shelter.getFamilyVacancies();
                                                 int indVac = shelter.getSingleVacancies();
                                                 Log.d("log ind: ", Integer.toString(indIn));
@@ -274,7 +283,10 @@ public class HomepageMap extends AppCompatActivity implements OnMapReadyCallback
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the data from the marker.
-        int i = (Integer) marker.getTag();
+        if (marker == null) {
+            return false;
+        }
+        int i = (int) marker.getTag();
         numClicks[i] = numClicks[i] + 1;
         if (numClicks[i] > 1) {
             Intent intent = new Intent(getBaseContext(), Shelter_detail_Page.class);
