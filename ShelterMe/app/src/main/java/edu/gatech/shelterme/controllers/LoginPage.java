@@ -62,6 +62,8 @@ public class LoginPage extends AppCompatActivity {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     badLogin.show(ft, "maybe");
                 } else {
+
+                    Log.d("ayee", "lmao in else");
                     DatabaseReference allPassMatchesH = ref.child("homeless").orderByChild("email").equalTo(email).getRef();
                     DatabaseReference allPassMatchesA = ref.child("admin").orderByChild("email").equalTo(email).getRef();
                     DatabaseReference allPassMatchesW = ref.child("worker").orderByChild("email").equalTo(email).getRef();

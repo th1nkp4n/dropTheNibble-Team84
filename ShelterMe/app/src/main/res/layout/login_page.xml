@@ -5,7 +5,9 @@
 
     android:paddingTop="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    tools:context="edu.gatech.shelterme.controllers.LoginPage">
 
 
     <Button
@@ -15,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Login_greeting"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="12dp"
         android:text="Register"
         tools:padding="25dp"
@@ -25,6 +28,7 @@
         android:layout_width="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+        android:layout_marginBottom="15dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -58,17 +62,16 @@
 
         <EditText
             android:id="@+id/login_page_password_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/login_page_username_input"
             android:layout_marginTop="36dp"
             android:layout_weight="1"
-            android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
             android:labelFor="@+id/login_page_password_input"
-            android:textSize="30sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
 
         <Button
             android:id="@+id/homepage_logout_button"
@@ -87,12 +90,10 @@
             android:layout_below="@+id/Login_alreadyAccount"
             android:layout_marginTop="23dp"
             android:layout_weight="1"
-            android:autoText="false"
-            android:ems="10"
             android:hint="Email"
             android:inputType="textPersonName"
             android:labelFor="@+id/login_page_username_input"
-            tools:textSize="30sp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse" />
 
     </RelativeLayout>
 </RelativeLayout>

@@ -52,7 +52,7 @@
         <activity
             android:name=".controllers.RegistrationRolePage"
             android:label="@string/title_activity_registration_role_page"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity android:name=".controllers.Homeless_Registration" />
         <activity android:name=".controllers.Shelter_detail_Page" />
         <activity android:name=".controllers.Search" />

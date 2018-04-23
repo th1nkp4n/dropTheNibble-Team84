@@ -12,57 +12,56 @@
 
     <TextView
         android:id="@+id/famCheck"
-        android:layout_width="wrap_content"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:text="How many families are checking in?"
-        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/noInd"
         app:layout_constraintEnd_toStartOf="@+id/numFam"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914"
-        tools:textSize="18sp" />
+        app:layout_constraintVertical_bias="0.81" />
 
     <TextView
         android:id="@+id/indCheck"
-        android:layout_width="wrap_content"
+        android:layout_width="172dp"
         android:layout_height="wrap_content"
         android:text="How many individuals are checking in?"
-        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:textSize="18sp" />
+        app:layout_constraintVertical_bias="0.498" />
 
     <TextView
         android:id="@+id/noFam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="There are no family vacancies at this time."
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintBottom_toTopOf="@+id/famCheck"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826"
+        app:layout_constraintVertical_bias="0.315"
         tools:textSize="18sp" />
 
     <TextView
         android:id="@+id/noInd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="There are no individual vacancies at this time."
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        app:layout_constraintBottom_toTopOf="@+id/indCheck"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.898"
-        tools:textSize="18sp" />
+        app:layout_constraintVertical_bias="0.507" />
 
     <EditText
         android:id="@+id/numFam"
@@ -74,14 +73,14 @@
         android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/numInd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintHorizontal_bias="0.749"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.84" />
 
     <EditText
         android:id="@+id/numInd"
-        android:layout_width="51dp"
+        android:layout_width="48dp"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="number"
@@ -89,10 +88,10 @@
         android:text="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintHorizontal_bias="0.747"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
+        app:layout_constraintVertical_bias="0.498" />
 
     <Button
         android:id="@+id/checkInConfirm"
@@ -131,8 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To check in to this shelter, please enter the information below."
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:textSize="18sp" />
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>
