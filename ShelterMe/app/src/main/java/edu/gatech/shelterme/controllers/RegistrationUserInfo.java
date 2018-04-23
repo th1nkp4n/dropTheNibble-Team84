@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.shelterme.R;
 import edu.gatech.shelterme.model.Admin;
+import edu.gatech.shelterme.model.EmailCheck;
 import edu.gatech.shelterme.model.Homeless;
 import edu.gatech.shelterme.model.Worker;
 
@@ -72,87 +73,94 @@ public class RegistrationUserInfo extends AppCompatActivity {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     badInputs.show(ft, "maybe");
                 } else {
-                    Log.d("Log", "Valid registration information");
-                    Intent intent = new Intent();
-                    switch (type) {
-                        case "admin":
-                            Log.d("Log","Admin");
-                            ref.child("admin").child(key)
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            // Get Post object and use the values to update the UI
-                                            Admin user = dataSnapshot.getValue(Admin.class);
-                                            if (user == null) {
-                                                return;
+                    boolean isEmailValid = EmailCheck.testEmail(emailField.getText().toString());
+                    if (!isEmailValid) {
+                        BadRegistrationInputsDialogFragment badInputs = new BadRegistrationInputsDialogFragment();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        badInputs.show(ft, "maybe");
+                    } else {
+                        Log.d("Log", "Valid registration information");
+                        Intent intent = new Intent();
+                        switch (type) {
+                            case "admin":
+                                Log.d("Log", "Admin");
+                                ref.child("admin").child(key)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                // Get Post object and use the values to update the UI
+                                                Admin user = dataSnapshot.getValue(Admin.class);
+                                                if (user == null) {
+                                                    return;
+                                                }
+                                                Log.d("Log", user.toString());
+                                                Log.d("Log", emailField.getText().toString());
+                                                Admin.setEmail(emailField.getText().toString(), key);
+                                                Admin.setPass(pass1Field.getText().toString(), key);
+                                                Admin.setName(userField.getText().toString(), key);
                                             }
-                                            Log.d("Log", user.toString());
-                                            Log.d("Log", emailField.getText().toString());
-                                            Admin.setEmail(emailField.getText().toString(), key);
-                                            Admin.setPass(pass1Field.getText().toString(), key);
-                                            Admin.setName(userField.getText().toString(), key);
-                                        }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                            Log.d("Log", "didn't work");
-                                        }
-                                    });
-                            intent = new Intent(getBaseContext(), HomepageMap.class);
-                            intent.putExtra("type", "admin");
-                            intent.putExtra("key", key);
-                            break;
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                Log.d("Log", "didn't work");
+                                            }
+                                        });
+                                intent = new Intent(getBaseContext(), HomepageMap.class);
+                                intent.putExtra("type", "admin");
+                                intent.putExtra("key", key);
+                                break;
 
-                        case "homeless":
-                            Log.d("Log","Homeless create");
-                            FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            // Get Post object and use the values to update the UI
+                            case "homeless":
+                                Log.d("Log", "Homeless create");
+                                FirebaseDatabase.getInstance().getReference().child("homeless").child(key)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                // Get Post object and use the values to update the UI
 //                                        Homeless user = dataSnapshot.getValue(Homeless.class);
 //                                        if (user == null) {
 //                                            return;
 //                                        }
-                                            Homeless.setEmail(emailField.getText().toString(), key);
-                                            Homeless.setPass(pass1Field.getText().toString(), key);
-                                            Homeless.setName(userField.getText().toString(), key);
-                                        }
+                                                Homeless.setEmail(emailField.getText().toString(), key);
+                                                Homeless.setPass(pass1Field.getText().toString(), key);
+                                                Homeless.setName(userField.getText().toString(), key);
+                                            }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                        }
-                                    });
-                            intent = new Intent(getBaseContext(), Homeless_Registration.class);
-                            intent.putExtra("key", key);
-                            break;
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+                                intent = new Intent(getBaseContext(), Homeless_Registration.class);
+                                intent.putExtra("key", key);
+                                break;
 
-                        case "worker":
-                            Log.d("Log","Worker");
-                            FirebaseDatabase.getInstance().getReference().child("worker").child(key)
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            // Get Post object and use the values to update the UI
+                            case "worker":
+                                Log.d("Log", "Worker");
+                                FirebaseDatabase.getInstance().getReference().child("worker").child(key)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                // Get Post object and use the values to update the UI
 //                                        Worker user = dataSnapshot.getValue(Worker.class);
 //                                        if (user == null) {
 //                                            return;
 //                                        }
-                                            Worker.setEmail(emailField.getText().toString(), key);
-                                            Worker.setPass(pass1Field.getText().toString(), key);
-                                            Worker.setName(userField.getText().toString(), key);
-                                        }
+                                                Worker.setEmail(emailField.getText().toString(), key);
+                                                Worker.setPass(pass1Field.getText().toString(), key);
+                                                Worker.setName(userField.getText().toString(), key);
+                                            }
 
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                        }
-                                    });
-                            intent = new Intent(getBaseContext(), WorkerRegistration.class);
-                            intent.putExtra("key", key);
-                            break;
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+                                intent = new Intent(getBaseContext(), WorkerRegistration.class);
+                                intent.putExtra("key", key);
+                                break;
 
+                        }
+                        startActivity(intent);
                     }
-                    startActivity(intent);
                 }
             }
         );

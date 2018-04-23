@@ -1,5 +1,6 @@
 package edu.gatech.shelterme.controllers;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -55,6 +56,7 @@ public class RegistrationRolePage extends AppCompatActivity {
                     Log.d("Log", "User type is worker and in firebase");
                     intent.putExtra("key", key);
                     intent.putExtra("type", "worker");
+                    startActivity(intent);
                 } else if (homeless.isChecked()) {
                     Homeless user = new Homeless();
                     DatabaseReference usersRef = ref.child("homeless");
@@ -64,6 +66,7 @@ public class RegistrationRolePage extends AppCompatActivity {
                     intent.putExtra("key", key);
                     Log.d("Log", "User type is homeless and in firebase");
                     intent.putExtra("type", "homeless");
+                    startActivity(intent);
                 } else if (admin.isChecked()) {
                     Admin user = new Admin();
                     DatabaseReference usersRef = ref.child("admin");
@@ -73,11 +76,15 @@ public class RegistrationRolePage extends AppCompatActivity {
                     Log.d("Log", "User type is admin and in firebase");
                     intent.putExtra("key", key);
                     intent.putExtra("type", "admin");
+                    startActivity(intent);
+                } else {
+                    BadRegistrationRoleAlertDialogFragment badInputs = new BadRegistrationRoleAlertDialogFragment();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    badInputs.show(ft, "maybe");
                 }
 
 
 
-                startActivity(intent);
             }
         );
     }

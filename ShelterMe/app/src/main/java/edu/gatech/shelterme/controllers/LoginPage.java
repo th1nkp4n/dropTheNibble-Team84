@@ -74,7 +74,7 @@ public class LoginPage extends AppCompatActivity {
                             for (DataSnapshot homelessSnapshot : dataSnapshot.getChildren()) {
                                 Homeless user = homelessSnapshot.getValue(Homeless.class);
                                 if (user != null) {
-                                    Log.d("Log", user.getName() + "line 82 in homeless");
+                                    Log.d("Log", user.getName() + "line 77 in homeless");
                                     if (user.getPass().equals(pass) && user.getEmail().equals(email)) {
                                         String key = homelessSnapshot.getKey();
                                         Log.d("Log", "correct inputs");

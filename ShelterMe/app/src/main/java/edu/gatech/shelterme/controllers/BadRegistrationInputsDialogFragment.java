@@ -11,7 +11,7 @@ public class BadRegistrationInputsDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Please make sure all inputs are filled and that passwords match.")
+        builder.setMessage("Check your inputs. All field must be filled out, the email muct be valid, and the passwords must match.")
                 .setNegativeButton("Okay", (dialog,  id) ->{});
         // Create the AlertDialog object and return it
         return builder.create();

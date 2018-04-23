@@ -49,7 +49,7 @@
         android:layout_below="@+id/registration_user_info_email_text"
         android:ems="10"
         android:hint="Enter your email here"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:labelFor="@+id/registration_user_info_email" />
 
     <EditText
@@ -60,7 +60,7 @@
         android:layout_below="@+id/registration_user_info_password1text"
         android:ems="10"
         android:hint="Enter a password here"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:labelFor="@+id/registration_user_info_password1" />
 
     <EditText
@@ -71,7 +71,7 @@
         android:layout_below="@+id/registration_user_info_password2text"
         android:ems="10"
         android:hint="Enter the same password here"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:labelFor="@+id/registration_user_info_password2" />
 
     <TextView
