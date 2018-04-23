@@ -1,47 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context="edu.gatech.shelterme.controllers.RegistrationRolePage">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_registration_role_page" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_media_next" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/IamA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="I am a:"
             android:layout_marginLeft="15dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:layout_marginTop="100dp"
+            android:text="What is your role?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     <RadioGroup
         android:layout_below="@+id/IamA"
         android:id="@+id/roleRadio"
@@ -54,7 +31,8 @@
             android:id="@+id/guestRadio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Shelter Guest" />
+            android:text="Shelter Guest"
+            android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <RadioButton
             android:id="@+id/workerRadio"
@@ -73,10 +51,17 @@
             android:id="@+id/registrationRoleCancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/IamA"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="28dp"
+            android:layout_alignParentStart="true"
             android:text="Cancel" />
-    </RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:text="Continue" />
+
+
+</RelativeLayout>

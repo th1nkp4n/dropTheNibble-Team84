@@ -25,8 +25,8 @@ public class RegistrationRolePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_role_page);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar =  findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
 
         Button cancelButton = findViewById(R.id.registrationRoleCancelButton);
@@ -37,7 +37,7 @@ public class RegistrationRolePage extends AppCompatActivity {
             }
         ) ;
 
-        FloatingActionButton fab =  findViewById(R.id.fab);
+        Button fab =  findViewById(R.id.fab);
         fab.setOnClickListener((view)-> {
                 RadioButton admin =  findViewById(R.id.adminRadio);
                 RadioButton homeless = findViewById(R.id.guestRadio);

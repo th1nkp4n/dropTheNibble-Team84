@@ -3,43 +3,55 @@
     android:id="@+id/homePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/homepage_logout_button"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="25dp"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        tools:context=".MapsActivity" />
 
     <Button
         android:id="@+id/homepage_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkOut"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/checkOut"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBaseline="@+id/checkOut"
+        android:layout_alignBottom="@+id/checkOut"
+        android:layout_alignEnd="@+id/Homepage_greeting"
+        android:layout_marginEnd="16dp"
         android:text="Log Out" />
 
     <Button
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="29dp"
+        android:layout_alignStart="@+id/Homepage_greeting"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="14dp"
         android:text="Filter" />
 
     <Button
         android:id="@+id/checkOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBaseline="@+id/search"
+        android:layout_alignBottom="@+id/search"
         android:layout_centerHorizontal="true"
         android:text="check out" />
+
+    <TextView
+        android:id="@+id/Homepage_greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="Select a shelter to see more details."
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
 </RelativeLayout>

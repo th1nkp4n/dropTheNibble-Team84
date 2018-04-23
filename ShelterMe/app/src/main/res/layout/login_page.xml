@@ -1,57 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginPageUsername"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+
     android:paddingTop="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <EditText
-        android:id="@+id/login_page_username_input"
-        android:labelFor="@+id/login_page_username_input"
-        android:layout_width="287dp"
+    <Button
+        android:id="@+id/login_page_register_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Login_greeting"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Register"
+        tools:padding="25dp"
+        tools:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/Login_greeting"
+        android:layout_width="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Email" />
+        android:text="Here to help you find a place to stay."
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        tools:typeface="sans" />
 
-
-    <EditText
-        android:id="@+id/login_page_password_input"
-        android:labelFor="@+id/login_page_password_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/loginLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/login_page_username_input"
-        android:layout_marginTop="45dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Password" />
+        android:layout_below="@+id/login_page_register_button"
+        android:layout_marginTop="29dp"
+        android:background="@color/primaryDarkColor"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
 
-    <Button
-        android:id="@+id/homepage_logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/login_page_password_input"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="40dp"
-        android:text="Log In" />
+        <TextView
+            android:id="@+id/Login_alreadyAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="13dp"
+            android:text="Already have an account? Log in below."
+            android:textAppearance="@style/TextAppearance.AppCompat" />
 
-    <Button
-        android:id="@+id/login_page_register_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/homepage_logout_button"
-        android:layout_below="@+id/homepage_logout_button"
-        android:layout_marginTop="40dp"
-        android:text="Register" />
+        <EditText
+            android:id="@+id/login_page_password_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/login_page_username_input"
+            android:layout_marginTop="36dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:labelFor="@+id/login_page_password_input"
+            android:textSize="30sp" />
 
+        <Button
+            android:id="@+id/homepage_logout_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Log In" />
+
+        <EditText
+            android:id="@+id/login_page_username_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/Login_alreadyAccount"
+            android:layout_marginTop="23dp"
+            android:layout_weight="1"
+            android:autoText="false"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:labelFor="@+id/login_page_username_input"
+            tools:textSize="30sp" />
+
+    </RelativeLayout>
 </RelativeLayout>
